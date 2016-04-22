@@ -148,6 +148,8 @@ class EasyRdf_GraphStore
 
         $response = $client->request();
 
+        print $response;
+
         if (!$response->isSuccessful()) {
             throw new EasyRdf_Exception(
                 "HTTP request for {$dataUrl} failed: ".$response->getMessage()
