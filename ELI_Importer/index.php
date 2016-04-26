@@ -32,37 +32,78 @@ require '../vendor/autoload.php';
 /*===============*/ 
 $DOCfolder = 'doc';
 $HTMLfolder = 'html';
-
-/*=============*/
-/*Data settings*/
-/*=============*/
-$data = file_get_contents($HTMLfolder.'/'.$fileName);
-$inputFormat = 'rdfa';
-$outputFormat = 'rdfxml';
-
-/*============*/
-/*URI settings*/
-/*============*/
-$uriStore = 'http://localhost:8890/sparql-graph-crud';
-$subject = 'http://localhost:8890/'.$fileName;
-$iri = 'http://localhost:8890/legislation';
-
-/*===================*/
-/*Convert DOC to RDFa*/
-/*===================*/ 
-header("Content-Type: text/html");
-exec("node parser.js $DOCfolder $HTMLfolder");
+$RDFafolder = 'rdfa';
 
 
-/*===================*/
-/*Store data in graph*/
-/*===================*/
-$gs = new EasyRdf_GraphStore($uriStore);
-foreach(glob($HTMLfolder.'/*.*') as $fileName) {
-	$graph = '';
-	$graph = new EasyRdf_Graph($iri);
-	$graph->parse($data, $inputFormat, $subject); 
-	$output = $graph->serialise($format);
-	$gs->insert($graph, $iri, $format);
+if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
+	if(empty($_POST['source'])){ //If no alternative source is provided
+		/*===================*/
+		/*Convert DOC to HTML*/
+		/*===================*/ 
+		header("Content-Type: text/html");
+		exec("node docxtohtml.js $DOCfolder $HTMLfolder");
+
+	} else { //An alternative data source (url) is provided
+		/*==================*/
+		/*Save HTML from URL*/
+		/*==================*/ 	
+		$source = $_POST['source'];
+		header("Content-Type: text/html");
+		exec("node savehtml.js $source $HTMLfolder");	
+	}
+
+	/*=============*/
+	/*Data settings*/
+	/*=============*/
+	$inputFormat = 'rdfa';
+	$outputFormat = 'rdfxml';
+
+	/*============*/
+	/*URI settings*/
+	/*============*/
+	$uriStore = $_POST['uriStore'];
+	$iri = $_POST['iri'];
+
+	/*====================*/
+	/*Convert HTML to RDFa*/
+	/*====================*/
+	header("Content-Type: text/html");
+	exec("node parser.js $HTMLfolder $RDFafolder");//
+
+	/*===================*/
+	/*Store data in graph*/
+	/*===================*/
+	$gs = new EasyRdf_GraphStore($uriStore);
+	foreach(glob($HTMLfolder.'/*.*') as $fileName) {
+		$data = file_get_contents($HTMLfolder.'/'.$fileName);
+		$subject = 'http://localhost:8890/'.$fileName; //Should be replaced with an ELI identifier
+
+		$graph = '';
+		$graph = new EasyRdf_Graph($iri);
+		$graph->parse($data, $inputFormat, $subject); 
+
+		$output = $graph->serialise($outputFormat);
+		$gs->insert($graph, $iri, $outputFormat);
+	}
 }
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Greek Legislation Parser</title>
+</head>
+
+<body>
+<form name="parser" id="parser" method="post" action="?a=parse">
+	<h1><label for="source">Specifcy your data source</label></h1>
+	<p><input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"></p>
+	<p>If no data source is specified, the script will use the .docx files present in the <em>./doc</em> folder</p>
+	<h1>Parameters</h1>
+	<p>Triple store: <input type="text" id="uriStore" name="uriStore" value="http://localhost:8890/sparql-graph-crud" style="width:400px;"></p>
+	<p>Graph name: <input type="text" id="iri" name="iri" value="http://localhost:8890/legislation" style="width:400px;"></p>
+	<p><input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"></p>	
+	<input type="submit" value="Submit">
+</form>
+</body>
+
+</html>
