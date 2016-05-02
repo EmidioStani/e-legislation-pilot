@@ -39,7 +39,7 @@ $RDFafolder = 'rdfa';
 /*=============*/
 $inputFormat = 'rdfa';
 $outputFormat = 'rdfxml';
-$fileName = 'legislation';
+$fileName = '2016_04_21_law 3242 2004';
 
 /*============*/
 /*URI settings*/

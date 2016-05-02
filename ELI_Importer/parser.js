@@ -33,14 +33,22 @@ var extendCheerio = require('./wrapAll.js');
 /******************************/
 /***DEFINE VARIABLES***********/
 /******************************/
+//Identify level of granularity: <name of component>, <identifier for component>
+var elem = [
+	['law','p:first-of-type'],
+	['part',''],
+	['chapter','h1'],
+	['article','h3'],
+	['paragraph','p']
+];
 
 //var filePath = process.argv.slice(2);
 //var outputPath = process.argv.slice(3);
 var filePath = 'html';
 var outputPath = 'rdfa';
+var host = 'http://openlaw.e-themis.gov.gr/eli/';
 var input = fs.readdirSync(filePath);
-var output = '';
-var html = '';
+var html;
 
 var chapter = 'h1';
 var article = 'h3';
@@ -66,23 +74,58 @@ input.forEach(function(fileName){
 			var chapterID;
 			var articleID;
 			var paragraphID;
+
+			var h1s = $(chapter).get().length;
+			var h3s = $(article).get().length;
+
 			//Add namespaces to document
-			$('body').contents().wrapAll('<div xmlns:eli="http://data.europa.eu/eli/ontology#">');
+			$('body').contents().wrapAll('<div prefix="eli: http://data.europa.eu/eli/ontology#">');
 
 			/*=========*/
 			/*Act level*/
 			/*=========*/ 
-			//Add eli:title attribute to the act
-			$(paragraph).first().attr({
-				property: 'eli:title'
+			//Deconstruct first paragraph into title, type of document, identifier and year
+			var full_title = $(paragraph).first().text();
+			full_title = full_title.split(' - ');
+			var title = full_title[0];
+			if(full_title[1] != null){
+				full_title = full_title[1].split(' ');
+				var type_document = full_title[0];
+				if(full_title[1] != null){
+					full_title = full_title[1].split('/');
+					var identifier = full_title[0];
+					var year = full_title[1];
+				}
+			}
+			//Setup the base ELI uri for this LegalResource
+			var eli_base = host+type_document+"/"+identifier+"/"+year+"/";
+
+			//Find the document date
+			var date_document;
+			$(paragraph).first().nextUntil(article).each(function(index, elem){
+				if($(this).text().match(/\d{2}\/\d{2}\/\d{4}/)){
+					$(this).addClass('document_date');
+					date_document = $(this).text().match(/\d{2}\/\d{2}\/\d{4}/);
+					date_document = date_document.toString().split('/');
+					date_document = date_document[2]+"-"+date_document[1]+"-"+date_document[0];
+					return false;
+				}
 			});
-			$(paragraph).first().wrap('<div about="THE ACT">');
+
+			//Find the description of the document between the title and the document datae
+			$(paragraph).first().nextUntil('p[class="document_date"]').wrapAll('<div about="'+eli_base+'" property="eli:description">');
+
+			//Add eli attributes to the act
+			$(paragraph).first().wrap('<div about="'+eli_base+'" typeof="'+host+'vocabulary/act">');
+			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:title" content="'+title+'"/>' );
+			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:type_document" content="'+type_document+'"/>' );
+			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:local_id" content="'+identifier+'"/>' );
+			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>' );
 			
 			/*=============*/
 			/*Chapter level*/
 			/*=============*/ 
 			//Normalize Word structure (two H1s as siblings instead of <br/>)
-			var h1s = $(chapter).get().length;
 			var chapter_text;
 			for(i = 0; i < h1s; i++){
 				if($(chapter).eq(i).next().is(chapter)){
@@ -91,34 +134,44 @@ input.forEach(function(fileName){
 					$(chapter).eq(i+1).remove();
 				}
 			}
+			//Convert first H1 into H2 -> this is not a chapter but a description
+			var text = $(chapter).first().text();
+			$(chapter).first().wrap('<h2></h2>');
+			$('h2').first().html(text);
 			//Add eli:is_part_of attributes to link chapters to the act
 			h1s = $(chapter).get().length;
 			for(i = 0; i < h1s; i++){
 				count = i + 1;
 				$(chapter).eq(i).attr({
 					id: 'chapter'+count,
-					about: 'CHAPTER'+count,
+					about: eli_base+'chapter_'+count,
 					property: 'eli:title'
 				});
-				act_link = 'THE ACT';
-				$(chapter).eq(i).wrap('<div about="CHAPTER'+count+'" property="eli:is_part_of" resource="'+act_link+'">');
+				$(chapter).eq(i).wrap('<div about="'+eli_base+'chapter_'+count+'" property="eli:is_part_of" resource="'+eli_base+'" typeof="'+host+'vocabulary/chapter">');
+				$('div[about="'+eli_base+'chapter_'+count+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>');
 			}
+			//Add eli:has_part attributes to establish the link between act and chapters
+			$(chapter).each(function(index, elem){
+				actID = $(this).parent().attr('resource');
+				chapterID = $(this).parent().attr('about');
+				$('div[about="'+actID+'"]').append('<span about="'+actID+'" property="eli:has_part" resource="'+chapterID+'"/>');
+			});
 
 			/*===============*/ 
 			/* Article level */
 			/*===============*/ 
 			//Add eli:title attributes to the articles
 			//Add eli:is_part_of attributes to link chapters to the act
-			var h3s = $(article).get().length;
 			for(i = 0; i < h3s; i++){
 				count = i + 1;
 				$(article).eq(i).attr({
 					class: 'article',
-					id: 'article'+count,
+					id: eli_base+'article_'+count,
 					property: 'eli:title'
 				});
-				chapter_link = $(article).eq(i).prevAll('div[resource="THE ACT"]').first().attr('about');
-				$(article).eq(i).wrap('<div about="ARTICLE'+count+'" property="eli:is_part_of" resource="'+chapter_link+'">');
+				chapter_link = $(article).eq(i).prevAll('div[resource="'+eli_base+'"]').first().attr('about');
+				$(article).eq(i).wrap('<div about="'+eli_base+'article_'+count+'" property="eli:is_part_of" resource="'+chapter_link+'" typeof="'+host+'vocabulary/article">');
+				$('div[about="'+eli_base+'article_'+count+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>');
 			}
 			//Add eli:has_part attributes to establish the link between chapters and articles
 			$(article).each(function(index, elem){
@@ -138,13 +191,13 @@ input.forEach(function(fileName){
 				j = 0;
 				$(article).eq(i).parent().nextUntil(article, paragraph).each(function(index, elem){
 					//The following regex matches paragraph that start with either: Άρθρ.X, X. or «X. with X between 0-9
-					if(/^[0-9][.].?|^[«][0-9].?|^(Άρθρ)[.][0-9].?/.test($(this).text()) == true){
+					if(/^[0-9][.].?|^[«][0-9].?|^(Άρθρ)[.][0-9].?|^(΄Αρθρ)[.][0-9].?/.test($(this).text()) == true){
 						j++;
 						$(this).attr({
 							class: 'paragraph',
-							about: 'PARAGRAPH'+count+'-'+j,
+							about: eli_base+'article_'+count+'/paragraph_'+j,
 							property: 'eli:is_part_of',
-							resource: 'ARTICLE'+count
+							resource: eli_base+'article_'+count
 						});
 					} else {
 						paragraphID = $(this).prev().attr('about');
@@ -163,23 +216,31 @@ input.forEach(function(fileName){
 			});
 			//Wrap paragraphs in div
 			var paragraphCount;
-			for(i = 1; i <= h3s; i++){
-				paragraphCount = $(article).eq(i).siblings('span').get().length;
-				for(j = 1; j <= paragraphCount; j++){
-					$(paragraph+'[about="PARAGRAPH'+i+'-'+j+'"]').wrapAll('<div about="PARAGRAPH'+i+'-'+j+'" property="eli:is_part_of" resource="ARTICLE'+i+'">');
+			var pcount;
+			for(i = 0; i < h3s; i++){
+				count = i + 1;
+				paragraphCount = $(article+'[id="'+eli_base+'article_'+count+'"]').siblings('span').get().length; 		
+				for(j = 0; j < paragraphCount; j++){
+					pcount = j + 1;
+					$(paragraph+'[about="'+eli_base+'article_'+count+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'article_'+count+'/paragraph_'+j+'" typeof="'+host+'vocabulary/paragraph">');
+					$('div[about="'+eli_base+'article_'+count+'/paragraph_'+j+'"]').append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'article_'+count+'" />');
+					$('div[about="'+eli_base+'article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
 				}
 			}
 			//Strip all attributes from paragraphs (already declared on divs)
 			$(paragraph).removeAttr('class');
 			$(paragraph).removeAttr('about');
-			$(paragraph).removeAttr('property');
+			$('span[class="plink"]').siblings(paragraph).removeAttr('property');
 			$(paragraph).removeAttr('resource');
+			$('span[class="plink"]').each(function(index, eleml){
+				$(this).siblings(paragraph).wrapAll('<div property="eli:description"></div>');
+			});
 
 			/*=================*/ 				
 			/* GENERATE OUTPUT */
 			/*=================*/ 
 			//Save the file
-			output = fileName.split('.');
+			var output = fileName.split('.');
 			fs.writeFile(outputPath+"/"+output[0]+".html", unescape($.html()), function(err) {
 			    if(err) {
 			        return console.log(err);

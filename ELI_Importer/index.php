@@ -75,7 +75,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	/*===================*/
 	$gs = new EasyRdf_GraphStore($uriStore);
 	foreach(glob($HTMLfolder.'/*.*') as $fileName) {
-		$data = file_get_contents($HTMLfolder.'/'.$fileName);
+		$data = file_get_contents($fileName);
 		$subject = 'http://localhost:8890/'.$fileName; //Should be replaced with an ELI identifier
 
 		$graph = '';
@@ -101,7 +101,6 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	<h1>Parameters</h1>
 	<p>Triple store: <input type="text" id="uriStore" name="uriStore" value="http://localhost:8890/sparql-graph-crud" style="width:400px;"></p>
 	<p>Graph name: <input type="text" id="iri" name="iri" value="http://localhost:8890/legislation" style="width:400px;"></p>
-	<p><input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"></p>	
 	<input type="submit" value="Submit">
 </form>
 </body>
