@@ -114,9 +114,10 @@ input.forEach(function(fileName){
 			//Wrap first paragraph and add eli attributes
 			$(paragraph).first().attr('property', 'eli:title');	
 			$(paragraph).first().wrap('<div about="'+eli_base+'" typeof="'+host+'vocabulary#act"></div>')
+			$('div[about="'+eli_base+'"]').append('<span property="eli:type_document" content="'+type_document[0]+'"/>' );
 			$('div[about="'+eli_base+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>' );
-			$('div[about="'+eli_base+'"]').append('<span property="eli:publisher" content="http://www.ypes.gr/el/"' );
-			$('div[about="'+eli_base+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"' );	
+			$('div[about="'+eli_base+'"]').append('<span property="eli:publisher" content="http://www.ypes.gr/el/"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"/>' );	
 
 			/*===============*/ 
 			/* Article level */
