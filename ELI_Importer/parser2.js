@@ -42,11 +42,16 @@ var elem = [
 	['paragraph','p']
 ];
 
-//var filePath = process.argv.slice(2);
-//var outputPath = process.argv.slice(3);
-var filePath = 'html';
-var outputPath = 'rdfa';
-var host = 'http://84.205.254.61:8890/eli/';
+var args = process.argv.slice(2);
+var filePath = args[0];
+var outputPath = args[1];
+var host = args[2];
+//var filePath = 'html';
+//var outputPath = 'rdfa';
+//var host = 'http://localhost:8890/e-legislation';
+if(host.slice(-1) != '/'){
+	host = host+'/';
+}
 var input = fs.readdirSync(filePath);
 var html;
 
@@ -108,8 +113,10 @@ input.forEach(function(fileName){
 
 			//Wrap first paragraph and add eli attributes
 			$(paragraph).first().attr('property', 'eli:title');	
-			$(paragraph).first().wrap('<div about="'+eli_base+'"></div>')
-			$('div[about="'+eli_base+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>' );	
+			$(paragraph).first().wrap('<div about="'+eli_base+'" typeof="'+host+'vocabulary#act"></div>')
+			$('div[about="'+eli_base+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:publisher" content="http://www.ypes.gr/el/"' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"' );	
 
 			/*===============*/ 
 			/* Article level */
@@ -130,11 +137,13 @@ input.forEach(function(fileName){
 
 			for(i = 0; i < h3s; i++){
 				number = $(article).eq(i).text().match(/[0-9]+/);
-				$(article).eq(i).nextUntil(article).wrapAll('<div about="'+eli_base+'/article_'+number+'" typeof="'+host+'vocabulary/article"></div>');
+				$(article).eq(i).nextUntil(article).wrapAll('<div about="'+eli_base+'/article_'+number+'" typeof="'+host+'vocabulary#article"></div>');
 				$(article).eq(i).next().children().first().attr({
 					property: 'eli:title'
 				});
 				$(article).eq(i).next('div').prepend('<span property="eli:is_part_of" resource="'+eli_base+'"/>');
+				$(article).eq(i).next('div').prepend('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"/>');
+				$(article).eq(i).next('div').prepend('<span property="eli:publisher" content="http://www.ypes.gr/el/"/>');
 			}
 
 			/*=================*/ 				
@@ -180,8 +189,10 @@ input.forEach(function(fileName){
 				paragraphCount = $(article).eq(i).next('div').children('span[property="eli:has_part"]').get().length +1; 		
 				for(j = 0; j < paragraphCount; j++){
 					pcount = j + 1;
-					$(paragraph+'[about="'+eli_base+'/article_'+number+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'/article_'+number+'/paragraph_'+j+'" property="eli:is_part_of" resource="'+eli_base+'/article_'+number+'" typeof="'+host+'vocabulary/paragraph">');
+					$(paragraph+'[about="'+eli_base+'/article_'+number+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'/article_'+number+'/paragraph_'+j+'" property="eli:is_part_of" resource="'+eli_base+'/article_'+number+'" typeof="'+host+'vocabulary#paragraph">');
 					$('div[about="'+eli_base+'/article_'+number+'/paragraph_'+j+'"]').append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
+					$('div[about="'+eli_base+'/article_'+number+'/paragraph_'+j+'"]').append('<span property="eli:publisher" content="http://www.ypes.gr/el/"');
+					$('div[about="'+eli_base+'/article_'+number+'/paragraph_'+j+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"');
 				}
 			}
 			//Strip all attributes from paragraphs (already declared on divs)

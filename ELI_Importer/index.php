@@ -34,7 +34,6 @@ $DOCfolder = 'doc';
 $HTMLfolder = 'html';
 $RDFafolder = 'rdfa';
 
-
 if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	if(empty($_POST['source'])){ //If no alternative source is provided
 		/*===================*/
@@ -63,18 +62,25 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	/*============*/
 	$uriStore = $_POST['uriStore'];
 	$iri = $_POST['iri'];
+	$host = $_POST['host'];
 
 	/*====================*/
 	/*Convert HTML to RDFa*/
 	/*====================*/
-	header("Content-Type: text/html");
-	exec("node parser.js $HTMLfolder $RDFafolder");//
+	if($_POST['type'] == 'act'){ //If the type of legislation is an act
+		header("Content-Type: text/html");
+		exec("node parser.js $HTMLfolder $RDFafolder $host");//
+
+	} else { //If the type of legislation is an amendment
+		header("Content-Type: text/html");
+		exec("node parser2.js $HTMLfolder $RDFafolder $host");//	
+	}
 
 	/*===================*/
 	/*Store data in graph*/
 	/*===================*/
 	$gs = new EasyRdf_GraphStore($uriStore);
-	foreach(glob($HTMLfolder.'/*.*') as $fileName) {
+	foreach(glob($RDFafolder.'/*.*') as $fileName) {
 		$data = file_get_contents($fileName);
 		$subject = 'http://localhost:8890/'.$fileName; //Should be replaced with an ELI identifier
 
@@ -84,6 +90,9 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 
 		$output = $graph->serialise($outputFormat);
 		$gs->insert($graph, $iri, $outputFormat);
+		//print($output);
+		rename(str_replace($RDFafolder, $HTMLfolder, $fileName), "archive/".str_replace($RDFafolder, $HTMLfolder, $fileName)); //Archive HTML folder
+		rename($fileName, "archive/".$fileName); //Archive RDFa folder
 	}
 }
 ?>
@@ -99,8 +108,11 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	<p><input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"></p>
 	<p>If no data source is specified, the script will use the .docx files present in the <em>./doc</em> folder</p>
 	<h1>Parameters</h1>
+	<input type="radio" name="type" value="act"> <label for="type">Base Act</label><br>
+  	<input type="radio" name="type" value="amendment"> <label for="type">Amendment</label><br>
 	<p>Triple store: <input type="text" id="uriStore" name="uriStore" value="http://localhost:8890/sparql-graph-crud" style="width:400px;"></p>
 	<p>Graph name: <input type="text" id="iri" name="iri" value="http://localhost:8890/legislation" style="width:400px;"></p>
+	<p>Host name: <input type="text" id="host" name="host" value="http://openlaw.e-themis.gov.gr/eli/" style="width:400px;"></p>
 	<input type="submit" value="Submit">
 </form>
 </body>

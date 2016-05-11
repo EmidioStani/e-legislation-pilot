@@ -5,7 +5,8 @@
 require '../vendor/autoload.php';
 
 
-    $graph = EasyRdf_Graph::newAndLoad('http://84.205.254.61:8890/legislation');
+    //$graph = EasyRdf_Graph::newAndLoad('http://84.205.254.61:8890/legislation');
+    $graph = EasyRdf_Graph::newAndLoad('http://localhost:8890/legislation');
         if ($graph) {
             if (isset($_REQUEST['format']) && $_REQUEST['format'] == 'text') {
                 print "<pre>".$graph->dump('text')."</pre>";

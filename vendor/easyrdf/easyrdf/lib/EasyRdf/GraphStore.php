@@ -216,7 +216,7 @@ class EasyRdf_GraphStore
      */
     public function insert($graph, $uriRef = null, $format = 'ntriples')
     {
-        return $this->sendGraph('PUT', $graph, $uriRef, $format);
+        return $this->sendGraph('POST', $graph, $uriRef, $format);
     }
 
     /**
