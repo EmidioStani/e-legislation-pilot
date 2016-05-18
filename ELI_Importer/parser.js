@@ -41,14 +41,13 @@ var elem = [
 	['article','h3'],
 	['paragraph','p']
 ];
-/*
 var args = process.argv.slice(2);
 var filePath = args[0];
 var outputPath = args[1];
-var host = args[2];*/
-var filePath = 'html';
-var outputPath = 'rdfa';
-var host = 'http://localhost:8890/e-legislation';
+var host = args[2];
+//var filePath = 'html';
+//var outputPath = 'rdfa';
+//var host = 'http://localhost:8890/e-legislation';
 if(host.slice(-1) != '/'){
 	host = host+'/';
 }

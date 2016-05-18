@@ -10,14 +10,14 @@ _par := get_keyword('par', params, '');
 
 if(_par = '') {
 	if(_ref = ''){
-		_uri := concat('http://localhost:8890/e-legislation/','ΝΟΜΟΣ','/',_id,'/',_year);
+		_uri := concat('http://52.50.205.146/legislation-pilot/','ΝΟΜΟΣ','/',_id,'/',_year);
 		_cat := 'act';
 	} else {
-		_uri := concat('http://localhost:8890/e-legislation/','ΝΟΜΟΣ','/',_id,'/',_year,'/',_ref);
+		_uri := concat('http://52.50.205.146/legislation-pilot/','ΝΟΜΟΣ','/',_id,'/',_year,'/',_ref);
 		_cat := 'chapter';
 	}
 } else {
-	_uri := concat('http://localhost:8890/e-legislation/','ΝΟΜΟΣ','/',_id,'/',_year,'/',_ref,'/',_par);
+	_uri := concat('http://52.50.205.146/legislation-pilot/','ΝΟΜΟΣ','/',_id,'/',_year,'/',_ref,'/',_par);
 		_cat := 'paragraph';
 }
 
@@ -35,11 +35,11 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 <head>
   <title>e-Legislation Pilot</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/gridism.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/gridism.css" />
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,greek" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/jquery.treemenu.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/jquery.treemenu.css" />
 </head>
 
 <body>
@@ -47,8 +47,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 <div class="wrapper">
 	
 	<header>
-	  <a href="/e-legislation/">
-	    <img src="/e-legislation/images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
+	  <a href="/legislation-pilot/">
+	    <img src="/legislation-pilot/images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
 	  </a>
 	</header>
 
@@ -56,9 +56,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 		<br/>
 <?vsp if(_cat = 'act') { ?>
 		<?vsp for(sparql  SELECT distinct * 
-		FROM <http://localhost:8890/legislation>
+		FROM <http://52.50.205.146/legislation-pilot>
 		WHERE { 
-		`iri(?:_uri)` rdf:type <http://localhost:8890/e-legislation/vocabulary#act> .
+		`iri(?:_uri)` rdf:type <http://52.50.205.146/legislation-pilot/vocabulary#act> .
 		`iri(?:_uri)` <http://data.europa.eu/eli/ontology#title> ?title .
 		`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
 		`iri(?:_uri)` <http://data.europa.eu/eli/ontology#type_document> ?type_document .
@@ -74,93 +74,116 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 		<h2>Document structure:</h2>
 		<ul id="accordion">
 		<?vsp for(sparql  SELECT distinct * 
-		FROM <http://localhost:8890/legislation>
+		FROM <http://52.50.205.146/legislation-pilot>
 		WHERE { 
 		?uri <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:_uri)`	.
-		?uri <http://data.europa.eu/eli/ontology#title> ?title
+		OPTIONAL { ?uri <http://purl.org/dc/terms/title> ?dctitle } . 
+		OPTIONAL { ?uri <http://data.europa.eu/eli/ontology#title> ?title } .
 		}) do { ?>
-		  <li><a href="<?vsp http(uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a>
+		  <li><a href="<?vsp http(uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?></a>
 		  <ul style="margin-left:20px;">
 			<?vsp for(sparql  SELECT distinct * 
-			FROM <http://localhost:8890/legislation>
+			FROM <http://52.50.205.146/legislation-pilot>
 			WHERE { 
 			?uria <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uri)` .
+			OPTIONAL { ?uria <http://purl.org/dc/terms/title> ?dctitle } .
 			OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#title> ?title } .
 			OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description }
 			}) do { ?>
-			  <li><a href="<?vsp http(uria); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?></a>
+			  <li><a href="<?vsp http(uria); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?><?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?></a>
 				<ul style="margin-left:20px;">
 					<?vsp 
 					for(sparql  SELECT distinct * 
-					FROM <http://localhost:8890/legislation>
+					FROM <http://52.50.205.146/legislation-pilot>
 					WHERE { 
 					?urip <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uria)` .
 					?urip <http://data.europa.eu/eli/ontology#description> ?description
 					}) do { ?>
 					  <li><a href="<?vsp http(urip); ?>"><?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?> (...)</a></li>
-					<?vsp
-					} ?>
+					<?vsp } ?>
 				</ul>
 			  </li>
 				<?vsp } ?>
 			</ul>
 		   </li>
 		<?vsp } ?>
-		<?vsp } ?>
 		</ul>
-
-		<?vsp if(_cat = 'chapter') { ?>
+<?vsp } ?>
+<?vsp if(_cat = 'chapter') { ?>
 			<?vsp for(sparql  SELECT distinct * 
-			FROM <http://localhost:8890/legislation>
+			FROM <http://52.50.205.146/legislation-pilot>
 			WHERE { 
-			`iri(?:_uri)` <http://data.europa.eu/eli/ontology#title> ?title .
+			OPTIONAL { `iri(?:_uri)` <http://purl.org/dc/terms/title> ?dctitle } .
+			OPTIONAL { `iri(?:_uri)` <http://data.europa.eu/eli/ontology#title> ?title } .
 			`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
 			`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher
 			}) do { ?>
-			  <h1>Title: <a href="<?vsp http(_uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></h1>
+			  <h1>Title: <a href="<?vsp http(_uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?></a></h1>
 			  <h1>Document Date: <?= date_document ?></h1>
 			  <h1>Publisher: <?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></h1>
 			<?vsp } ?>
 			<br/>
 			<?vsp for(sparql  SELECT distinct * 
-				FROM <http://localhost:8890/legislation>
+				FROM <http://52.50.205.146/legislation-pilot>
 				WHERE { 
 				`iri(?:_uri)` <http://data.europa.eu/eli/ontology#is_part_of> ?act .
-				?act <http://data.europa.eu/eli/ontology#title> ?title .
+				OPTIONAL { ?act <http://data.europa.eu/eli/ontology#title> ?title } .
+				OPTIONAL { ?act <http://purl.org/dc/terms/title> ?dctitle } .
 				}) do { ?>
-				 Is part of: <a href="<?vsp http(act); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
+				 Is part of: <a href="<?vsp http(act); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?></a>
 			<?vsp } ?>
 			<br/>
 			<br/>
 			<h2>Document structure:</h2>
-			 <ul id="accordion" style="margin-left:20px;">
+			<ul id="accordion" style="margin-left:20px;">
 			<?vsp for(sparql  SELECT distinct * 
-			FROM <http://localhost:8890/legislation>
+			FROM <http://52.50.205.146/legislation-pilot>
 			WHERE { 
 			?uria <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:_uri)` .
 			OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#title> ?title } .
+			OPTIONAL { ?uria <http://purl.org/dc/terms/title> ?dctitle } .
 			OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description }
 			}) do { ?>
-			  <li><a href="<?vsp http(uria); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?></a>
+			  <li><a href="<?vsp http(uria); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?><?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?></a>
 				<ul style="margin-left:20px;">
 					<?vsp 
 					for(sparql  SELECT distinct * 
-					FROM <http://localhost:8890/legislation>
+					FROM <http://52.50.205.146/legislation-pilot>
 					WHERE { 
 					?urip <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uria)` .
 					?urip <http://data.europa.eu/eli/ontology#description> ?description
 					}) do { ?>
 					  <li><a href="<?vsp http(urip); ?>"><?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?> (...)</a></li>
-					<?vsp
-					} ?>
+					<?vsp } ?>
 				</ul>
 			  </li>
-				<?vsp } ?>
+			<?vsp } ?>
 			</ul>
-			<?vsp } ?>
+<?vsp } ?>
 
-			<?vsp if(_cat = 'paragraph') { ?>
+<?vsp if(_cat = 'paragraph') { ?>
+	<?vsp 
+	for(sparql  SELECT distinct * 
+	FROM <http://52.50.205.146/legislation-pilot>
+	WHERE { 
+	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#description> ?description .
+	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
+	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher
+	}) do { ?>
+	  <h1>Document Date: <?= date_document ?></h1>
+	  <h1>Publisher: <?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></h1>
+			<?vsp for(sparql  SELECT distinct * 
+				FROM <http://52.50.205.146/legislation-pilot>
+				WHERE { 
+				`iri(?:_uri)` <http://data.europa.eu/eli/ontology#is_part_of> ?article .
+				OPTIONAL { ?article <http://data.europa.eu/eli/ontology#title> ?title } .
+				OPTIONAL { ?article <http://purl.org/dc/terms/title> ?dctitle } .
+				}) do { ?>
+				 Is part of: <a href="<?vsp http(article); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?></a>
 			<?vsp } ?>
+	  <p><?= charset_recode(description, 'UTF-8', '_WIDE_') ?></p>
+	<?vsp } ?>
+<?vsp }  ?>
 	</article>
 
 	<footer>
@@ -193,8 +216,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</footer>
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="/e-legislation/js/jquery.treemenu.js"></script>
-<script type="text/javascript" src="/e-legislation/js/main.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/jquery.treemenu.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/main.js"></script>
 </body>
 
 </html>

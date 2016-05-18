@@ -7,30 +7,151 @@
   <link rel="stylesheet" type="text/css" href="css/gridism.css" />
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,greek" />
   <link rel="stylesheet" type="text/css" href="css/screen.css" />
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/jquery.treemenu.css" />
 </head>
 
 <body>
-
 <div class="wrapper">
 	<header>
-	  <a href="/e-legislation/">
+	  <a href="/legislation-pilot/">
 	    <img src="images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
 	  </a>
 	</header>
 
 	<article>
-		<h1>List of acts</h1>
-		<ul>
-		<?vsp for(sparql  SELECT distinct * 
-		FROM <http://localhost:8890/legislation>
-		WHERE { 
-		?uri rdf:type <http://localhost:8890/e-legislation/vocabulary#act> .
-		?uri <http://data.europa.eu/eli/ontology#title> ?title
-		}) do { ?>
-		  <li><a href="<?vsp http(uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></li>
-		<?vsp } ?>
-		</ul>
+		<h1><a href="doc/index.html">Model documentation</a></h1>
+		<h1>List of acts per theme</h1>
+
+	<ul id="accordion">
+		<li>Administrative law, civil servants
+
+		</li>
+		<li>Agricultural law, water resources
+
+		</li>
+		<li>Airforce, civil aviation
+
+		</li>
+		<li>Anonymous companies, limited liability companies, stock markets, banks
+
+		</li>
+		<li>Civil law (2)			
+			<ul>
+				<?vsp for(sparql  SELECT distinct * 
+				FROM <http://52.50.205.146/legislation-pilot>
+				WHERE { 
+				?uri rdf:type <http://52.50.205.146/legislation-pilot/vocabulary#act> .
+				?uri <http://data.europa.eu/eli/ontology#title> ?title .
+				?uri <http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division> <http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law>
+				}) do { ?>
+				  <li><a class="active" href="<?vsp http(uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></li>
+				<?vsp } ?>
+			</ul>
+		</li>
+		<li>Civil procedure
+
+		</li>
+		<li>Commercial law
+
+		</li>
+		<li>Constitutional law
+
+		</li>
+		<li>Court of audit, public servants pensions
+
+		</li>
+		<li>Criminal law
+
+		</li>
+		<li>Criminal procedure
+
+		</li>
+		<li>Currency, public property
+
+		</li>
+		<li>Customs law
+
+		</li>
+		<li>Diplomatic law, international organizations
+
+		</li>
+		<li>Direct taxation
+
+		</li>
+		<li>Ecclesiastical law
+
+		</li>
+		<li>Educational law, sport
+
+		</li>
+		<li>Financial management, environment
+
+		</li>
+		<li>Health law, hospitals, doctors
+
+		</li>
+		<li>Indirect taxation
+
+		</li>
+		<li>Industrial law, development law, fishing
+
+		</li>
+		<li>Justice administration
+
+		</li>
+		<li>Labour law
+
+		</li>
+		<li>Legal entities of public law, pension funds
+
+		</li>
+		<li>Marketplace law
+
+		</li>
+		<li>Merchant shipping
+
+		</li>
+		<li>Municipalities and communities, prefecture self administration
+
+		</li>
+		<li>National defence, land army
+
+		</li>
+		<li>Navy
+
+		</li>
+		<li>Police law, fire department
+
+		</li>
+		<li>Port law
+
+		</li>
+		<li>Post, telecommunications
+
+		</li>
+		<li>Press, media, tourism
+
+		</li>
+		<li>Public accounting, K.E.D.E.
+
+		</li>
+		<li>Public works, engineers, urban planning
+
+		</li>
+		<li>Rural law, forests, animal farming
+
+		</li>
+		<li>Science and arts, universities, antiquities
+
+		</li>
+		<li>Social welfare
+
+		</li>
+		<li>Transportation
+
+		</li>
+		<li>Worker association, chambers, cooperatives</li>
+	<ul>	
 	</article>
 
 	<footer>
@@ -62,7 +183,9 @@
 	  </p>
 	</footer>
 </div>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/jquery.treemenu.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/main.js"></script>
 </body>
 
 </html>

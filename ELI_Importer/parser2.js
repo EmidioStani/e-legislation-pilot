@@ -83,7 +83,7 @@ input.forEach(function(fileName){
 			var h3s = $(article).get().length;
 
 			//Add namespaces to document
-			$('body').contents().wrapAll('<div prefix="eli: http://data.europa.eu/eli/ontology# dct: http://purl.org/dc/terms law: http://openlaw.e-themis.gov.gr/eli/vocabulary#">');
+			$('body').contents().wrapAll('<div prefix="eli: http://data.europa.eu/eli/ontology# dct: http://purl.org/dc/terms/ law: http://openlaw.e-themis.gov.gr/eli/vocabulary#">');
 
 			/*=========*/
 			/*Act level*/
