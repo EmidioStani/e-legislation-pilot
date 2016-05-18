@@ -23,9 +23,16 @@ The objective of this pilot is to develop two proofs of concept, one for Greece 
 To get started, clone this repository and run `composer install` in the root of the repository.  
 Make sure that you have installed and configured PHP, Composer, Openlink Virtuoso and NodeJS on your machine or server.
 
+#ELI_Import
 The ELI Importer reads all **.docx** files present in `ELI_Importer/doc`, transforms the files into (x)HTML and annotates these with RDFa.  
 The HTML+RDFA is then automatically converted into RDF+XML and stored in the Virtuoso triplestore.
 All parameters are to be set in ELI_Importer/index.php
+
+#ELI_Model
+This folder contains all relevant information concerning the data model that was created for the purpose of this e-legislation pilot.
+
+#ELI_Visualisation
+Folder containing all the files (Virtuoso Server Pages, CSS and JavaScript) to generate the visualisation of the content of the graph containing legislation as linked open data.
 
 ## License
 
