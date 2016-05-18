@@ -41,14 +41,14 @@ var elem = [
 	['article','h3'],
 	['paragraph','p']
 ];
-
+/*
 var args = process.argv.slice(2);
 var filePath = args[0];
 var outputPath = args[1];
-var host = args[2];
-//var filePath = 'html';
-//var outputPath = 'rdfa';
-//var host = 'http://localhost:8890/e-legislation';
+var host = args[2];*/
+var filePath = 'html';
+var outputPath = 'rdfa';
+var host = 'http://localhost:8890/e-legislation';
 if(host.slice(-1) != '/'){
 	host = host+'/';
 }
@@ -84,7 +84,7 @@ input.forEach(function(fileName){
 			var h3s = $(article).get().length;
 
 			//Add namespaces to document
-			$('body').contents().wrapAll('<div prefix="eli: http://data.europa.eu/eli/ontology#">');
+			$('body').contents().wrapAll('<div prefix="eli: http://data.europa.eu/eli/ontology# dct: http://purl.org/dc/terms/ law: http://openlaw.e-themis.gov.gr/eli/vocabulary#">');
 
 			/*=========*/
 			/*Act level*/
@@ -122,12 +122,13 @@ input.forEach(function(fileName){
 
 			//Add eli attributes to the act
 			$(paragraph).first().wrap('<div about="'+eli_base+'" typeof="'+host+'vocabulary#act">');
-			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:title" content="'+title+'"/>' );
-			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:type_document" content="'+type_document+'"/>' );
-			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:local_id" content="'+identifier+'"/>' );
-			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:publisher" content="http://www.ypes.gr/el/"/>' );
-			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"/>' );
-			$('div[about="'+eli_base+'"]').append('<span about="'+eli_base+'" property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:title" content="'+title+'"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:type_document" content="'+type_document+'"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:id_local" content="'+identifier+'"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:publisher" content="http://www.et.gr/"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"/>' );
+			$('div[about="'+eli_base+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>' );
 			
 			/*=============*/
 			/*Chapter level*/
@@ -152,12 +153,11 @@ input.forEach(function(fileName){
 				$(chapter).eq(i).attr({
 					id: 'chapter'+count,
 					about: eli_base+'/chapter_'+count,
-					property: 'eli:title'
+					property: 'dct:title'
 				});
 				$(chapter).eq(i).wrap('<div about="'+eli_base+'/chapter_'+count+'" property="eli:is_part_of" resource="'+eli_base+'" typeof="'+host+'vocabulary#chapter">');
 				$('div[about="'+eli_base+'/chapter_'+count+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>');
-				$('div[about="'+eli_base+'/chapter_'+count+'"]').append('<span property="eli:publisher" content="http://www.ypes.gr/el/" />');
-				$('div[about="'+eli_base+'/chapter_'+count+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL" />');
+				$('div[about="'+eli_base+'/chapter_'+count+'"]').append('<span property="eli:publisher" content="http://www.et.gr/" />');
 			}
 			//Add eli:has_part attributes to establish the link between act and chapters
 			$(chapter).each(function(index, elem){
@@ -176,19 +176,18 @@ input.forEach(function(fileName){
 				$(article).eq(i).attr({
 					class: 'article',
 					id: eli_base+'/article_'+count,
-					property: 'eli:title'
+					property: 'dct:title'
 				});
 				chapter_link = $(article).eq(i).prevAll('div[resource="'+eli_base+'"]').first().attr('about');
 				$(article).eq(i).wrap('<div about="'+eli_base+'/article_'+count+'" property="eli:is_part_of" resource="'+chapter_link+'" typeof="'+host+'vocabulary#article">');
 				$('div[about="'+eli_base+'/article_'+count+'"]').append('<span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/>');
-				$('div[about="'+eli_base+'/article_'+count+'"]').append('<span property="eli:publisher" content="http://www.ypes.gr/el/" />');
-				$('div[about="'+eli_base+'/article_'+count+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL" />');
+				$('div[about="'+eli_base+'/article_'+count+'"]').append('<span property="eli:publisher" content="http://www.et.gr/" />');
 			}
 			//Add eli:has_part attributes to establish the link between chapters and articles
 			$(article).each(function(index, elem){
 				chapterID = $(this).parent().attr('resource');
 				articleID = $(this).parent().attr('about');
-				$('div[about="'+chapterID+'"]').append('<span about="'+chapterID+'" property="eli:has_part" resource="'+articleID+'"/>');
+				$('div[about="'+chapterID+'"]').append('<span property="eli:has_part" resource="'+articleID+'"/>');
 			});
 
 			/*=================*/ 				
@@ -223,7 +222,7 @@ input.forEach(function(fileName){
 			$(paragraph+'[class="paragraph"]').each(function(index, elem){
 				articleID = $(this).attr('resource');
 				paragraphID = $(this).attr('about');
-				$('div[about="'+articleID+'"]').append('<span about="'+articleID+'" property="eli:has_part" resource="'+paragraphID+'"/>');
+				$('div[about="'+articleID+'"]').append('<span property="eli:has_part" resource="'+paragraphID+'"/>');
 			});
 			//Wrap paragraphs in div
 			var paragraphCount;
@@ -234,16 +233,16 @@ input.forEach(function(fileName){
 				for(j = 0; j < paragraphCount; j++){
 					pcount = j + 1;
 					$(paragraph+'[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'/article_'+count+'/paragraph_'+j+'" typeof="'+host+'vocabulary#paragraph">');
-					$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');
+					$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');					
 					$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
-					$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:publisher" content="http://www.ypes.gr/el/"');
-					$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"');
+					$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:publisher" content="http://www.et.gr/"/>');
 				}
+				
 			}
 			//Strip all attributes from paragraphs (already declared on divs)
 			$(paragraph).removeAttr('class');
 			$(paragraph).removeAttr('about');
-			$('span[class="plink"]').siblings(paragraph).removeAttr('property');
+			$(paragraph).removeAttr('property');
 			$(paragraph).removeAttr('resource');
 			$('span[class="plink"]').each(function(index, eleml){
 				$(this).siblings(paragraph).wrapAll('<div property="eli:description"></div>');

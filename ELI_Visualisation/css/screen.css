@@ -1,0 +1,268 @@
+/* Main stylesheet
+ *
+ * Copyright 2014 European Union
+ * Author: Vianney le Clément de Saint-Marcq (PwC EU Services)
+ *
+ * Licensed under the EUPL, Version 1.1 or - as soon they
+ * will be approved by the European Commission - subsequent
+ * versions of the EUPL (the "Licence");
+ * You may not use this work except in compliance with the
+ * Licence.
+ * You may obtain a copy of the Licence at:
+ * http://ec.europa.eu/idabc/eupl
+ *
+ * Unless required by applicable law or agreed to in
+ * writing, software distributed under the Licence is
+ * distributed on an "AS IS" basis,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied.
+ * See the Licence for the specific language governing
+ * permissions and limitations under the Licence.
+ */
+
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+body {
+  font: normal 14px/20px 'Open Sans', Arial, Helvetica, sans-serif;
+  color: #444;
+  background: #f0f1f2;
+}
+
+.wrapper {
+  max-width: 980px;
+  margin: 40px auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+}
+
+header, article, footer {
+  margin: 40px 40px;
+}
+
+header:after, article:after, footer:after {
+  display: block;
+  content: "";
+  height: 0;
+  clear: both;
+}
+
+.grid .unit:first-child { padding-left: 0; }
+.grid .unit:last-child { padding-right: 0; }
+
+/* Footer */
+
+footer {
+  text-align: center;
+  font-size: 80%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  padding: 15px 0;
+  background: #fafafa;
+  border-top: 1px solid #ddd;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+footer > :first-child {
+  margin-top: 0;
+}
+
+footer > :last-child {
+  margin-bottom: 0;
+}
+
+/* Inline elements */
+
+section {
+  margin: 30px 0;
+}
+
+section:first-child {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 300;
+  color: #213972;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: normal;
+  color: #216273;
+}
+
+a {
+  text-decoration: none;
+  color: #369;
+}
+a:hover {
+  color: #D50;
+}
+
+strong {
+  font-weight: 600;
+  color: black;
+}
+
+figure {
+  text-align: center;
+}
+
+/* Tables */
+
+table.results {
+  border-collapse: collapse;
+  width: 100%;
+  margin: .5em 0;
+  border: 1px solid #0F5494;
+}
+
+table.results tr {
+  vertical-align: top;
+}
+table.results tr:nth-child(even) {
+  background-color: #eeeeec;
+}
+
+table.results th, .results td {
+  padding: 2px 1em;
+}
+
+table.results th {
+  text-align: left;
+  white-space: nowrap;
+  font-weight: 600;
+  background-color: #0F5494;
+  color: white;
+}
+
+table.results ol,
+table.results ul {
+  margin: 0;
+  padding-left: 1em;
+}
+
+/* Properties lists */
+
+dl.properties dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: right;
+  font-weight: 300;
+}
+
+dl.properties dt:after {
+  content: ":";
+}
+
+dl.properties dd {
+  margin: 0 0 0 110px;
+  padding: 0 0 0.5em 0;
+}
+
+dl.properties dd:after {
+  display: block;
+  content: "";
+  height: 0;
+  clear: both;
+}
+
+/* Hierarchy */
+
+.hierarchy, .hierarchy ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hierarchy .item {
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.hierarchy .item:hover {
+  background: #fafafa;
+}
+
+.hierarchy .current {
+  font-weight: 600;
+}
+
+.hierarchy ul li {
+  margin-left: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.hierarchy ul li:before {
+  content: "";
+  display: block;
+  float: left;
+  margin-top: -5px;
+  margin-left: -25px;
+  height: 20px;
+  width: 20px;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom-left-radius: 5px;
+}
+
+/* Miscelaneous elements */
+
+#query {
+  width: 80%;
+}
+
+#map {
+  height: 400px;
+}
+
+.error {
+  color: #a40000;
+  font-weight: 600;
+}
+
+.description {
+  font-size: small;
+}
+
+.more {
+  text-align: center;
+  margin-top: 0;
+  font-size: small;
+}
+
+/* Responsive tweaks */
+
+@media screen and (max-width: 568px) {
+  .wrapper {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  header, article, footer {
+    margin: 20px 20px;
+  }
+
+  section {
+    margin: 15px 0;
+  }
+}
+
+/* vim:set ts=2 sw=2 et: */
+
+.toggler {
+  margin-right:10px;
+}
