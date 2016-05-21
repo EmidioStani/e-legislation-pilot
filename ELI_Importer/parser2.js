@@ -100,7 +100,8 @@ input.forEach(function (fileName) {
         wrap_base,
         article_number,
         paragraph_attributes,
-        wrap_paragraph;
+        wrap_paragraph,
+        paragraph_append;
 
 	h1s = $(chapter).get().length;
 	h3s = $(article).get().length;
@@ -215,8 +216,9 @@ input.forEach(function (fileName) {
 			pcount = j + 1;
             wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">');
 			$(paragraph + '[about="' + eli_base + '/article_' + number + '/paragraph_' + j + '"]').wrapAll(wrap_paragraph);
-			wrap_paragraph.append('<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
-			wrap_paragraph.append('<span property="eli:publisher" content="http://www.et.gr/"');
+            paragraph_append = '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"/>';
+            paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"';
+			wrap_paragraph.append(paragraph_append);
 		}
 	}
     //Strip all attributes from paragraphs (already declared on divs)
