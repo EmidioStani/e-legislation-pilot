@@ -218,7 +218,7 @@ input.forEach(function (fileName) {
 		paragraphCount = article_next.children('span[property="eli:has_part"]').get().length + 1;
 		for (j = 0; j < paragraphCount; j += 1) {
 			pcount = j + 1;
-            wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">');
+            wrap_paragraph = '<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">';
 			$(paragraph + '[about="' + eli_base + '/article_' + number + '/paragraph_' + j + '"]').wrapAll(wrap_paragraph);
 			wrap_paragraph.append(paragraph_append);
 		}
