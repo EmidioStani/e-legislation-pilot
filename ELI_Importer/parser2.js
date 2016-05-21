@@ -101,7 +101,8 @@ input.forEach(function (fileName) {
         article_number,
         paragraph_attributes,
         wrap_paragraph,
-        paragraph_append;
+        paragraph_append,
+        article_next;
 
 	h1s = $(chapter).get().length;
 	h3s = $(article).get().length;
@@ -162,8 +163,8 @@ input.forEach(function (fileName) {
 	h3s = $(article).get().length;
 
 	for (i = 0; i < h3s; i += 1) {
-		number = $(article).eq(i).text().match(/[0-9]+/);
         article_number = $(article).eq(i);
+		number = article_number.text().match(/[0-9]+/);
 		article_number.nextUntil(article).wrapAll('<div about="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#article"></div>');
 		article_number.next().children().first().attr({
 			property: 'dct:title'
@@ -206,18 +207,19 @@ input.forEach(function (fileName) {
 		paragraphID = $(this).attr('about');
 		$('div[about="' + articleID + '"]').prepend('<span about="' + articleID + '" property="eli:has_part" resource="' + paragraphID + '"/>');
 	});
-	//Wrap paragraphs in div
 
+	//Wrap paragraphs in div
+    paragraph_append = '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"/>';
+    paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"';
 	for (i = 0; i < h3s; i += 1) {
-		number = $(article).eq(i).next('div').attr('about').match(/[0-9]+$/);
+        article_next = $(article).eq(i).next('div');
+		number = article_next.attr('about').match(/[0-9]+$/);
 		number = number[0];
-		paragraphCount = $(article).eq(i).next('div').children('span[property="eli:has_part"]').get().length + 1;
+		paragraphCount = article_next.children('span[property="eli:has_part"]').get().length + 1;
 		for (j = 0; j < paragraphCount; j += 1) {
 			pcount = j + 1;
             wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">');
 			$(paragraph + '[about="' + eli_base + '/article_' + number + '/paragraph_' + j + '"]').wrapAll(wrap_paragraph);
-            paragraph_append = '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"/>';
-            paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"';
 			wrap_paragraph.append(paragraph_append);
 		}
 	}
