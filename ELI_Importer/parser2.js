@@ -24,7 +24,6 @@
 /******************************/
 /***LOAD MODULES***************/
 /******************************/
-
 var fs = require('fs');
 var mammoth = require('mammoth');
 var cheerio = require('cheerio');
@@ -140,11 +139,11 @@ input.forEach(function (fileName) {
 	$(paragraph).first().attr('property', 'eli:title');
     wrap_base = $('<div about="' + eli_base + '" typeof="' + host + 'vocabulary#act"></div>');
 	$(paragraph).first().wrap(wrap_base);
-    paragraph_attributes = '<span property="eli:type_document" content="' + type_document[0] + '"/>';
-	paragraph_attributes += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"/>';
-	paragraph_attributes += '<span property="eli:id_local" content="' + identifier + '"/>';
-	paragraph_attributes += '<span property="eli:publisher" content="http://www.et.gr/"/>';
-	paragraph_attributes += '<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"/>';
+    paragraph_attributes = '<span property="eli:type_document" content="' + type_document[0] + '"></span>';
+	paragraph_attributes += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
+	paragraph_attributes += '<span property="eli:id_local" content="' + identifier + '"></span>';
+	paragraph_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+	paragraph_attributes += '<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"></span>';
     wrap_base.append(paragraph_attributes);
 
 	/*===============*/
@@ -209,8 +208,8 @@ input.forEach(function (fileName) {
 	});
 
 	//Wrap paragraphs in div
-    paragraph_append = '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"/>';
-    paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"';
+    paragraph_append = '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
+    //paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
 	for (i = 0; i < h3s; i += 1) {
         article_next = $(article).eq(i).next('div');
 		number = article_next.attr('about').match(/[0-9]+$/);
@@ -218,9 +217,9 @@ input.forEach(function (fileName) {
 		paragraphCount = article_next.children('span[property="eli:has_part"]').get().length + 1;
 		for (j = 0; j < paragraphCount; j += 1) {
 			pcount = j + 1;
-            wrap_paragraph = '<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">';
+            wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">');
 			$(paragraph + '[about="' + eli_base + '/article_' + number + '/paragraph_' + j + '"]').wrapAll(wrap_paragraph);
-			wrap_paragraph.append(paragraph_append);
+			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append(paragraph_append);
 		}
 	}
     //Strip all attributes from paragraphs (already declared on divs)

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>parser.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>parser.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Convert a set of Word documents containing legislative text and/or
+its amendments into (1) xHTML and (2) RDF+XML in order to store the 
+information as linked open data in a Virtuoso Triple Store</p>
+<p>Copyright 2016 European Union
+Author: Jens Scheerlinck (PwC EU Services)</p>
+<p>Licensed under the EUPL, Version 1.1 or - as soon they
+will be approved by the European Commission - subsequent
+versions of the EUPL (the “Licence”);
+You may not use this work except in compliance with the
+Licence.
+You may obtain a copy of the Licence at:
+<a href="http://ec.europa.eu/idabc/eupl">http://ec.europa.eu/idabc/eupl</a></p>
+<p>Unless required by applicable law or agreed to in
+writing, software distributed under the Licence is
+distributed on an “AS IS” basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+express or implied.
+See the Licence for the specific language governing
+permissions and limitations under the Licence.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-comment">/******************************/</span>
+<span class="hljs-comment">/***LOAD MODULES***************/</span>
+<span class="hljs-comment">/******************************/</span>
+
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> mammoth = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mammoth'</span>);
+<span class="hljs-keyword">var</span> cheerio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cheerio'</span>);
+<span class="hljs-keyword">var</span> extendCheerio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./wrapAll.js'</span>);
+
+<span class="hljs-comment">/******************************/</span>
+<span class="hljs-comment">/***DEFINE VARIABLES***********/</span>
+<span class="hljs-comment">/******************************/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Identify level of granularity: <name of component>, <identifier for component></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> elem = [
+	[<span class="hljs-string">'law'</span>,<span class="hljs-string">'p:first-of-type'</span>],
+	[<span class="hljs-string">'part'</span>,<span class="hljs-string">''</span>],
+	[<span class="hljs-string">'chapter'</span>,<span class="hljs-string">'h1'</span>],
+	[<span class="hljs-string">'article'</span>,<span class="hljs-string">'h3'</span>],
+	[<span class="hljs-string">'paragraph'</span>,<span class="hljs-string">'p'</span>]
+];
+<span class="hljs-keyword">var</span> args = process.argv.slice(<span class="hljs-number">2</span>);
+<span class="hljs-keyword">var</span> filePath = args[<span class="hljs-number">0</span>];
+<span class="hljs-keyword">var</span> outputPath = args[<span class="hljs-number">1</span>];
+<span class="hljs-keyword">var</span> host = args[<span class="hljs-number">2</span>];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>var filePath = ‘html’;
+var outputPath = ‘rdfa’;
+var host = ‘<a href="http://localhost:8890/e-legislation">http://localhost:8890/e-legislation</a>‘;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">if</span>(host.slice(<span class="hljs-number">-1</span>) != <span class="hljs-string">'/'</span>){
+	host = host+<span class="hljs-string">'/'</span>;
+}
+<span class="hljs-keyword">var</span> input = fs.readdirSync(filePath);
+<span class="hljs-keyword">var</span> html;
+
+<span class="hljs-keyword">var</span> chapter = <span class="hljs-string">'h1'</span>;
+<span class="hljs-keyword">var</span> article = <span class="hljs-string">'h3'</span>;
+<span class="hljs-keyword">var</span> paragraph = <span class="hljs-string">'p'</span>;
+
+
+<span class="hljs-comment">/******************************/</span>
+<span class="hljs-comment">/***CREATE HTML + RDFa*********/</span>
+<span class="hljs-comment">/******************************/</span>
+
+input.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fileName</span>)</span>{
+			<span class="hljs-comment">/*==================*/</span>
+			<span class="hljs-comment">/*LOAD DOM STRUCTURE*/</span>
+			<span class="hljs-comment">/*==================*/</span> 
+		html = fs.readFileSync(filePath+<span class="hljs-string">'/'</span>+fileName);
+        $ = cheerio.load(html, {
+			normalizeWhitespace: <span class="hljs-literal">true</span>
+			});
+       		extendCheerio($);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Define variables</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>       		<span class="hljs-keyword">var</span> count;
+			<span class="hljs-keyword">var</span> chapter_link;
+			<span class="hljs-keyword">var</span> chapterID;
+			<span class="hljs-keyword">var</span> articleID;
+			<span class="hljs-keyword">var</span> paragraphID;
+
+			<span class="hljs-keyword">var</span> h1s = $(chapter).get().length;
+			<span class="hljs-keyword">var</span> h3s = $(article).get().length;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Add namespaces to document</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(<span class="hljs-string">'body'</span>).contents().wrapAll(<span class="hljs-string">'&lt;div prefix="eli: http://data.europa.eu/eli/ontology# dct: http://purl.org/dc/terms/ law: http://openlaw.e-themis.gov.gr/eli/vocabulary#"&gt;'</span>);
+
+			<span class="hljs-comment">/*=========*/</span>
+			<span class="hljs-comment">/*Act level*/</span>
+			<span class="hljs-comment">/*=========*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Deconstruct first paragraph into title, type of document, identifier and year</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> full_title = $(paragraph).first().text();
+			full_title = full_title.split(<span class="hljs-string">' - '</span>);
+			<span class="hljs-keyword">var</span> title = full_title[<span class="hljs-number">0</span>];
+			<span class="hljs-keyword">if</span>(full_title[<span class="hljs-number">1</span>] != <span class="hljs-literal">null</span>){
+				full_title = full_title[<span class="hljs-number">1</span>].split(<span class="hljs-string">' '</span>);
+				<span class="hljs-keyword">var</span> type_document = full_title[<span class="hljs-number">0</span>];
+				<span class="hljs-keyword">if</span>(full_title[<span class="hljs-number">1</span>] != <span class="hljs-literal">null</span>){
+					full_title = full_title[<span class="hljs-number">1</span>].split(<span class="hljs-string">'/'</span>);
+					<span class="hljs-keyword">var</span> identifier = full_title[<span class="hljs-number">0</span>];
+					<span class="hljs-keyword">var</span> year = full_title[<span class="hljs-number">1</span>];
+				}
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Setup the base ELI uri for this LegalResource</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> eli_base = host+type_document+<span class="hljs-string">"/"</span>+identifier+<span class="hljs-string">"/"</span>+year;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Find the document date</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> date_document;
+			$(paragraph).first().nextUntil(article).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, elem</span>)</span>{
+				<span class="hljs-keyword">if</span>($(<span class="hljs-keyword">this</span>).text().match(<span class="hljs-regexp">/\d{2}\/\d{2}\/\d{4}/</span>)){
+					$(<span class="hljs-keyword">this</span>).addClass(<span class="hljs-string">'document_date'</span>);
+					date_document = $(<span class="hljs-keyword">this</span>).text().match(<span class="hljs-regexp">/\d{2}\/\d{2}\/\d{4}/</span>);
+					date_document = date_document.toString().split(<span class="hljs-string">'/'</span>);
+					date_document = date_document[<span class="hljs-number">2</span>]+<span class="hljs-string">"-"</span>+date_document[<span class="hljs-number">1</span>]+<span class="hljs-string">"-"</span>+date_document[<span class="hljs-number">0</span>];
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				}
+			});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Find the description of the document between the title and the document datae</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(paragraph).first().nextUntil(<span class="hljs-string">'p[class="document_date"]'</span>).wrapAll(<span class="hljs-string">'&lt;div about="'</span>+eli_base+<span class="hljs-string">'" property="eli:description"&gt;'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Add eli attributes to the act</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(paragraph).first().wrap(<span class="hljs-string">'&lt;div about="'</span>+eli_base+<span class="hljs-string">'" typeof="'</span>+host+<span class="hljs-string">'vocabulary#act"&gt;'</span>);
+			$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:title" content="'</span>+title+<span class="hljs-string">'"/&gt;'</span> );
+			$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:type_document" content="'</span>+type_document+<span class="hljs-string">'"/&gt;'</span> );
+			$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:id_local" content="'</span>+identifier+<span class="hljs-string">'"/&gt;'</span> );
+			$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:publisher" content="http://www.et.gr/"/&gt;'</span> );
+			$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"/&gt;'</span> );
+			$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"/&gt;'</span> );
+			$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:date_document" content="'</span>+date_document+<span class="hljs-string">'" datatype="http://www.w3.org/2001/XMLSchema#date"/&gt;'</span> );
+			
+			<span class="hljs-comment">/*=============*/</span>
+			<span class="hljs-comment">/*Chapter level*/</span>
+			<span class="hljs-comment">/*=============*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Normalize Word structure (two H1s as siblings instead of <br/>)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> chapter_text;
+			<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; h1s; i++){
+				<span class="hljs-keyword">if</span>($(chapter).eq(i).next().is(chapter)){
+					chapter_text = $(chapter).eq(i+<span class="hljs-number">1</span>).text();
+					$(chapter).eq(i).append(<span class="hljs-string">"&lt;br/&gt;"</span>+chapter_text);
+					$(chapter).eq(i+<span class="hljs-number">1</span>).remove();
+				}
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Convert first H1 into H2 -&gt; this is not a chapter but a description</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> text = $(chapter).first().text();
+			$(chapter).first().wrap(<span class="hljs-string">'&lt;h2&gt;&lt;/h2&gt;'</span>);
+			$(<span class="hljs-string">'h2'</span>).first().html(text);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Add eli:is_part_of attributes to link chapters to the act</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			h1s = $(chapter).get().length;
+			<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; h1s; i++){
+				count = i + <span class="hljs-number">1</span>;
+				$(chapter).eq(i).attr({
+					id: <span class="hljs-string">'chapter'</span>+count,
+					about: eli_base+<span class="hljs-string">'/chapter_'</span>+count,
+					property: <span class="hljs-string">'dct:title'</span>
+				});
+				$(chapter).eq(i).wrap(<span class="hljs-string">'&lt;div about="'</span>+eli_base+<span class="hljs-string">'/chapter_'</span>+count+<span class="hljs-string">'" property="eli:is_part_of" resource="'</span>+eli_base+<span class="hljs-string">'" typeof="'</span>+host+<span class="hljs-string">'vocabulary#chapter"&gt;'</span>);
+				$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'/chapter_'</span>+count+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:date_document" content="'</span>+date_document+<span class="hljs-string">'" datatype="http://www.w3.org/2001/XMLSchema#date"/&gt;'</span>);
+				$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'/chapter_'</span>+count+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:publisher" content="http://www.et.gr/" /&gt;'</span>);
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Add eli:has_part attributes to establish the link between act and chapters</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(chapter).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, elem</span>)</span>{
+				actID = $(<span class="hljs-keyword">this</span>).parent().attr(<span class="hljs-string">'resource'</span>);
+				chapterID = $(<span class="hljs-keyword">this</span>).parent().attr(<span class="hljs-string">'about'</span>);
+				$(<span class="hljs-string">'div[about="'</span>+actID+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span about="'</span>+actID+<span class="hljs-string">'" property="eli:has_part" resource="'</span>+chapterID+<span class="hljs-string">'"/&gt;'</span>);
+			});
+
+			<span class="hljs-comment">/*===============*/</span> 
+			<span class="hljs-comment">/* Article level */</span>
+			<span class="hljs-comment">/*===============*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Add eli:title attributes to the articles
+Add eli:is_part_of attributes to link chapters to the act</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			for(i = 0; i &lt; h3s; i++){
+				count = i + 1;
+				$(article).eq(i).attr({
+					class: 'article',
+					id: eli_base+'/article_'+count,
+					property: 'dct:title'
+				});
+				chapter_link = $(article).eq(i).prevAll('div[resource="'+eli_base+'"]').first().attr('about');
+				$(article).eq(i).wrap('&lt;div about="'+eli_base+'/article_'+count+'" property="eli:is_part_of" resource="'+chapter_link+'" typeof="'+host+'vocabulary#article"&gt;');
+				$('div[about="'+eli_base+'/article_'+count+'"]').append('&lt;span property="eli:date_document" content="'+date_document+'" datatype="http://www.w3.org/2001/XMLSchema#date"/&gt;');
+				$('div[about="'+eli_base+'/article_'+count+'"]').append('&lt;span property="eli:publisher" content="http://www.et.gr/" /&gt;');
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Add eli:has_part attributes to establish the link between chapters and articles</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(article).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, elem</span>)</span>{
+				chapterID = $(<span class="hljs-keyword">this</span>).parent().attr(<span class="hljs-string">'resource'</span>);
+				articleID = $(<span class="hljs-keyword">this</span>).parent().attr(<span class="hljs-string">'about'</span>);
+				$(<span class="hljs-string">'div[about="'</span>+chapterID+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:has_part" resource="'</span>+articleID+<span class="hljs-string">'"/&gt;'</span>);
+			});
+
+			<span class="hljs-comment">/*=================*/</span> 				
+			<span class="hljs-comment">/* Paragraph level */</span>
+			<span class="hljs-comment">/*=================*/</span> 
+			<span class="hljs-keyword">var</span> j;
+			<span class="hljs-keyword">var</span> k;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Identify individual paragraphs and add eli:is_part_of attributes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; h3s; i++){
+				count = i+<span class="hljs-number">1</span>;
+				j = <span class="hljs-number">0</span>;
+				$(article).eq(i).parent().nextUntil(article, paragraph).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, elem</span>)</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>The following regex matches paragraph that start with either: Άρθρ.X, X. or «X. with X between 0-9</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>					if(/^[0-9][.].?|^[«][0-9].?|^(Άρθρ)[.][0-9].?|^(΄Αρθρ)[.][0-9].?/.test($(this).text()) == true){
+						j++;
+						$(this).attr({
+							class: 'paragraph',
+							about: eli_base+'/article_'+count+'/paragraph_'+j,
+							property: 'eli:is_part_of',
+							resource: eli_base+'/article_'+count
+						});
+					} else {
+						paragraphID = $(this).prev().attr('about');
+						$(this).attr('about', paragraphID)
+					}
+				});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Normalize Word structure (merge paragraphs)
+$(article).eq(i).parent().nextUntil(article, paragraph).each(function(index, elem){
+$(pagragraph+’[about=”PARGRAPH1-1”]’).wrapAll(‘<div about="PARAGRAPH1-1">‘);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Add eli:has_part attributes to establish the link between articles and paragraphs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(paragraph+<span class="hljs-string">'[class="paragraph"]'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, elem</span>)</span>{
+				articleID = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'resource'</span>);
+				paragraphID = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'about'</span>);
+				$(<span class="hljs-string">'div[about="'</span>+articleID+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:has_part" resource="'</span>+paragraphID+<span class="hljs-string">'"/&gt;'</span>);
+			});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Wrap paragraphs in div</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> paragraphCount;
+			<span class="hljs-keyword">var</span> pcount;
+			<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; h3s; i++){
+				count = i + <span class="hljs-number">1</span>;
+				paragraphCount = $(article+<span class="hljs-string">'[id="'</span>+eli_base+<span class="hljs-string">'/article_'</span>+count+<span class="hljs-string">'"]'</span>).siblings(<span class="hljs-string">'span'</span>).get().length; 		
+				<span class="hljs-keyword">for</span>(j = <span class="hljs-number">0</span>; j &lt; paragraphCount; j++){
+					pcount = j + <span class="hljs-number">1</span>;
+					$(paragraph+<span class="hljs-string">'[about="'</span>+eli_base+<span class="hljs-string">'/article_'</span>+count+<span class="hljs-string">'/paragraph_'</span>+j+<span class="hljs-string">'"]'</span>).wrapAll(<span class="hljs-string">'&lt;div about="'</span>+eli_base+<span class="hljs-string">'/article_'</span>+count+<span class="hljs-string">'/paragraph_'</span>+j+<span class="hljs-string">'" typeof="'</span>+host+<span class="hljs-string">'vocabulary#paragraph"&gt;'</span>);
+					$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'/article_'</span>+count+<span class="hljs-string">'/paragraph_'</span>+j+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span class="plink" property="eli:is_part_of" resource="'</span>+eli_base+<span class="hljs-string">'/article_'</span>+count+<span class="hljs-string">'" /&gt;'</span>);					
+					$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'/article_'</span>+count+<span class="hljs-string">'/paragraph_'</span>+j+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:date_document" content="'</span>+date_document+<span class="hljs-string">'"  datatype="http://www.w3.org/2001/XMLSchema#date"/&gt;'</span>);
+					$(<span class="hljs-string">'div[about="'</span>+eli_base+<span class="hljs-string">'/article_'</span>+count+<span class="hljs-string">'/paragraph_'</span>+j+<span class="hljs-string">'"]'</span>).append(<span class="hljs-string">'&lt;span property="eli:publisher" content="http://www.et.gr/"/&gt;'</span>);
+				}
+				
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Strip all attributes from paragraphs (already declared on divs)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(paragraph).removeAttr(<span class="hljs-string">'class'</span>);
+			$(paragraph).removeAttr(<span class="hljs-string">'about'</span>);
+			$(paragraph).removeAttr(<span class="hljs-string">'property'</span>);
+			$(paragraph).removeAttr(<span class="hljs-string">'resource'</span>);
+			$(<span class="hljs-string">'span[class="plink"]'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index, eleml</span>)</span>{
+				$(<span class="hljs-keyword">this</span>).siblings(paragraph).wrapAll(<span class="hljs-string">'&lt;div property="eli:description"&gt;&lt;/div&gt;'</span>);
+			});
+
+			<span class="hljs-comment">/*=================*/</span> 				
+			<span class="hljs-comment">/* GENERATE OUTPUT */</span>
+			<span class="hljs-comment">/*=================*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Save the file</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> output = fileName.split(<span class="hljs-string">'.'</span>);
+			fs.writeFile(outputPath+<span class="hljs-string">"/"</span>+output[<span class="hljs-number">0</span>]+<span class="hljs-string">".html"</span>, <span class="hljs-built_in">unescape</span>($.html()), <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+			    <span class="hljs-keyword">if</span>(err) {
+			        <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);
+			    }
+			    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The file was saved!"</span>);
+			}); 
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
