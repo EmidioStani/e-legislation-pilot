@@ -209,7 +209,7 @@ input.forEach(function (fileName) {
 
 	//Wrap paragraphs in div
     paragraph_append = '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
-    //paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+    paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
 	for (i = 0; i < h3s; i += 1) {
         article_next = $(article).eq(i).next('div');
 		number = article_next.attr('about').match(/[0-9]+$/);
