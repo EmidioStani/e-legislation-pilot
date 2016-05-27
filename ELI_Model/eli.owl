@@ -1,0 +1,1547 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY ontology "http://data.europa.eu/eli/ontology#" >
+    <!ENTITY skos "http://www.w3.org/2004/02/skos/core#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://eurlex.europa.eu/eli#"
+     xml:base="http://eurlex.europa.eu/eli"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:ontology="http://data.europa.eu/eli/ontology#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+    <owl:Ontology rdf:about="http://data.europa.eu/eli/ontology#">
+        <rdfs:label xml:lang="en">ELI Metadata Ontology</rdfs:label>
+        <vann:preferredNamespacePrefix>eli</vann:preferredNamespacePrefix>
+        <owl:versionInfo>1.0</owl:versionInfo>
+        <terms:creator xml:lang="en">ELI task force</terms:creator>
+        <rdfs:comment xml:lang="en">Transposition of the ELI metadata fieldsds into an OWL ontology.
+See the classes &quot;LegalResource&quot;, &quot;LegalExpression&quot; and &quot;Format&quot; as entry points.
+
+***** Notes *****
+
+  - The ELI ontology reuses the property names from the Metalex ontology (http://www.metalex.eu/) to express the FRBR skeleton hierarchy : is_realized_by/realizes, is_embodied_by/embodies, is_exemplified_by. This wording is also the one used in the original FRBR specifications. However, the decision has been made _not_ to align to the Metalex class names (BibliographicWork, BibliographicExpression, BibliographicManifestation), because ELI is specifically about publishing legal metadata on the web, and not structuring legal content in any document.
+  - Since published_in property has been made into a Literal, it is not possible to declare explicitely &quot;publishes&quot; as an inverse property.
+  - first_date_entry_in_force and date_no_longer_in_force could be subproperties of dcterms:date
+ - a class could be introduced for URI schemas to implement the URI schema registry
+
+
+
+***** Version History *****
+
+* 1.0 *
+
+  - added a set of values for the InForce table
+  - added definitions to tables
+  - minor fixes in definitions
+  - added rdfs:seeAlso from properties to corresponding tables
+  - cleaned the &quot;whyThisIsNeeded&quot; annotation
+
+* 0.6.1 *
+
+  - fixed typos in definitions
+
+* 0.6 *
+
+  - imported skos rather than redeclaring skos classes and properties
+  - changed domain of in_force, first_date_entry_into_force, date_no_longer_in_force to [LegalResource or LegalExpression] instead of LegalResource
+  - changed domain of language, title, title_short, title_alternative to LegalExpression instead of [LegalResource or LegalExpression]
+  - reworked the tables : don&apos;t use country and resource type tables from MDR, but declare local tables.
+  - integrated new definitions for all classes and properties
+
+* 0.5 *
+
+  - Renamed &quot;Interpretation&quot; into &quot;LegalExpression&quot; (and modified comments accordingly)
+  - Renamed the structural FRBR relations in accordance with Metalex ontology :
+    - is_legal_resource_of becomes &quot;is_relaized_by&quot;
+    - has_legalresource becomes &quot;realizes&quot;
+    - is_interpretation_of becomes &quot;is_embodied_by&quot;
+    - has_interpretation becomes &quot;embodies&quot;
+    - file becomes &quot;is_exemplified_by&quot;
+  - file has been made a subproperty of &quot;has exemplar of manifestation&quot; instead of &quot;dc:hasPart&quot;
+  - relevant_for is no more considered mandatory. Deleted comment that stated &quot;we are seeking a way to express that relevant_for must have at least one value for LegalResource or one of its LegalInterpretation&quot;.
+
+* 0.4.1 *
+
+  - Added &quot;publishes&quot; property
+  - Enriched the note on &quot;transposes&quot; and &quot;transposed by&quot; to indicate they must point to / be expressed on LegalResource</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="&ontology;LegalResource"/>
+        <owl:imports rdf:resource="http://rdaregistry.info/Elements/c"/>
+        <owl:imports rdf:resource="http://www.w3.org/2004/02/skos/core"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#description -->
+
+    <owl:AnnotationProperty rdf:about="&ontology;description">
+        <rdfs:label xml:lang="en">description</rdfs:label>
+        <rdfs:comment xml:lang="en">An account of the resource (definition from Dubin Core), e.g a summary.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;description"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#originalName -->
+
+    <owl:AnnotationProperty rdf:about="&ontology;originalName"/>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#passed_by -->
+
+    <owl:AnnotationProperty rdf:about="&ontology;passed_by">
+        <rdfs:label xml:lang="en">passed by</rdfs:label>
+        <rdfs:comment xml:lang="en">The agent that originally passed or made the law. The relationship between current and any former law making body should be represented in the description of the agent itself.
+
+Member states are encouraged to make their own list of Agents. EU Publications Office provides a list of corporate bodies at http://publications.europa.eu/mdr/authority/corporate-body.</rdfs:comment>
+        <ontology:originalName xml:lang="en">agent_document</ontology:originalName>
+        <rdfs:subPropertyOf rdf:resource="&terms;creator"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#title -->
+
+    <owl:AnnotationProperty rdf:about="&ontology;title">
+        <rdfs:label xml:lang="en">title</rdfs:label>
+        <rdfs:comment xml:lang="en">The title, or name, of an expression. 
+
+Note that, if needed, a title can also be stated on a legal resource using the Dublin Core &quot;title&quot; property.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalExpression"/>
+        <rdfs:seeAlso rdf:resource="&ontology;title_alternative"/>
+        <rdfs:seeAlso rdf:resource="&ontology;title_short"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;title"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.org/dc/terms/creator -->
+
+    <owl:AnnotationProperty rdf:about="&terms;creator"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:AnnotationProperty rdf:about="&terms;description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:AnnotationProperty rdf:about="&terms;title"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="&xsd;date"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#based_on -->
+
+    <owl:ObjectProperty rdf:about="&ontology;based_on">
+        <rdfs:label xml:lang="en">based on</rdfs:label>
+        <rdfs:comment xml:lang="en">inverse of &quot;basis_for&quot;</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#basis_for -->
+
+    <owl:ObjectProperty rdf:about="&ontology;basis_for">
+        <rdfs:label xml:lang="en">basis for</rdfs:label>
+        <rdfs:comment xml:lang="en">Legal resource (typically constitution, treaty or enabling act) that empowers the creation of another legal resource (secondary legislation)</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;LegalResource"/>
+        <owl:inverseOf rdf:resource="&ontology;based_on"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#changed_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;changed_by">
+        <rdfs:label xml:lang="en">changed by</rdfs:label>
+        <rdfs:comment xml:lang="en">Inverse of &quot;changes&quot;</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#changes -->
+
+    <owl:ObjectProperty rdf:about="&ontology;changes">
+        <rdfs:label xml:lang="en">changes</rdfs:label>
+        <rdfs:comment xml:lang="en">Legal resource changing (amending or replacing) another legal resource This may be a direct change (textual or non-textual amendment) or a consequential or indirect change. Note, the property is to be used to express the existence of a change relationship between two acts rather than the existence of a consolidated version of the text that shows the result of the change. For consolidation relationships, use the &quot;consolidates&quot; and &quot;consolidated_by&quot; properties.</rdfs:comment>
+        <owl:inverseOf rdf:resource="&ontology;changed_by"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#cited_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;cited_by">
+        <rdfs:label xml:lang="en">cited by</rdfs:label>
+        <rdfs:comment xml:lang="en">Inverse of &quot;cites&quot;</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#cites -->
+
+    <owl:ObjectProperty rdf:about="&ontology;cites">
+        <rdfs:label xml:lang="en">cites</rdfs:label>
+        <rdfs:comment xml:lang="en">Citation in the text of the legislation. This may be at the legal resource or legal expression level, as required by the implementation context. This includes verbatim citation and citations in referrals.</rdfs:comment>
+        <owl:inverseOf rdf:resource="&ontology;cited_by"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#consolidated_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;consolidated_by">
+        <rdfs:label xml:lang="en">consolidated by</rdfs:label>
+        <rdfs:comment xml:lang="en">Inverse of &quot;consolidates&quot;</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#consolidates -->
+
+    <owl:ObjectProperty rdf:about="&ontology;consolidates">
+        <rdfs:label xml:lang="en">consolidates</rdfs:label>
+        <rdfs:comment xml:lang="en">Link between a consolidated version, which is the product of an editorial process that revises the legislation to include changes made by other acts, and the original or previous consolidated version and the legislation making the change.</rdfs:comment>
+        <owl:inverseOf rdf:resource="&ontology;consolidated_by"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#embodies -->
+
+    <owl:ObjectProperty rdf:about="&ontology;embodies">
+        <rdfs:label xml:lang="en">embodies</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates a physical format to the legal expression embodied in that format (definition adapted from RDA). Inverse of &quot;is_embodied_by&quot;.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:range rdf:resource="&ontology;LegalExpression"/>
+        <owl:inverseOf rdf:resource="&ontology;is_embodied_by"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.rdaregistry.info/Elements/m/#P30139"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#format -->
+
+    <owl:ObjectProperty rdf:about="&ontology;format">
+        <rdfs:label xml:lang="en">format</rdfs:label>
+        <rdfs:comment xml:lang="en">The file format, physical medium, or dimensions of the resource (definition from Dublin Core).
+Possible URIs values should be taken from http://www.iana.org/assignments/media-types (e.g. http://www.iana.org/assignments/media-types/application/xml), and can serve as a basis for content negotiation for the server to return the appropriate file based on the client preference.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;format"/>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#has_part -->
+
+    <owl:ObjectProperty rdf:about="&ontology;has_part">
+        <rdfs:label xml:lang="en">has part</rdfs:label>
+        <rdfs:comment xml:lang="en">inverse of &quot;is_part_of&quot;</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;LegalResource"/>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <owl:inverseOf rdf:resource="&ontology;is_part_of"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;hasPart"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#implemented_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;implemented_by">
+        <rdfs:label xml:lang="en">implemented by</rdfs:label>
+        <rdfs:comment xml:lang="en">Inverse of &quot;implements&quot;.
+
+Note that this property is expressed on a legal resource, not on one of its language-specific legal expression.</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;LegalResource"/>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:seeAlso rdf:resource="&ontology;transposed_by"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#implements -->
+
+    <owl:ObjectProperty rdf:about="&ontology;implements">
+        <rdfs:label xml:lang="en">implements</rdfs:label>
+        <rdfs:comment xml:lang="en">To be used for more general statements about the relationship between domestic and EU legislation, e.g. between consolidated versions of national implementing measures and consolidated versions of Directives.
+
+Note that this should point to the legal resource of the Directive itself, not to one of its language-specific legal expression.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:range rdf:resource="&ontology;LegalResource"/>
+        <owl:inverseOf rdf:resource="&ontology;implemented_by"/>
+        <rdfs:seeAlso rdf:resource="&ontology;transposes"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#in_force -->
+
+    <owl:ObjectProperty rdf:about="&ontology;in_force">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">in force</rdfs:label>
+        <rdfs:comment xml:lang="en">A value indicating the legal force of a legal resource or a legal expression. A set of values is defined by ELI in the corresponding concept scheme. These values are :
+  - in force
+  - partially in force
+  - not in force</rdfs:comment>
+        <ontology:originalName xml:lang="en">status</ontology:originalName>
+        <rdfs:range rdf:resource="&ontology;InForce"/>
+        <rdfs:seeAlso rdf:resource="&ontology;InForce-inForce"/>
+        <rdfs:seeAlso rdf:resource="&ontology;InForce-notInForce"/>
+        <rdfs:seeAlso rdf:resource="&ontology;InForce-partiallyInForce"/>
+        <rdfs:seeAlso rdf:resource="&ontology;InForceTable"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#is_about -->
+
+    <owl:ObjectProperty rdf:about="&ontology;is_about">
+        <rdfs:label xml:lang="en">is about</rdfs:label>
+        <rdfs:comment xml:lang="en">A subject for this legal resource. The use of Eurovoc (http://eurovoc.europa.eu) is encouraged to select values for this property. Member states are encouraged to align local values to Eurovoc.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;subject"/>
+        <rdfs:range rdf:resource="&skos;Concept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#is_embodied_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;is_embodied_by">
+        <rdfs:label xml:lang="en">is embodied by</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates a legal expression to a physical format of that expression (definition adapted from RDA). Inverse of &quot;embodies&quot;.</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;Format"/>
+        <rdfs:domain rdf:resource="&ontology;LegalExpression"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.rdaregistry.info/Elements/e/#P20059"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#is_exemplified_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;is_exemplified_by">
+        <rdfs:label xml:lang="en">is exemplified by</rdfs:label>
+        <rdfs:comment xml:lang="en">Link to a concrete file URL.
+Relates a format to a single exemplar or instance of that format (definition adapted from RDA). </rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:subPropertyOf rdf:resource="http://rdaregistry.info/Elements/m/P30103"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#is_part_of -->
+
+    <owl:ObjectProperty rdf:about="&ontology;is_part_of">
+        <rdfs:label xml:lang="en">is part of</rdfs:label>
+        <rdfs:comment xml:lang="en">A related resource in which the described resource is physically or logically included (definition from Dublin Core). Cover the case of legal resources included in an Official Journal and the case of legal resources grouping other legal resources across time.</rdfs:comment>
+        <ontology:originalName xml:lang="en">composed</ontology:originalName>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:range rdf:resource="&ontology;LegalResource"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;isPartOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#is_realized_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;is_realized_by">
+        <rdfs:label xml:lang="en">is realized by</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates a legal resource to a legal expression of this resource in the form of a &quot;sequence of signs&quot; (typically alpha-numeric characters in a legal context). (definition adapted from RDA). Inverse of &quot;realizes&quot;.</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;LegalExpression"/>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.rdaregistry.info/Elements/w/#P10078"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#language -->
+
+    <owl:ObjectProperty rdf:about="&ontology;language">
+        <rdfs:label xml:lang="en">language</rdfs:label>
+        <rdfs:comment xml:lang="en">The language of an expression.
+
+EU Publications Office provides a list of languages at http://publications.europa.eu/mdr/authority/language. This list is large enough so that member states should not have to declare local values.
+
+Note that, if needed, a language can also be stated on a legal resource using the DublinCore &quot;language&quot; property.</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;Language"/>
+        <rdfs:domain rdf:resource="&ontology;LegalExpression"/>
+        <rdfs:seeAlso rdf:resource="http://publications.europa.eu/resource/authority/language"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;language"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#legal_value -->
+
+    <owl:ObjectProperty rdf:about="&ontology;legal_value">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">legal value</rdfs:label>
+        <rdfs:comment xml:lang="en">The legal value associated with a specific format of a resource. A set of values is defined by ELI in the corresponding concept scheme. These values are :
+  - unofficial : no particular or special standing;
+  - official : published by an organisation with the public task of making the information available (e.g. a consolidated version of a EU directive) ;
+  - authoritative : the publisher gives some special status to the publication (e.g. &quot;the Queens Printer&quot; version of an Act of Parliament, or the OJ version of a EU Directive);
+  - definitive : the text is conclusively what the law says, (e.g. the digitally signed version of an OJ).</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:range rdf:resource="&ontology;LegalValue"/>
+        <rdfs:seeAlso rdf:resource="&ontology;LegalValue-authoritative"/>
+        <rdfs:seeAlso rdf:resource="&ontology;LegalValue-definitive"/>
+        <rdfs:seeAlso rdf:resource="&ontology;LegalValue-official"/>
+        <rdfs:seeAlso rdf:resource="&ontology;LegalValue-unofficial"/>
+        <rdfs:seeAlso rdf:resource="&ontology;LegalValueTable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#licence -->
+
+    <owl:ObjectProperty rdf:about="&ontology;licence">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">licence</rdfs:label>
+        <rdfs:comment xml:lang="en">A legal document giving official permission to do something with the resource (Definition from Dublin Core)</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;licence"/>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#passed_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;passed_by">
+        <rdfs:label xml:lang="en">passed by</rdfs:label>
+        <rdfs:comment xml:lang="en">The agent that originally passed or made the law. The relationship between current and any former law making body should be represented in the description of the agent itself.
+
+Member states are encouraged to make their own list of Agents. EU Publications Office provides a list of corporate bodies at http://publications.europa.eu/mdr/authority/corporate-body.</rdfs:comment>
+        <ontology:originalName xml:lang="en">agent_document</ontology:originalName>
+        <rdfs:range rdf:resource="&ontology;Agent"/>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#publishes -->
+
+    <owl:ObjectProperty rdf:about="&ontology;publishes">
+        <rdfs:label xml:lang="en">publishes</rdfs:label>
+        <rdfs:comment xml:lang="en">Inverse of &quot;published_in&quot;.
+Note this property does not link a publisher with a resource, but rather a specific Format of a resource with a specific Format of another resource, indicating that the subject Format publishes the object Format.</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;Format"/>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:seeAlso rdf:resource="&ontology;published_in"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#realizes -->
+
+    <owl:ObjectProperty rdf:about="&ontology;realizes">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">realizes</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates a legal expression to the legal resource realised through that expression. (definition adapted from RDA). Inverse of &quot;is_realized_by&quot;.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalExpression"/>
+        <rdfs:range rdf:resource="&ontology;LegalResource"/>
+        <owl:inverseOf rdf:resource="&ontology;is_realized_by"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.rdaregistry.info/Elements/e/#P20231"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#related_to -->
+
+    <owl:ObjectProperty rdf:about="&ontology;related_to">
+        <rdfs:label xml:lang="en">related to</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates a somehow related other document, not necessarily a legal resource. Note that citation links should use the cites property.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#relevant_for -->
+
+    <owl:ObjectProperty rdf:about="&ontology;relevant_for">
+        <rdfs:label xml:lang="en">relevant for</rdfs:label>
+        <rdfs:comment xml:lang="en">Refers to a place or an area associated with the resource. This covers the notions of jurisdiction, sovereignty, applicability or administrative area. The place identifier should be based on ISO3166-2. See: https://www.iso.org/obp/ui/#search.
+
+Member states are encouraged to make their own list of values in the corresponding concept scheme. EU Publications Office provides a list of places at http://publications.europa.eu/mdr/authority/place
+
+The group notes the limitations of what can be said with a single property; member states can refine this notion by declaring specific sub properties.</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;AdministrativeArea"/>
+        <rdfs:seeAlso rdf:resource="&ontology;AdministrativeAreaTable"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;coverage"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#transposed_by -->
+
+    <owl:ObjectProperty rdf:about="&ontology;transposed_by">
+        <rdfs:label xml:lang="en">transposed by</rdfs:label>
+        <rdfs:comment xml:lang="en">Inverse of &quot;transposes&quot;.
+
+Note that this property is expressed on a legal resource, not on one of its language-specific legal expression.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:seeAlso rdf:resource="&ontology;implemented_by"/>
+        <owl:inverseOf rdf:resource="&ontology;transposes"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#transposes -->
+
+    <owl:ObjectProperty rdf:about="&ontology;transposes">
+        <rdfs:label xml:lang="en">transposes</rdfs:label>
+        <rdfs:comment xml:lang="en">To be used for precise statements of transposition, at act or article level, from the original version of a national implementing measure to the legal resource Directive as published in the EU Official Journal. Can be used for transposition tables, once EU Publication Office has introduced ELI support down to the article level.
+
+Note that this should point to the legal resource of the Directive itself, not to one of its language-specific legal expression.</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;LegalResource"/>
+        <rdfs:seeAlso rdf:resource="&ontology;implements"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;relation"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#type_document -->
+
+    <owl:ObjectProperty rdf:about="&ontology;type_document">
+        <rdfs:label xml:lang="en">type document</rdfs:label>
+        <rdfs:comment xml:lang="en">The type of a legal resource (e.g. &quot;Directive&quot;, &quot;Règlement grand ducal&quot;, &quot;law&quot;, &quot;règlement ministeriel&quot;, &quot;draft proposition&quot;, &quot;Parliamentary act&quot;, etc.). 
+Member states are encouraged to make their own list of values in the corresponding concept scheme. EU Publications Office provides a list of values for EU resource types at http://publications.europa.eu/mdr/authority/resource-type</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:range rdf:resource="&ontology;ResourceType"/>
+        <rdfs:seeAlso rdf:resource="&ontology;ResourceTypeTable"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#uri_schema -->
+
+    <owl:ObjectProperty rdf:about="&ontology;uri_schema">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">uri schema</rdfs:label>
+        <rdfs:comment xml:lang="en">Schema describing the URI of an ELI instance. ELI uses URI template specifications (IETF RFC 6570). Schemes should be associated with member states and will be published in a registry.</rdfs:comment>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Format"/>
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#version -->
+
+    <owl:ObjectProperty rdf:about="&ontology;version">
+        <rdfs:label xml:lang="en">version</rdfs:label>
+        <rdfs:comment xml:lang="en">A skos concept scheme, could be locally defined? Group proposal is to start with an initial ELI scheme, that might include concepts of &quot;Official Journal&quot; &quot;made&quot; &quot;consolidated&quot; &quot;proposed&quot; &quot;prospective&quot;</rdfs:comment>
+        <rdfs:range rdf:resource="&ontology;Version"/>
+        <rdfs:seeAlso rdf:resource="&ontology;version_date"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/dc/terms/coverage -->
+
+    <owl:ObjectProperty rdf:about="&terms;coverage"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/format -->
+
+    <owl:ObjectProperty rdf:about="&terms;format"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/hasPart -->
+
+    <owl:ObjectProperty rdf:about="&terms;hasPart"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/isPartOf -->
+
+    <owl:ObjectProperty rdf:about="&terms;isPartOf"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/language -->
+
+    <owl:ObjectProperty rdf:about="&terms;language"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/licence -->
+
+    <owl:ObjectProperty rdf:about="&terms;licence"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/relation -->
+
+    <owl:ObjectProperty rdf:about="&terms;relation"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/subject -->
+
+    <owl:ObjectProperty rdf:about="&terms;subject"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/type -->
+
+    <owl:ObjectProperty rdf:about="&terms;type"/>
+    
+
+
+    <!-- http://rdaregistry.info/Elements/m/P30103 -->
+
+    <owl:ObjectProperty rdf:about="http://rdaregistry.info/Elements/m/P30103">
+        <rdfs:label xml:lang="en">has exemplar of manifestation</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.rdaregistry.info/Elements/e/#P20059 -->
+
+    <owl:ObjectProperty rdf:about="http://www.rdaregistry.info/Elements/e/#P20059">
+        <rdfs:label xml:lang="en">has manifestation of expression</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates an expression to a physical embodiment of an expression (RDA).</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.rdaregistry.info/Elements/e/#P20231 -->
+
+    <owl:ObjectProperty rdf:about="http://www.rdaregistry.info/Elements/e/#P20231">
+        <rdfs:label xml:lang="en">has work expressed</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates an expression to the work realized through an expression (RDA)</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.rdaregistry.info/Elements/m/#P30139 -->
+
+    <owl:ObjectProperty rdf:about="http://www.rdaregistry.info/Elements/m/#P30139">
+        <rdfs:label xml:lang="en">has expression manifested</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates a manifestation to an expression embodied in a manifestation (RDA)</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.rdaregistry.info/Elements/w/#P10078 -->
+
+    <owl:ObjectProperty rdf:about="http://www.rdaregistry.info/Elements/w/#P10078">
+        <rdfs:label xml:lang="en">has expression of work</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#date_document -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;date_document">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">date of the document</rdfs:label>
+        <rdfs:comment xml:lang="en">Date of adoption or signature (of the form yyyy-mm-dd)</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;date"/>
+        <rdfs:range rdf:resource="&xsd;date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#date_no_longer_in_force -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;date_no_longer_in_force">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">date no longer in force</rdfs:label>
+        <rdfs:comment xml:lang="en">If the date is known, it is when the legal resource or legal expression is no longer in force (can be seen as the end date of a dc:valid range for this resource)</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="&ontology;first_date_entry_in_force"/>
+        <rdfs:range rdf:resource="&xsd;date"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#date_publication -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;date_publication">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">date of publication</rdfs:label>
+        <rdfs:comment xml:lang="en">Date of publication of the official version of the legislation, in hard copy or online, depending on what the official publication is, and when it was published. Publication dates at the level of legal expressions can be separately asserted, using standard Dublin Core properties.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;issued"/>
+        <rdfs:range rdf:resource="&xsd;date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#description -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;description">
+        <rdfs:label xml:lang="en">description</rdfs:label>
+        <rdfs:comment xml:lang="en">An account of the resource (definition from Dubin Core), e.g a summary.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#first_date_entry_in_force -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;first_date_entry_in_force">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">first date of entry into force</rdfs:label>
+        <rdfs:comment xml:lang="en">The first date any part of the legal resource or legal expression came into force (can be seen as the start date of a dc:valid range for this resource)</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="&ontology;date_no_longer_in_force"/>
+        <rdfs:range rdf:resource="&xsd;date"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#id_local -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;id_local">
+        <rdfs:label xml:lang="en">local id</rdfs:label>
+        <rdfs:comment xml:lang="en">The unique identifier used in a local reference system to maintain backwards compatibility. For examples the CELEX at EU level, or the NOR in France.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;identifier"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Format"/>
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&xsd;anyURI"/>
+                    <rdf:Description rdf:about="&xsd;string"/>
+                </owl:unionOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#published_in -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;published_in">
+        <rdfs:label xml:lang="en">published in</rdfs:label>
+        <rdfs:comment xml:lang="en">Reference to the Official Journal or other publication in which the legal resource is published, identified by a suitable mechanism.
+Preferably to be expressed as a URI to a given resource, in the absence of such a URI as a descriptive string.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:seeAlso rdf:resource="&ontology;publishes"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&xsd;anyURI"/>
+                    <rdf:Description rdf:about="&xsd;string"/>
+                </owl:unionOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#publisher -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;publisher">
+        <rdfs:label xml:lang="en">publisher</rdfs:label>
+        <rdfs:comment xml:lang="en">An entity responsible for making the resource available (definition from Dublin Core)</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;publisher"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;Format"/>
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&xsd;anyURI"/>
+                    <rdf:Description rdf:about="&xsd;string"/>
+                </owl:unionOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#responsibility_of -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;responsibility_of">
+        <rdfs:label xml:lang="en">responsibility of</rdfs:label>
+        <rdfs:comment xml:lang="en">An individual, organisational unit or organisation that has some kind of responsibility for the legislation.</rdfs:comment>
+        <ontology:originalName xml:lang="en">service</ontology:originalName>
+        <rdfs:domain rdf:resource="&ontology;LegalResource"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#rights -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;rights">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">rights</rdfs:label>
+        <rdfs:comment xml:lang="en">Information about rights held in and over the resource (definition from Dublin Core)</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;rights"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&xsd;anyURI"/>
+                    <rdf:Description rdf:about="&xsd;string"/>
+                </owl:unionOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#rightsholder -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;rightsholder">
+        <rdfs:label xml:lang="en">rights holder</rdfs:label>
+        <rdfs:comment xml:lang="en">A person or organization owning or managing rights over the resource (definition from Dublin Core)</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;Format"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;rightsHolder"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&xsd;anyURI"/>
+                    <rdf:Description rdf:about="&xsd;string"/>
+                </owl:unionOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#title -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;title">
+        <rdfs:label xml:lang="en">title</rdfs:label>
+        <rdfs:comment xml:lang="en">The title, or name, of an expression. 
+
+Note that, if needed, a title can also be stated on a legal resource using the Dublin Core &quot;title&quot; property.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="&ontology;title_alternative"/>
+        <rdfs:seeAlso rdf:resource="&ontology;title_short"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#title_alternative -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;title_alternative">
+        <rdfs:label xml:lang="en">alternative title</rdfs:label>
+        <rdfs:comment xml:lang="en">An alternative title of the expression (if any).
+
+Note that, if needed, an alternative title can also be stated on a legal resource using the Dublin Core &quot;alternative&quot; property.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalExpression"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;alternative"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#title_short -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;title_short">
+        <rdfs:label xml:lang="en">short title</rdfs:label>
+        <rdfs:comment xml:lang="en">Established short title of the expression (if any)</rdfs:comment>
+        <rdfs:domain rdf:resource="&ontology;LegalExpression"/>
+        <rdfs:subPropertyOf rdf:resource="&terms;alternative"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#version_date -->
+
+    <owl:DatatypeProperty rdf:about="&ontology;version_date">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">version date</rdfs:label>
+        <rdfs:comment xml:lang="en">A date associated with the version.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&terms;date"/>
+        <rdfs:range rdf:resource="&xsd;date"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&ontology;LegalExpression"/>
+                    <rdf:Description rdf:about="&ontology;LegalResource"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://purl.org/dc/terms/alternative -->
+
+    <owl:DatatypeProperty rdf:about="&terms;alternative"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/date -->
+
+    <owl:DatatypeProperty rdf:about="&terms;date"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/identifier -->
+
+    <owl:DatatypeProperty rdf:about="&terms;identifier"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/issued -->
+
+    <owl:DatatypeProperty rdf:about="&terms;issued"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/publisher -->
+
+    <owl:DatatypeProperty rdf:about="&terms;publisher"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/rights -->
+
+    <owl:DatatypeProperty rdf:about="&terms;rights"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/rightsHolder -->
+
+    <owl:DatatypeProperty rdf:about="&terms;rightsHolder"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#AdministrativeArea -->
+
+    <owl:Class rdf:about="&ontology;AdministrativeArea">
+        <rdfs:label xml:lang="en">Administrative Area</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&skos;Concept"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&skos;inScheme"/>
+                        <owl:hasValue rdf:resource="&ontology;AdministrativeAreaTable"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+        <rdfs:comment xml:lang="en">Formally defined as the set of skos:Concept in concept scheme eli:AdministrativeAreaTable</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#Agent -->
+
+    <owl:Class rdf:about="&ontology;Agent">
+        <rdfs:label xml:lang="en">Agent</rdfs:label>
+        <owl:equivalentClass rdf:resource="http://rdaregistry.info/Elements/c/C10002"/>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#Format -->
+
+    <owl:Class rdf:about="&ontology;Format">
+        <rdfs:label xml:lang="en">Format</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://rdaregistry.info/Elements/c/C10007"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&ontology;format"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">The physical embodiment of a legal expression, either on paper or in any electronic format (definition adapted from RDA).
+For example, any electronic or physical format of the legal expression (XML, TIFF, PDF, etc.) ; e.g. PDF version of act 3 of 2005.  (adapted from Akoma Ntoso)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#InForce -->
+
+    <owl:Class rdf:about="&ontology;InForce">
+        <rdfs:label xml:lang="en">In force</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&skos;Concept"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&skos;inScheme"/>
+                        <owl:hasValue rdf:resource="&ontology;InForceTable"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+        <rdfs:comment xml:lang="en">Formally defined as the set of skos:Concept in concept scheme eli:InForceTable</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#Language -->
+
+    <owl:Class rdf:about="&ontology;Language">
+        <rdfs:label xml:lang="en">Language</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&skos;Concept"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&skos;inScheme"/>
+                        <owl:hasValue rdf:resource="http://publications.europa.eu/resource/authority/language"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+        <rdfs:comment xml:lang="en">Formally defined as the set of skos:Concept in concept scheme http://data.europa.eu/eli/ontology#language</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalExpression -->
+
+    <owl:Class rdf:about="&ontology;LegalExpression">
+        <rdfs:label xml:lang="en">Legal Expression</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://rdaregistry.info/Elements/c/C10006"/>
+        <rdfs:comment xml:lang="en">The intellectual realisation of a legal resource in the form of a &quot;sequence of signs&quot; (typically alpha-numeric characters in a legal context) (definition adapted from RDA)
+For example, any version of the legal resource whose content is specified and different from others for any reason: language, versions, etc.;
+
+Note that ELI ontology accommodates different point of view on what should be considered a new legal resource, or a new legal expression of the same resource. Typically, a consolidated version can be viewed, in the context of ELI, either as separate legal resource (linked to original version and previous consolidated version using corresponding ELI relations), or as a different legal expression of the same legal resource.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalResource -->
+
+    <owl:Class rdf:about="&ontology;LegalResource">
+        <rdfs:label xml:lang="en">Legal Resource</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://rdaregistry.info/Elements/c/C10001"/>
+        <rdfs:comment xml:lang="en">A distinct intellectual creation (i.e., the intellectual content). (definition adapted from RDA - Resource Description and Access, see http://www.rdaregistry.info/).
+For example, the abstract concept of the legal resource; e.g. &quot;act 3 of 2005&quot; (adapted from Akoma Ntoso)
+
+Legal resource can be linked together using properties defined in the model.
+A legal resource can represent a legal act or any component of a legal act, like an article.
+
+Note that ELI ontology accommodates different point of view on what should be considered a new legal resource, or a new legal expression of the same resource. Typically, a consolidated version can be viewed, in the context of ELI, either as separate legal resource (linked to original version and previous consolidated version using corresponding ELI relations), or as a different legal expression of the same legal resource.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalValue -->
+
+    <owl:Class rdf:about="&ontology;LegalValue">
+        <rdfs:label xml:lang="en">Legal value</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&skos;Concept"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&skos;inScheme"/>
+                        <owl:hasValue rdf:resource="&ontology;LegalValueTable"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+        <rdfs:comment xml:lang="en">Formally defined as the set of skos:Concept in concept scheme eli:LegalValueTable</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#ResourceType -->
+
+    <owl:Class rdf:about="&ontology;ResourceType">
+        <rdfs:label xml:lang="en">Resource type</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&skos;Concept"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&skos;inScheme"/>
+                        <owl:hasValue rdf:resource="&ontology;ResourceTypeTable"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+        <rdfs:comment xml:lang="en">Formally defined as the set of skos:Concept in concept scheme eli:ResourceTypeTable</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#Version -->
+
+    <owl:Class rdf:about="&ontology;Version">
+        <rdfs:label xml:lang="en">Version</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&skos;Concept"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&skos;inScheme"/>
+                        <owl:hasValue rdf:resource="&ontology;VersionTable"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+        <rdfs:comment xml:lang="en">Formally defined as the set of skos:Concept in concept scheme eli:VersionTable</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://rdaregistry.info/Elements/c/C10002 -->
+
+    <rdf:Description rdf:about="http://rdaregistry.info/Elements/c/C10002"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#AdministrativeAreaTable -->
+
+    <owl:NamedIndividual rdf:about="&ontology;AdministrativeAreaTable">
+        <rdf:type rdf:resource="&skos;ConceptScheme"/>
+        <rdfs:label xml:lang="en">Administrative area table</rdfs:label>
+        <skos:definition xml:lang="en">The set of possible values for describing the relevant area of a resource.
+ELI does not include a set of values for this table.</skos:definition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#InForce-inForce -->
+
+    <owl:NamedIndividual rdf:about="&ontology;InForce-inForce">
+        <rdf:type rdf:resource="&ontology;InForce"/>
+        <rdf:type rdf:resource="&skos;Concept"/>
+        <skos:prefLabel xml:lang="en">in force</skos:prefLabel>
+        <skos:inScheme rdf:resource="&ontology;InForceTable"/>
+        <skos:topConceptOf rdf:resource="&ontology;InForceTable"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#InForce-notInForce -->
+
+    <owl:NamedIndividual rdf:about="&ontology;InForce-notInForce">
+        <rdf:type rdf:resource="&ontology;InForce"/>
+        <rdf:type rdf:resource="&skos;Concept"/>
+        <skos:prefLabel xml:lang="en">not in force</skos:prefLabel>
+        <skos:topConceptOf rdf:resource="&ontology;InForceTable"/>
+        <skos:inScheme rdf:resource="&ontology;InForceTable"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#InForce-partiallyInForce -->
+
+    <owl:NamedIndividual rdf:about="&ontology;InForce-partiallyInForce">
+        <rdf:type rdf:resource="&ontology;InForce"/>
+        <rdf:type rdf:resource="&skos;Concept"/>
+        <skos:prefLabel xml:lang="en">partially in force</skos:prefLabel>
+        <skos:topConceptOf rdf:resource="&ontology;InForceTable"/>
+        <skos:inScheme rdf:resource="&ontology;InForceTable"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#InForceTable -->
+
+    <owl:NamedIndividual rdf:about="&ontology;InForceTable">
+        <rdf:type rdf:resource="&skos;ConceptScheme"/>
+        <rdfs:label xml:lang="en">In force table</rdfs:label>
+        <skos:definition xml:lang="en">The set of possible values for describing the legal force of a resource.
+ELI includes a set of values for this table.</skos:definition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalValue-authoritative -->
+
+    <owl:NamedIndividual rdf:about="&ontology;LegalValue-authoritative">
+        <rdf:type rdf:resource="&ontology;LegalValue"/>
+        <rdf:type rdf:resource="&skos;Concept"/>
+        <skos:example xml:lang="en">&quot;The Queens Printer&quot; version of a UK Act of Parliament, or the Official Journal version of a EU Directive published by EU Publications Office.</skos:example>
+        <skos:definition xml:lang="en">The publisher gives some special status to the publication of the document.</skos:definition>
+        <skos:prefLabel xml:lang="en">authoritative</skos:prefLabel>
+        <skos:narrower rdf:resource="&ontology;LegalValue-definitive"/>
+        <skos:broader rdf:resource="&ontology;LegalValue-official"/>
+        <skos:inScheme rdf:resource="&ontology;LegalValueTable"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalValue-definitive -->
+
+    <owl:NamedIndividual rdf:about="&ontology;LegalValue-definitive">
+        <rdf:type rdf:resource="&ontology;LegalValue"/>
+        <rdf:type rdf:resource="&skos;Concept"/>
+        <skos:definition xml:lang="en">Document for which the text is conclusively what the law says.</skos:definition>
+        <skos:example xml:lang="en">The digitally signed version of an Official Journal.</skos:example>
+        <skos:prefLabel xml:lang="en">definitive</skos:prefLabel>
+        <skos:broader rdf:resource="&ontology;LegalValue-authoritative"/>
+        <skos:inScheme rdf:resource="&ontology;LegalValueTable"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalValue-official -->
+
+    <owl:NamedIndividual rdf:about="&ontology;LegalValue-official">
+        <rdf:type rdf:resource="&ontology;LegalValue"/>
+        <rdf:type rdf:resource="&skos;Concept"/>
+        <skos:example xml:lang="en">A consolidated version of a EU directive published by EU Publications Office.</skos:example>
+        <skos:definition xml:lang="en">Document is published by an organisation with the public task of making the information available.</skos:definition>
+        <skos:prefLabel xml:lang="en">official</skos:prefLabel>
+        <skos:narrower rdf:resource="&ontology;LegalValue-authoritative"/>
+        <skos:topConceptOf rdf:resource="&ontology;LegalValueTable"/>
+        <skos:inScheme rdf:resource="&ontology;LegalValueTable"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalValue-unofficial -->
+
+    <owl:NamedIndividual rdf:about="&ontology;LegalValue-unofficial">
+        <rdf:type rdf:resource="&ontology;LegalValue"/>
+        <rdf:type rdf:resource="&skos;Concept"/>
+        <skos:definition xml:lang="en">Document has no particular or special standing.</skos:definition>
+        <skos:prefLabel xml:lang="en">unofficial</skos:prefLabel>
+        <skos:inScheme rdf:resource="&ontology;LegalValueTable"/>
+        <skos:topConceptOf rdf:resource="&ontology;LegalValueTable"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#LegalValueTable -->
+
+    <owl:NamedIndividual rdf:about="&ontology;LegalValueTable">
+        <rdf:type rdf:resource="&skos;ConceptScheme"/>
+        <rdfs:label xml:lang="en">Legal value table</rdfs:label>
+        <skos:definition xml:lang="en">The set of possible values for describing the legal value of a resource.
+ELI ontology includes a set of values for this table.</skos:definition>
+        <skos:hasTopConcept rdf:resource="&ontology;LegalValue-official"/>
+        <skos:hasTopConcept rdf:resource="&ontology;LegalValue-unofficial"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#ResourceTypeTable -->
+
+    <owl:NamedIndividual rdf:about="&ontology;ResourceTypeTable">
+        <rdf:type rdf:resource="&skos;ConceptScheme"/>
+        <rdfs:label xml:lang="en">Resource type table</rdfs:label>
+        <skos:definition xml:lang="en">The set of possible values for describing the type of a resource.
+ELI does not include a set of values for this table.</skos:definition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://data.europa.eu/eli/ontology#VersionTable -->
+
+    <owl:NamedIndividual rdf:about="&ontology;VersionTable">
+        <rdf:type rdf:resource="&skos;ConceptScheme"/>
+        <rdfs:label xml:lang="en">Version table</rdfs:label>
+        <skos:definition xml:lang="en">The set of possible values for describing the version of a resource.
+ELI does not include a set of values for this table.</skos:definition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://publications.europa.eu/resource/authority/language -->
+
+    <owl:NamedIndividual rdf:about="http://publications.europa.eu/resource/authority/language">
+        <rdf:type rdf:resource="&skos;ConceptScheme"/>
+        <skos:definition xml:lang="en">The set of possible values for describing the language of a resource.
+ELI does not include a set of values for this table.</skos:definition>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

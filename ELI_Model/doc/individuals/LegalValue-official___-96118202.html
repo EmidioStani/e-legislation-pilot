@@ -27,14 +27,14 @@
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="../classes/LegalValue___1388930526.html" class='Class' title="http://data.europa.eu/eli/ontology#LegalValue">'Legal&nbsp;value'</a></li>
-<li class="asserted"><a href="../classes/Concept___-236586259.html" class='Class' title="http://www.w3.org/2004/02/skos/core#Concept">skos:Concept</a></li>
+<li class="asserted"><a href="../classes/Concept___-236586259.html" class='Class' title="http://www.w3.org/2004/02/skos/core#Concept">Concept</a></li>
 </ul>
 </div>
 </div><!-- types (2) -->
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"Published"</span> <span style='color: black;'>@en</span></li>
@@ -43,18 +43,19 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
-<h4><a href="../annotationproperties/inScheme___1066198991.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#inScheme">skos:inScheme</a></h4>
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
+</div><!-- usage (2) -->
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"in force"</span> <span style='color: black;'>@en</span></li>
@@ -63,18 +64,8 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#topconceptof>_(1)'>
-<h4><a href="../annotationproperties/topConceptOf___-2081128145.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">skos:topConceptOf</a></h4>
-<div class='codebox'>
-<ul>
-<li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
-</ul>
-</div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#topconceptof> (1) -->
-
-
 <div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
-<h4><a href="../annotationproperties/inScheme___1066198991.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#inScheme">skos:inScheme</a></h4>
+<h4><a href="../objectproperties/inScheme___1066198991.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#inScheme">'is&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
@@ -83,8 +74,29 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
 
 
+<div id='<http://www.w3.org/2004/02/skos/core#topconceptof>_(1)'>
+<h4><a href="../objectproperties/topConceptOf___-2081128145.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">'is&nbsp;top&nbsp;concept&nbsp;in&nbsp;scheme'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#topconceptof> (1) -->
+
+
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
 <div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"not in force"</span> <span style='color: black;'>@en</span></li>
@@ -93,18 +105,8 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#topconceptof>_(1)'>
-<h4><a href="../annotationproperties/topConceptOf___-2081128145.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">skos:topConceptOf</a></h4>
-<div class='codebox'>
-<ul>
-<li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
-</ul>
-</div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#topconceptof> (1) -->
-
-
 <div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
-<h4><a href="../annotationproperties/inScheme___1066198991.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#inScheme">skos:inScheme</a></h4>
+<h4><a href="../objectproperties/inScheme___1066198991.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#inScheme">'is&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
@@ -113,18 +115,8 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
-<div class='codebox'>
-<ul>
-<li class="asserted"><span class='literal'>"partially in force"</span> <span style='color: black;'>@en</span></li>
-</ul>
-</div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
-
-
 <div id='<http://www.w3.org/2004/02/skos/core#topconceptof>_(1)'>
-<h4><a href="../annotationproperties/topConceptOf___-2081128145.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">skos:topConceptOf</a></h4>
+<h4><a href="../objectproperties/topConceptOf___-2081128145.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">'is&nbsp;top&nbsp;concept&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
@@ -133,18 +125,70 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#topconceptof> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#broader>_(1)'>
-<h4><a href="../annotationproperties/broader___1592974164.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#broader">skos:broader</a></h4>
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#broader> (1) -->
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"partially in force"</span> <span style='color: black;'>@en</span></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
+<h4><a href="../objectproperties/inScheme___1066198991.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#inScheme">'is&nbsp;in&nbsp;scheme'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#topconceptof>_(1)'>
+<h4><a href="../objectproperties/topConceptOf___-2081128145.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">'is&nbsp;top&nbsp;concept&nbsp;in&nbsp;scheme'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="InForceTable___1679109710.html" class='Individual' title="http://data.europa.eu/eli/ontology#InForceTable">'In&nbsp;force&nbsp;table'</a></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#topconceptof> (1) -->
+
+
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"authoritative"</span> <span style='color: black;'>@en</span></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"The publisher gives some special status to the publication of the document."</span> <span style='color: black;'>@en</span></li>
@@ -154,7 +198,7 @@
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#example>_(1)'>
-<h4><a href="../annotationproperties/example___119732751.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#example">skos:example</a></h4>
+<h4><a href="../annotationproperties/example___119732751.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#example">example</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>""The Queens Printer" version of a UK Act of Parliament, or the Official Journal version of a EU Directive published by EU Publications Office."</span> <span style='color: black;'>@en</span></li>
@@ -163,18 +207,18 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#example> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
-<h4><a href="../annotationproperties/inScheme___1066198991.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#inScheme">skos:inScheme</a></h4>
+<div id='<http://www.w3.org/2004/02/skos/core#broader>_(1)'>
+<h4><a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a></h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
+<li class="asserted"><span class='Individual active-entity'>official</span></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
+</div><!-- <http://www.w3.org/2004/02/skos/core#broader> (1) -->
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#narrower>_(1)'>
-<h4><a href="../annotationproperties/narrower___-855715091.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#narrower">skos:narrower</a></h4>
+<h4><a href="../objectproperties/narrower___-855715091.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#narrower">'has&nbsp;narrower'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="LegalValue-definitive___874206270.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-definitive">definitive</a></li>
@@ -183,14 +227,35 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#narrower> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
+<div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
+<h4><a href="../objectproperties/inScheme___1066198991.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#inScheme">'is&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='literal'>"authoritative"</span> <span style='color: black;'>@en</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
+</div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
+
+
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"The set of possible values for describing the relevant area of a resource.<br />ELI does not include a set of values for this table."</span> <span style='color: black;'>@en</span></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
 
 
 <div id='rdfs:label_(1)'>
@@ -203,18 +268,29 @@
 </div><!-- rdfs:label (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='literal'>"The set of possible values for describing the relevant area of a resource.<br />ELI does not include a set of values for this table."</span> <span style='color: black;'>@en</span></li>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"unofficial"</span> <span style='color: black;'>@en</span></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"Document has no particular or special standing."</span> <span style='color: black;'>@en</span></li>
@@ -224,7 +300,7 @@
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
-<h4><a href="../annotationproperties/inScheme___1066198991.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#inScheme">skos:inScheme</a></h4>
+<h4><a href="../objectproperties/inScheme___1066198991.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#inScheme">'is&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
@@ -233,24 +309,35 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
-<div class='codebox'>
-<ul>
-<li class="asserted"><span class='literal'>"unofficial"</span> <span style='color: black;'>@en</span></li>
-</ul>
-</div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
-
-
 <div id='<http://www.w3.org/2004/02/skos/core#topconceptof>_(1)'>
-<h4><a href="../annotationproperties/topConceptOf___-2081128145.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">skos:topConceptOf</a></h4>
+<h4><a href="../objectproperties/topConceptOf___-2081128145.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">'is&nbsp;top&nbsp;concept&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
 </ul>
 </div>
 </div><!-- <http://www.w3.org/2004/02/skos/core#topconceptof> (1) -->
+
+
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"The set of possible values for describing the version of a resource.<br />ELI does not include a set of values for this table."</span> <span style='color: black;'>@en</span></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
 
 
 <div id='rdfs:label_(1)'>
@@ -263,11 +350,22 @@
 </div><!-- rdfs:label (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='literal'>"The set of possible values for describing the version of a resource.<br />ELI does not include a set of values for this table."</span> <span style='color: black;'>@en</span></li>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"The set of possible values for describing the legal force of a resource.<br />ELI includes a set of values for this table."</span> <span style='color: black;'>@en</span></li>
 </ul>
 </div>
 </div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
@@ -283,28 +381,29 @@
 </div><!-- rdfs:label (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='literal'>"The set of possible values for describing the legal force of a resource.<br />ELI includes a set of values for this table."</span> <span style='color: black;'>@en</span></li>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
+</div><!-- usage (2) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#broader>_(1)'>
-<h4><a href="../annotationproperties/broader___1592974164.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#broader">skos:broader</a></h4>
+<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a></li>
+<li class="asserted"><span class='literal'>"definitive"</span> <span style='color: black;'>@en</span></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#broader> (1) -->
+</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"Document for which the text is conclusively what the law says."</span> <span style='color: black;'>@en</span></li>
@@ -314,7 +413,7 @@
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#example>_(1)'>
-<h4><a href="../annotationproperties/example___119732751.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#example">skos:example</a></h4>
+<h4><a href="../annotationproperties/example___119732751.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#example">example</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"The digitally signed version of an Official Journal."</span> <span style='color: black;'>@en</span></li>
@@ -323,8 +422,18 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#example> (1) -->
 
 
+<div id='<http://www.w3.org/2004/02/skos/core#broader>_(1)'>
+<h4><a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#broader> (1) -->
+
+
 <div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
-<h4><a href="../annotationproperties/inScheme___1066198991.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#inScheme">skos:inScheme</a></h4>
+<h4><a href="../objectproperties/inScheme___1066198991.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#inScheme">'is&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
@@ -333,14 +442,35 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='literal'>"definitive"</span> <span style='color: black;'>@en</span></li>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#hastopconcept>_(1)'>
+<h4><a href="../annotationproperties/hasTopConcept___-2005567950.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="ACT___132357592.html" class='Individual' title="http://publications.europa.eu/authority/resource-type/ACT">http://publications.europa.eu/authority/resource-type/ACT</a></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#hastopconcept> (1) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"The set of possible values for describing the type of a resource.<br />ELI does not include a set of values for this table."</span> <span style='color: black;'>@en</span></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
 
 
 <div id='rdfs:label_(1)'>
@@ -353,24 +483,25 @@
 </div><!-- rdfs:label (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='literal'>"The set of possible values for describing the type of a resource.<br />ELI does not include a set of values for this table."</span> <span style='color: black;'>@en</span></li>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"The set of possible values for describing the legal value of a resource.<br />ELI ontology includes a set of values for this table."</span> <span style='color: black;'>@en</span></li>
 </ul>
 </div>
 </div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
-
-
-<div id='<http://www.w3.org/2004/02/skos/core#hastopconcept>_(1)'>
-<h4><a href="../annotationproperties/hasTopConcept___-2005567950.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">skos:hasTopConcept</a></h4>
-<div class='codebox'>
-<ul>
-<li class="asserted"><a href="ACT___132357592.html" class='Individual' title="http://publications.europa.eu/authority/resource-type/ACT">http://publications.europa.eu/authority/resource-type/ACT</a></li>
-</ul>
-</div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#hastopconcept> (1) -->
 
 
 <div id='rdfs:label_(1)'>
@@ -383,18 +514,8 @@
 </div><!-- rdfs:label (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
-<div class='codebox'>
-<ul>
-<li class="asserted"><span class='literal'>"The set of possible values for describing the legal value of a resource.<br />ELI ontology includes a set of values for this table."</span> <span style='color: black;'>@en</span></li>
-</ul>
-</div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
-
-
 <div id='<http://www.w3.org/2004/02/skos/core#hastopconcept>_(2)'>
-<h4><a href="../annotationproperties/hasTopConcept___-2005567950.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">skos:hasTopConcept</a></h4>
+<h4><a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='Individual active-entity'>official</span></li>
@@ -404,8 +525,19 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#hastopconcept> (2) -->
 
 
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
 <div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"The set of possible values for describing the language of a resource.<br />ELI does not include a set of values for this table."</span> <span style='color: black;'>@en</span></li>
@@ -414,8 +546,29 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#definition> (1) -->
 
 
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
+
+
+<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
+<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">'preferred&nbsp;label'</a></h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><span class='literal'>"official"</span> <span style='color: black;'>@en</span></li>
+</ul>
+</div>
+</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
+
+
 <div id='<http://www.w3.org/2004/02/skos/core#definition>_(1)'>
-<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">skos:definition</a></h4>
+<h4><a href="../annotationproperties/definition___428285432.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#definition">definition</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"Document is published by an organisation with the public task of making the information available."</span> <span style='color: black;'>@en</span></li>
@@ -425,7 +578,7 @@
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#example>_(1)'>
-<h4><a href="../annotationproperties/example___119732751.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#example">skos:example</a></h4>
+<h4><a href="../annotationproperties/example___119732751.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#example">example</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><span class='literal'>"A consolidated version of a EU directive published by EU Publications Office."</span> <span style='color: black;'>@en</span></li>
@@ -434,18 +587,8 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#example> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
-<h4><a href="../annotationproperties/inScheme___1066198991.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#inScheme">skos:inScheme</a></h4>
-<div class='codebox'>
-<ul>
-<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
-</ul>
-</div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
-
-
 <div id='<http://www.w3.org/2004/02/skos/core#narrower>_(1)'>
-<h4><a href="../annotationproperties/narrower___-855715091.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#narrower">skos:narrower</a></h4>
+<h4><a href="../objectproperties/narrower___-855715091.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#narrower">'has&nbsp;narrower'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a></li>
@@ -454,24 +597,35 @@
 </div><!-- <http://www.w3.org/2004/02/skos/core#narrower> (1) -->
 
 
-<div id='<http://www.w3.org/2004/02/skos/core#preflabel>_(1)'>
-<h4><a href="../annotationproperties/prefLabel___125088566.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#prefLabel">skos:prefLabel</a></h4>
+<div id='<http://www.w3.org/2004/02/skos/core#inscheme>_(1)'>
+<h4><a href="../objectproperties/inScheme___1066198991.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#inScheme">'is&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
-<li class="asserted"><span class='literal'>"official"</span> <span style='color: black;'>@en</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
 </ul>
 </div>
-</div><!-- <http://www.w3.org/2004/02/skos/core#preflabel> (1) -->
+</div><!-- <http://www.w3.org/2004/02/skos/core#inscheme> (1) -->
 
 
 <div id='<http://www.w3.org/2004/02/skos/core#topconceptof>_(1)'>
-<h4><a href="../annotationproperties/topConceptOf___-2081128145.html" class='Annotation Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">skos:topConceptOf</a></h4>
+<h4><a href="../objectproperties/topConceptOf___-2081128145.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#topConceptOf">'is&nbsp;top&nbsp;concept&nbsp;in&nbsp;scheme'</a></h4>
 <div class='codebox'>
 <ul>
 <li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a></li>
 </ul>
 </div>
 </div><!-- <http://www.w3.org/2004/02/skos/core#topconceptof> (1) -->
+
+
+<div id='usage_(2)'>
+<h4>Usage (2)</h4>
+<div class='codebox'>
+<ul>
+<li class="asserted"><a href="LegalValue-authoritative___-359355808.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValue-authoritative">authoritative</a> <a href="../objectproperties/broader___1592974164.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#broader">'has&nbsp;broader'</a> <span class='Individual active-entity'>official</span></li>
+<li class="asserted"><a href="LegalValueTable___621878236.html" class='Individual' title="http://data.europa.eu/eli/ontology#LegalValueTable">'Legal&nbsp;value&nbsp;table'</a> <a href="../objectproperties/hasTopConcept___-2005567950.html" class='Object Property' title="http://www.w3.org/2004/02/skos/core#hasTopConcept">'has&nbsp;top&nbsp;concept'</a> <span class='Individual active-entity'>official</span></li>
+</ul>
+</div>
+</div><!-- usage (2) -->
 
 </div> <!-- summary -->
 <p class='footer'>
