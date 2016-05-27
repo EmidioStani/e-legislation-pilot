@@ -41,13 +41,13 @@ var elem = [
 	['paragraph', 'p']
 ];
 
-var args = process.argv.slice(2);
-var filePath = args[0];
-var outputPath = args[1];
-var host = args[2];
-//var filePath = 'html';
-//var outputPath = 'rdfa';
-//var host = 'http://localhost:8890/e-legislation';
+//var args = process.argv.slice(2);
+//var filePath = args[0];
+//var outputPath = args[1];
+//var host = args[2];
+var filePath = 'html';
+var outputPath = 'rdfa';
+var host = 'http://localhost:8890/e-legislation';
 if (host.slice(-1) !== '/') {
 	host = host + '/';
 }
@@ -101,8 +101,10 @@ input.forEach(function (fileName) {
         paragraph_attributes,
         wrap_paragraph,
         paragraph_append,
+        seen,
         article_next;
 
+    seen = {};
 	h1s = $(chapter).get().length;
 	h3s = $(article).get().length;
 
@@ -168,8 +170,9 @@ input.forEach(function (fileName) {
 		article_number.next().children().first().attr({
 			property: 'dct:title'
 		});
-		article_number.next('div').prepend('<span property="eli:is_part_of" resource="' + eli_base + '"/>');
-		article_number.next('div').prepend('<span property="eli:publisher" content="http://www.et.gr/"/>');
+		article_number.next('div').prepend('<span property="eli:is_part_of" resource="' + eli_base + '"></span>');
+		article_number.next('div').prepend('<span property="eli:publisher" content="http://www.et.gr/"></span>');
+		article_number.next('div').prepend('<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>');
 	}
 
 	/*=================*/
@@ -234,29 +237,40 @@ input.forEach(function (fileName) {
 	/*========================*/
 	/* eli:changes attributes */
 	/*========================*/
-
+	//Add changes elements
 	$('div[property="eli:description"]').each(function () {
 		link = $(this).children(paragraph).first().text();
 		actID = link.match(/[0-9]{4}\/[0-9]{4}/);
 		if (actID) { //If a reference is made to another piece of legislation
 			actID = actID[0];
 			articleID = link.match(/άρθρο +[0-9]+|άρθρου +[0-9]+/);
-			if (articleID) { //If granularity of paragraph is defined
+			if (articleID) { //If granularity of article is defined
 				articleID = articleID[0].match(/[0-9]+$/);
 				paragraphID = link.match(/παράγραφος +[0-9]+|παράγραφοι +[0-9]+/);
 				if (paragraphID) { //If granularity of paragraph is defined
 					paragraphID = paragraphID[0].match(/[0-9]+$/);
 					//This is the type_doc of the amendment! Type doc in the change is different from the type doc in the consolidated version
-					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '/paragraph_' + paragraphID + '" />');
+					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '/paragraph_' + paragraphID + '"></span>');
+					$(this).parents('div[typeof="http://localhost:8890/e-legislation/vocabulary#article"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>')
+					$('div[typeof="http://localhost:8890/e-legislation/vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				} else {
-					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '" />');
+					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>');
+					$('div[typeof="http://localhost:8890/e-legislation/vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				}
 			} else {
-				$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '" />');
+				$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>');
 			}
 		}
 	});
-
+	//Remove any duplicate changes elements
+	$('span[property="eli:changes"]').each(function() {
+	    var txt = $(this).attr("resource");
+	    if (seen[txt]) {
+	        $(this).remove();
+	    } else {
+	        seen[txt] = true;
+	    }
+	});
 	/*=================*/
 	/* GENERATE OUTPUT */
 	/*=================*/

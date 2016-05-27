@@ -41,13 +41,13 @@ var elem = [
 	['article', 'h3'],
 	['paragraph', 'p']
 ];
-var args = process.argv.slice(2);
-var filePath = args[0];
-var outputPath = args[1];
-var host = args[2];
-//var filePath = 'html';
-//var outputPath = 'rdfa';
-//var host = 'http://localhost:8890/e-legislation';
+//var args = process.argv.slice(2);
+//var filePath = args[0];
+//var outputPath = args[1];
+//var host = args[2];
+var filePath = 'html';
+var outputPath = 'rdfa';
+var host = 'http://localhost:8890/e-legislation';
 if (host.slice(-1) !== '/') {
 	host = host + '/';
 }
@@ -155,13 +155,13 @@ input.forEach(function (fileName) {
     wrap_base = $('<div about="' + eli_base + '" typeof="' + host + 'vocabulary#act">');
 	$(paragraph).first().wrap(wrap_base);
 
-    paragraph_attributes = '<span property="eli:title" content="' + title + '"/>';
-	paragraph_attributes += '<span property="eli:type_document" content="' + type_document + '"/>';
-	paragraph_attributes += '<span property="eli:id_local" content="' + identifier + '"/>';
-	paragraph_attributes += '<span property="eli:publisher" content="http://www.et.gr/"/>';
-	paragraph_attributes += '<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"/>';
-	paragraph_attributes += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"/>';
-	paragraph_attributes += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"/>';
+    paragraph_attributes = '<span property="eli:title" content="' + title + '"></span>';
+	paragraph_attributes += '<span property="eli:type_document" content="' + type_document + '"></span>';
+	paragraph_attributes += '<span property="eli:id_local" content="' + identifier + '"></span>';
+	paragraph_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+	paragraph_attributes += '<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"></span>';
+	paragraph_attributes += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
+	paragraph_attributes += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
     wrap_base.append(paragraph_attributes);
 
 	/*=============*/
@@ -181,8 +181,8 @@ input.forEach(function (fileName) {
 	$('h2').first().html(text);
 	//Add eli:is_part_of attributes to link chapters to the act
 	h1s = $(chapter).get().length;
-    chapter_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"/>';
-    chapter_attributes += '<span property="eli:publisher" content="http://www.et.gr/" />';
+    chapter_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
+    chapter_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
 	for (i = 0; i < h1s; i += 1) {
 		count = i + 1;
         chapter_number = $(chapter).eq(i);
@@ -202,7 +202,7 @@ input.forEach(function (fileName) {
         this_parent = $(this).parent();
 		actID = this_parent.attr('resource');
 		chapterID = this_parent.attr('about');
-		$('div[about="' + actID + '"]').append('<span about="' + actID + '" property="eli:has_part" resource="' + chapterID + '"/>');
+		$('div[about="' + actID + '"]').first().append('<span about="' + actID + '" property="eli:has_part" resource="' + chapterID + '"></span>');
 	});
 
 	/*===============*/
@@ -210,8 +210,8 @@ input.forEach(function (fileName) {
 	/*===============*/
 	//Add eli:title attributes to the articles
 	//Add eli:is_part_of attributes to link chapters to the act
-    article_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"/>';
-    article_attributes += '<span property="eli:publisher" content="http://www.et.gr/" />';
+    article_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
+    article_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
 	for (i = 0; i < h3s; i += 1) {
 		count = i + 1;
         article_number = $(article).eq(i);
@@ -232,7 +232,7 @@ input.forEach(function (fileName) {
         article_parent = $(this).parent();
         chapterID = article_parent.attr('resource');
         articleID = article_parent.attr('about');
-        $('div[about="' + chapterID + '"]').append('<span property="eli:has_part" resource="' + articleID + '"/>');
+        $('div[about="' + chapterID + '"]').append('<span property="eli:has_part" resource="' + articleID + '"></span>');
 	});
 
 	/*=================*/
@@ -242,6 +242,7 @@ input.forEach(function (fileName) {
         //The following regex matches paragraph that start with either: Άρθρ.X, X. or «X. with X between 0-9
         if (/^[0-9][.].?|^[«][0-9].?|^(Άρθρ)[.][0-9].?|^(΄Αρθρ)[.][0-9].?/.test($(this).text()) === true) {
             j += 1;
+            //console.log('/article_' + count + '/paragraph_' + j);
             $(this).attr({
                 class: 'paragraph',
                 about: eli_base + '/article_' + count + '/paragraph_' + j,
@@ -269,7 +270,7 @@ input.forEach(function (fileName) {
         this_paragraph = $(this);
         articleID = this_paragraph.attr('resource');
 		paragraphID = this_paragraph.attr('about');
-		$('div[about="' + articleID + '"]').append('<span property="eli:has_part" resource="' + paragraphID + '"/>');
+		$('div[about="' + articleID + '"]').append('<span property="eli:has_part" resource="' + paragraphID + '"></span>');
 	});
 
     //Wrap paragraphs in div
@@ -278,9 +279,9 @@ input.forEach(function (fileName) {
         eli_count = eli_base + '/article_' + count;
 		paragraphCount = $(article + '[id="' + eli_count + '"]').siblings('span').get().length;
 
-        paragraph_attr = '<span class="plink" property="eli:is_part_of" resource="' + eli_count + '" />';
-        paragraph_attr += '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"/>';
-        paragraph_attr += '<span property="eli:publisher" content="http://www.et.gr/"/>';
+        paragraph_attr = '<span class="plink" property="eli:is_part_of" resource="' + eli_count + '"></span>';
+        paragraph_attr += '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
+        paragraph_attr += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
 		for (j = 0; j < paragraphCount; j += 1) {
 			pcount = j + 1;
             paragraph_wrap = $('<div about="' + eli_count + '/paragraph_' + j + '" typeof="' + host + 'vocabulary#paragraph">');

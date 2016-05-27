@@ -1,5 +1,5 @@
 <?vsp 
-declare _cat, _type, _level, _id, _year, _ref, _par, _uri, date_current varchar;
+declare _cat, _type, _level, _id, _year, _ref, _par, _uri varchar;
 _type := charset_recode(get_keyword('type', params, ''), 'UTF-8', '_WIDE_');
 _level := get_keyword('level', params, '');
 _id := get_keyword('id', params, '');
@@ -41,8 +41,6 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
   <link rel="stylesheet" type="text/css" href="/e-legislation/css/screen.css" />
   <link rel="stylesheet" type="text/css" href="/e-legislation/css/jquery.treemenu.css" />
   <link rel="stylesheet" type="text/css" href="/e-legislation/css/changesOverTime.css" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/timeline.css" />
-  <script type="text/javascript" src="/e-legislation/js/modernizr.js"></script>
 </head>
 
 <body>
@@ -83,75 +81,10 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher
                       }) do { 
 	?>
-	<?vsp
-	date_current := split_and_decode(datestring(date_document),0,'\0\0-');
-	date_current := concat(date_current[2],'/',date_current[1],'/',date_current[0]);
-	?>
-		<div id="changesOverTime">
-		<h1>Changes over time</h1>
-		<div id="timeline">
-			<div id="timelineData">
-				<ul>
-						<?vsp
-						for(sparql  SELECT distinct * 
-									FROM <http://52.50.205.146/legislation-pilot>
-									WHERE { 
-										{ `iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?p } 
-										UNION
-										{ ?p <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` } .
-										OPTIONAL { ?p <http://data.europa.eu/eli/ontology#date_document> ?date_change } .
-										`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_reference .
-										FILTER (?date_change < ?date_reference)
-									}) do { 
-						date_change := split_and_decode(datestring(date_change),0,'\0\0-');
-						date_change := concat(date_change[2],'/',date_change[1],'/',date_change[0]);
-						?>
-						<li>
-							<a href="<?vsp http(p); ?>">
-								<span class="pointer">
-									<span><?= date_change ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp } ?>
-						<li class="currentVersion">
-							<a href="<?vsp http(_uri); ?>" class="selected">
-								<span class="pointer">
-									<span><?= date_current ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp
-						for(sparql  SELECT distinct * 
-									FROM <http://52.50.205.146/legislation-pilot>
-									WHERE { 
-										{ `iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?p } 
-										UNION
-										{ ?p <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` } .
-										OPTIONAL { ?p <http://data.europa.eu/eli/ontology#date_document> ?date_change } .
-										`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_reference .
-										FILTER (?date_change > ?date_reference)
-									}) do { 
-						date_change := split_and_decode(datestring(date_change),0,'\0\0-');
-						date_change := concat(date_change[2],'/',date_change[1],'/',date_change[0]);
-						?>
-						<li>
-							<a href="<?vsp http(p); ?>">
-								<span class="pointer">
-									<span><?= date_change ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp } ?>
-						<!-- other dates here -->
-				</ul>
-			</div>
-		</div>
-	</div>
 	<h1>Title: <a href="<?vsp http(_uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></h1>
 	<h1>Type of Document: <?= charset_recode(type_document, 'UTF-8', '_WIDE_') ?></h1>
-	<h1>Document Date: <?= date_current ?></h1>
-	<h1>Publisher: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1>Document Date: <?= date_document ?></h1>
+	<h1>Publisher: <?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></h1>
 	<?vsp } ?>
 	<br/>
 	<br/>
@@ -225,79 +158,14 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher
 					  }) do { ?>
-	<?vsp
-	date_current := split_and_decode(datestring(date_document),0,'\0\0-');
-	date_current := concat(date_current[2],'/',date_current[1],'/',date_current[0]);
-	?>
-	<div id="changesOverTime">
-		<h1>Changes over time</h1>
-		<div id="timeline">
-			<div id="timelineData">
-				<ul>
-						<?vsp
-						for(sparql  SELECT distinct * 
-									FROM <http://52.50.205.146/legislation-pilot>
-									WHERE { 
-										{ `iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?p } 
-										UNION
-										{ ?p <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` } .
-										OPTIONAL { ?p <http://data.europa.eu/eli/ontology#date_document> ?date_change } .
-										`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_reference .
-										FILTER (?date_change < ?date_reference)
-									}) do { 
-						date_change := split_and_decode(datestring(date_change),0,'\0\0-');
-						date_change := concat(date_change[2],'/',date_change[1],'/',date_change[0]);
-						?>
-						<li>
-							<a href="<?vsp http(p); ?>">
-								<span class="pointer">
-									<span><?= date_change ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp } ?>
-						<li class="currentVersion">
-							<a href="<?vsp http(_uri); ?>" class="selected">
-								<span class="pointer">
-									<span><?= date_current ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp
-						for(sparql  SELECT distinct * 
-									FROM <http://52.50.205.146/legislation-pilot>
-									WHERE { 
-										{ `iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?p } 
-										UNION
-										{ ?p <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` } .
-										OPTIONAL { ?p <http://data.europa.eu/eli/ontology#date_document> ?date_change } .
-										`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_reference .
-										FILTER (?date_change > ?date_reference)
-									}) do { 
-						date_change := split_and_decode(datestring(date_change),0,'\0\0-');
-						date_change := concat(date_change[2],'/',date_change[1],'/',date_change[0]);
-						?>
-						<li>
-							<a href="<?vsp http(p); ?>">
-								<span class="pointer">
-									<span><?= date_change ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp } ?>
-						<!-- other dates here -->
-				</ul>
-			</div>
-		</div>
-	</div>
 	<h1>Title: 
 		<a href="<?vsp http(_uri); ?>">
 			<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
 			<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
 		</a>
 	</h1>
-	<h1>Document Date: <?= date_current ?></h1>
-	<h1>Publisher: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1>Document Date: <?= date_document ?></h1>
+	<h1>Publisher: <?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></h1>
 	<?vsp } ?>
 	<br/>
 	<?vsp 
@@ -374,78 +242,11 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 				FROM <http://52.50.205.146/legislation-pilot>
 				WHERE { 
 					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#description> ?description .
-					OPTIONAL { `iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document } .
-					OPTIONAL { `iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher }
+					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
+					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher
 				}) do { ?>
-	<?vsp
-	date_current := split_and_decode(datestring(date_document),0,'\0\0-');
-	date_current := concat(date_current[2],'/',date_current[1],'/',date_current[0]);
-	?>
-	<div id="changesOverTime">
-		<h1>Changes over time</h1>
-		<div id="timeline">
-			<div id="timelineData">
-				<ul>
-						<?vsp
-						for(sparql  SELECT distinct * 
-									FROM <http://52.50.205.146/legislation-pilot>
-									WHERE { 
-										{ `iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?p } 
-										UNION
-										{ ?p <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` } .
-										OPTIONAL { ?p <http://data.europa.eu/eli/ontology#date_document> ?date_change } .
-										`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_reference .
-										FILTER (?date_change < ?date_reference)
-									}) do { 
-						date_change := split_and_decode(datestring(date_change),0,'\0\0-');
-						date_change := concat(date_change[2],'/',date_change[1],'/',date_change[0]);
-						?>
-						<li>
-							<a href="<?vsp http(p); ?>">
-								<span class="pointer">
-									<span><?= date_change ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp } ?>
-						<li class="currentVersion">
-							<a href="<?vsp http(_uri); ?>" class="selected">
-								<span class="pointer">
-									<span><?= date_current ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp
-						for(sparql  SELECT distinct * 
-									FROM <http://52.50.205.146/legislation-pilot>
-									WHERE { 
-										{ `iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?p } 
-										UNION
-										{ ?p <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` } .
-										OPTIONAL { ?p <http://data.europa.eu/eli/ontology#date_document> ?date_change } .
-										`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_reference .
-										FILTER (?date_change > ?date_reference)
-									}) do { 
-						date_change := split_and_decode(datestring(date_change),0,'\0\0-');
-						date_change := concat(date_change[2],'/',date_change[1],'/',date_change[0]);
-						?>
-						<li>
-							<a href="<?vsp http(p); ?>">
-								<span class="pointer">
-									<span><?= date_change ?></span>
-								</span>
-							</a>
-						</li>
-						<?vsp } ?>
-						<!-- other dates here -->
-				</ul>
-			</div>
-		</div>
-	</div>
-				
-	</section>
-	<h1>Document Date: <?= date_current ?></h1>
-	<h1>Publisher: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1>Document Date: <?= date_document ?></h1>
+	<h1>Publisher: <?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></h1>
     <?vsp for(sparql  SELECT distinct * 
                       FROM <http://52.50.205.146/legislation-pilot>
                       WHERE { 
@@ -460,6 +261,49 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
     	</a>
     </p>
     <?vsp } ?>
+	<?vsp
+	-- -----------------
+	-- Generate timeline
+	-- -----------------
+	?>
+	<div id="changesOverTime" style="height:190px;">
+		<h2>Changes over time for: <?vsp http(_uri); ?></h2>
+		<div id="timeline">
+			<div id="timelineData" style="width:760px">
+				<ul>
+					<li style="width: 338px;">
+						<a href="#">
+							<span class="pointer">
+								<span>16/07/1998</span>
+							</span>
+						</a><a href="#"></a>
+					</li>
+					<li style="width: 338px;">
+						<a href="#">
+							<span class="pointer">
+								<span>16/07/2004</span>
+							</span>
+						</a><a href="#"></a>
+					</li>
+					<li style="width: 318px;" class="currentVersion">
+						<a href="#">
+							<span class="pointer">
+								<span><?= date_document ?></span>
+							</span>
+						</a><a href="#"></a>
+						<span class="end"/>
+					</li>
+					<li class="pointInTime" style="margin-left: -371px;">
+						<span>
+							<strong><?= date_document ?></strong>
+							<br />
+							<em>Point in time</em>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 	
 	<h2>Contents</h2>
 	<p>
@@ -500,10 +344,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 </footer>
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/e-legislation/js/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript" src="/e-legislation/js/jquery.treemenu.js"></script>
-<script type="text/javascript" src="/e-legislation/js/scrollbar.js"></script>
 <script type="text/javascript" src="/e-legislation/js/main.js"></script>
 </body>
 </html>

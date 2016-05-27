@@ -38,8 +38,9 @@ $RDFafolder = 'rdfa';
 /*Data settings*/
 /*=============*/
 $inputFormat = 'rdfa';
-$outputFormat = 'turtle';
-$fileName = 'legislation';
+$outputFormat = 'rdfxml';
+$fileName = '2016_04_21_law 3242 2004';
+//$fileName = 'legislation';
 
 /*============*/
 /*URI settings*/

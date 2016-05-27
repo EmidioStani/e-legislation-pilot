@@ -26,6 +26,13 @@ jQuery(document).ready(function($){
   /*Accordion for document structure*/
   $("#accordion").treemenu({delay:500}).openActive();
 
+  //Timeline hover
+  $("li:not(.currentVersion) .pointer").hover(function(){
+      $(this).css("background", "url(/e-legislation/images/pointInTimeMarkerActive.png) 0 0 no-repeat");
+      }, function(){
+      $(this).css("background", "url(/e-legislation/images/pointInTimeTimelineMarker.png) 0 0 no-repeat");
+  });
+
   /*Timeline implementation*/
   var timelines = $('.cd-horizontal-timeline'),
     eventsMinDistance = 170;

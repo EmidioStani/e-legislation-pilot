@@ -8,7 +8,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 */
 /* CSS for chrome view */
 #changesOverTime {width:785px; margin:0 auto; overflow:auto;}
-#changesOverTime {padding: 0 10px 0 10px; margin-bottom: 1px; background: #F2F7FA url(/e-legislation/images/navBgShadow.png) no-repeat scroll bottom left; border: 1px solid #67A2C0;}
+#changesOverTime {padding: 0 10px 0 10px; margin-bottom: 1px; border: 1px solid #67A2C0;}
+#changesOverTime {
+	 background: #ebf1f6; /* Old browsers */
+     background: -moz-linear-gradient(top, #ebf1f6 0%, #abd3ee 50%, #89c3eb 66%, #89c3eb 66%, #d5ebfb 100%); /* FF3.6-15 */
+     background: -webkit-linear-gradient(top, #ebf1f6 0%,#abd3ee 50%,#89c3eb 66%,#89c3eb 66%,#d5ebfb 100%); /* Chrome10-25,Safari5.1-6 */
+     background: linear-gradient(to bottom, #ebf1f6 0%,#abd3ee 50%,#89c3eb 66%,#89c3eb 66%,#d5ebfb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', endColorstr='#d5ebfb',GradientType=0 ); /* IE6-9 */
+}
 
 /* Typography */
 #changesOverTime h1 {text-align:center;}
@@ -20,13 +27,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline * {margin: 0; float: none; clear: none; padding: 0; list-style: none;}
 
 /* The viewport */
-.js #changesOverTime #timeline {height:190px;}
+.js #changesOverTime #timeline {height:120px;}
 
 /* timeline width will be calculated by a script created by Orbeon */
 #changesOverTime #timeline #timelineData {float: left; margin:0 auto; width:auto; min-width:100%;}
 
 /* Timeline list layout */
-#changesOverTime #timeline #timelineData ul {float: left; height: 8em; min-height: 84px; padding-top:4.6em; padding-left: 53px; background: url(/e-legislation/images/pointInTimeBg.gif) 0 6em repeat-x; min-width:100%;}
+#changesOverTime #timeline #timelineData ul {float: left; min-height: 84px; padding-left: 53px; background: url(/e-legislation/images/pointInTimeBg2.gif) 0 2.8em repeat-x; min-width:100%;}
 #changesOverTime #timeline #timelineData ul li {background: url(/e-legislation/images/pointInTimeTimelineBg.png) 0 0 repeat-x; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em; min-width:146px;}
 #changesOverTime #timeline #timelineData ul li.beginning {}
 #changesOverTime #timeline #timelineData ul li .currentVersion,
@@ -49,13 +56,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData ul li.prospectivePIT {margin-top:-5.8em;}
 
 /* Arrow ends and round circle starts - remove as necessary */
-#changesOverTime #timeline .pointer {display: block; background-color:#000; background: url(/e-legislation/images/pointInTimeTimelineMarker.png) 0 0 no-repeat; height: 40px; min-width: 30px; margin-left: 10px}
-#changesOverTime #timeline .currentVersion .pointer {background: url(/e-legislation/images/pointInTimeMarkerActive.gif) 0 0 no-repeat;}
+#changesOverTime #timeline .pointer {display: block; background-color:#000; background: url(/e-legislation/images/pointInTimeTimelineMarker.png) 0 0 no-repeat; height: 48px; min-width: 30px; margin-left: 10px}
+#changesOverTime #timeline .currentVersion .pointer {background: url(/e-legislation/images/pointInTimeMarkerActive.png) 0 0 no-repeat;}
 #changesOverTime #timeline .stopDate .pointer {background: url(/e-legislation/images/pointInTimeMarkerStop.gif) 0 0 no-repeat;}
 #changesOverTime #timeline span.end {display: block; background-color:#000; background: url(/e-legislation/images/pointInTimeTimelineBgArr.png) 0 0 no-repeat; height: 40px; width: 18px; float: right; margin-top: -22px; margin-right: -18px;}
 #changesOverTime #timeline .currentVersion span.end {background: url(/e-legislation/images/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
 #changesOverTime #timeline .currentProspective span.end {background: url(/e-legislation/images/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
-#changesOverTime #timeline .pointer  span { position:relative; top:40px; left:-20px;}
+#changesOverTime #timeline .pointer  span { position:relative; top:60px; left:-10px;}
 
 
 /* Link colours */
