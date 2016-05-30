@@ -25,7 +25,7 @@
 /*========================*/
 /*Load EasyRDF PHP Library*/
 /*========================*/ 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 /*===============*/
 /*Folder settings*/
