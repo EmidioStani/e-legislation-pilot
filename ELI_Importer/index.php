@@ -101,11 +101,11 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 <head>
   <title>e-Legislation Pilot</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="../css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="../css/gridism.css" />
+  <link rel="stylesheet" type="text/css" href="http://52.50.205.146/legislation-pilot/css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="http://52.50.205.146/legislation-pilot/css/gridism.css" />
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,greek" />
-  <link rel="stylesheet" type="text/css" href="../css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="../css/jquery.treemenu.css" />
+  <link rel="stylesheet" type="text/css" href="http://52.50.205.146/legislation-pilot/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="http://52.50.205.146/legislation-pilot/css/jquery.treemenu.css" />
 </head>
 
 <body>
