@@ -33,8 +33,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData {float: left; margin:0 auto; width:auto; min-width:100%;}
 
 /* Timeline list layout */
-#changesOverTime #timeline #timelineData ul {float: left; min-height: 84px; padding-left: 53px; background: url(/e-legislation/images/pointInTimeBg2.gif) 0 2.8em repeat-x; min-width:100%;}
-#changesOverTime #timeline #timelineData ul li {background: url(/e-legislation/images/pointInTimeTimelineBg.png) 0 0 repeat-x; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em; min-width:146px;}
+#changesOverTime #timeline #timelineData ul {float: left; min-height: 84px; padding-left: 53px; background: url(/legislation-pilot/images/pointInTimeBg2.gif) 0 2.8em repeat-x; min-width:100%;}
+#changesOverTime #timeline #timelineData ul li {background: url(/legislation-pilot/images/pointInTimeTimelineBg.png) 0 0 repeat-x; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em; min-width:146px;}
 #changesOverTime #timeline #timelineData ul li.beginning {}
 #changesOverTime #timeline #timelineData ul li .currentVersion,
 #changesOverTime #timeline #timelineData ul li a {color:#000; text-decoration:none; padding: 0;text-decoration: underline; float: left; margin: -24px 0 0 -20px; font-weight: bold; text-decoration: none}
@@ -43,25 +43,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData ul li span.stop span.label {}
 
 /* Line */
-#changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/e-legislation/images/pointInTimeTimelineBgActive.png) 0 0 repeat-x;}
-#changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/e-legislation/images/pointInTimeBgProspActive.gif) 0 0 repeat-x;}
-#changesOverTime #timeline #timelineData ul li.prospective {background: url(/e-legislation/images/pointInTimeBgProspective.gif) 0 0 repeat-x;}
-#changesOverTime #timeline #timelineData ul li.dash {background: url(/e-legislation/images/pointInTimeBgProspective.gif) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/legislation-pilot/images/pointInTimeTimelineBgActive.png) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/legislation-pilot/images/pointInTimeBgProspActive.gif) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.prospective {background: url(/legislation-pilot/images/pointInTimeBgProspective.gif) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.dash {background: url(/legislation-pilot/images/pointInTimeBgProspective.gif) 0 0 repeat-x;}
 
 /* Point in time indicator box */
-#changesOverTime #timeline #timelineData ul li.pointInTime {margin-right: -40000px; margin-top: -4.1em; margin-bottom: -3.9em; text-align: center; width: 110px; font-size: 1em; padding-bottom: 9px; background: url(/e-legislation/images/pointInTimePointer.gif) no-repeat bottom center; font-size: 1em;}
+#changesOverTime #timeline #timelineData ul li.pointInTime {margin-right: -40000px; margin-top: -4.1em; margin-bottom: -3.9em; text-align: center; width: 110px; font-size: 1em; padding-bottom: 9px; background: url(/legislation-pilot/images/pointInTimePointer.gif) no-repeat bottom center; font-size: 1em;}
 #changesOverTime #timeline #timelineData ul li.pointInTime span {float: left;  width: 108px; background: #fff; border: 1px solid #7D8675; border-bottom: 0; margin-bottom: 0; padding: 2px 0;}
 #changesOverTime #timeline #timelineData ul li.pointInTime strong {font-size: 1.1em;}
 #changesOverTime #timeline #timelineData ul li.pointInTime em {font-size: 0.8em;}
 #changesOverTime #timeline #timelineData ul li.prospectivePIT {margin-top:-5.8em;}
 
 /* Arrow ends and round circle starts - remove as necessary */
-#changesOverTime #timeline .pointer {display: block; background-color:#000; background: url(/e-legislation/images/pointInTimeTimelineMarker.png) 0 0 no-repeat; height: 48px; min-width: 30px; margin-left: 10px}
-#changesOverTime #timeline .currentVersion .pointer {background: url(/e-legislation/images/pointInTimeMarkerActive.png) 0 0 no-repeat;}
-#changesOverTime #timeline .stopDate .pointer {background: url(/e-legislation/images/pointInTimeMarkerStop.gif) 0 0 no-repeat;}
-#changesOverTime #timeline span.end {display: block; background-color:#000; background: url(/e-legislation/images/pointInTimeTimelineBgArr.png) 0 0 no-repeat; height: 40px; width: 18px; float: right; margin-top: -22px; margin-right: -18px;}
-#changesOverTime #timeline .currentVersion span.end {background: url(/e-legislation/images/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
-#changesOverTime #timeline .currentProspective span.end {background: url(/e-legislation/images/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
+#changesOverTime #timeline .pointer {display: block; background-color:#000; background: url(/legislation-pilot/images/pointInTimeTimelineMarker.png) 0 0 no-repeat; height: 48px; min-width: 30px; margin-left: 10px}
+#changesOverTime #timeline .currentVersion .pointer {background: url(/legislation-pilot/images/pointInTimeMarkerActive.png) 0 0 no-repeat;}
+#changesOverTime #timeline .stopDate .pointer {background: url(/legislation-pilot/images/pointInTimeMarkerStop.gif) 0 0 no-repeat;}
+#changesOverTime #timeline span.end {display: block; background-color:#000; background: url(/legislation-pilot/images/pointInTimeTimelineBgArr.png) 0 0 no-repeat; height: 40px; width: 18px; float: right; margin-top: -22px; margin-right: -18px;}
+#changesOverTime #timeline .currentVersion span.end {background: url(/legislation-pilot/images/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
+#changesOverTime #timeline .currentProspective span.end {background: url(/legislation-pilot/images/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
 #changesOverTime #timeline .pointer  span { position:relative; top:60px; left:-10px;}
 
 
@@ -73,16 +73,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #scrollbar #arrowLeft {float:left;}
 #scrollbar #arrowRight {float:right;}
 
-#scrollbar .arrowLeftEnabled {background:url(/e-legislation/images/scrollbar.gif) -44px 0px;}
-#scrollbar .arrowRightEnabled {background:url(/e-legislation/images/scrollbar.gif) -66px 0px;}
-#scrollbar .arrowLeftDisabled {background:url(/e-legislation/images/scrollbar.gif) 0px 0px;}
-#scrollbar .arrowRightDisabled {background:url(/e-legislation/images/scrollbar.gif) -22px 0px;}
+#scrollbar .arrowLeftEnabled {background:url(/legislation-pilot/images/scrollbar.gif) -44px 0px;}
+#scrollbar .arrowRightEnabled {background:url(/legislation-pilot/images/scrollbar.gif) -66px 0px;}
+#scrollbar .arrowLeftDisabled {background:url(/legislation-pilot/images/scrollbar.gif) 0px 0px;}
+#scrollbar .arrowRightDisabled {background:url(/legislation-pilot/images/scrollbar.gif) -22px 0px;}
 
 #scrollbar .arrow {display:block; width:22px; height: 22px;} 
 #scrollbar #slider {position:relative; float:left; width: 565px; margin: 5px 0px 0px 67px;}
-#scrollbar {height: 30px; margin-top: 3px; background:url(/e-legislation/images/scrollbar.gif) no-repeat 37px -86px;}
+#scrollbar {height: 30px; margin-top: 3px; background:url(/legislation-pilot/images/scrollbar.gif) no-repeat 37px -86px;}
 
-#scrollbar .ui-slider .ui-slider-handle {background:url(/e-legislation/images/scrollbar.gif) -88px 0px; 
+#scrollbar .ui-slider .ui-slider-handle {background:url(/legislation-pilot/images/scrollbar.gif) -88px 0px; 
  width: 133px; height:22px; margin-top: -5px; margin-left: -66px; position:absolute; z-index: 2;}
 #scrollbar .ui-slider-horizontal {height: 0.8em;}
 
@@ -95,12 +95,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 * html #scrollbar .fisheye {} /* for some reasopn IE6 doesn't auto calc width correctly and doesn't display the fisheye properly, this fixes it */
 * html #changesOverTime {width: 735px;}
 * html #changesOverTime #scrollbar {display: none;} /* hide due to incompatibilities */
-* html #changesOverTime #timeline #timelineData ul li {background: url(/e-legislation/images/pointInTimeTimelineBg.png) 0 10px repeat-x; margin-top: 20px}
+* html #changesOverTime #timeline #timelineData ul li {background: url(/legislation-pilot/images/pointInTimeTimelineBg.png) 0 10px repeat-x; margin-top: 20px}
 * html #changesOverTime #timeline #timelineData ul li.pointInTime {margin-top: -4.1em;}
-* html #changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/e-legislation/images/pointInTimeTimelineBgActive.png) 0 10px repeat-x;}
-* html #changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/e-legislation/images/pointInTimeBgProspActive.gif) 0 10px repeat-x;}
-* html #changesOverTime #timeline #timelineData ul li.prospective {background: url(/e-legislation/images/pointInTimeBgProspective.gif) 0 10px repeat-x;}
-* html #changesOverTime #timeline #timelineData ul li.dash {background: url(/e-legislation/images/pointInTimeBgProspective.gif) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/legislation-pilot/images/pointInTimeTimelineBgActive.png) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/legislation-pilot/images/pointInTimeBgProspActive.gif) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.prospective {background: url(/legislation-pilot/images/pointInTimeBgProspective.gif) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.dash {background: url(/legislation-pilot/images/pointInTimeBgProspective.gif) 0 10px repeat-x;}
 * html #changesOverTime #timeline #timelineData ul li .currentVersion,
 * html #changesOverTime #timeline #timelineData ul li a {margin: -15px 0 0 0;}
 * html #changesOverTime #timeline .pointer {margin-left: 0;}

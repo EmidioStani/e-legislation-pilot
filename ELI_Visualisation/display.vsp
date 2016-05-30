@@ -35,14 +35,14 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 <head>
   <title>e-Legislation Pilot</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/gridism.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/gridism.css" />
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,greek" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/jquery.treemenu.css" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/changesOverTime.css" />
-  <link rel="stylesheet" type="text/css" href="/e-legislation/css/timeline.css" />
-  <script type="text/javascript" src="/e-legislation/js/modernizr.js"></script>
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/jquery.treemenu.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/changesOverTime.css" />
+  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/timeline.css" />
+  <script type="text/javascript" src="/legislation-pilot/js/modernizr.js"></script>
 </head>
 
 <body>
@@ -50,8 +50,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 <div class="wrapper">
 	
 <header>
-  <a href="/e-legislation/">
-    <img src="/e-legislation/images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
+  <a href="/legislation-pilot/">
+    <img src="/legislation-pilot/images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
   </a>
 </header>
 
@@ -501,9 +501,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/e-legislation/js/jquery.ui.touch-punch.min.js"></script>
-<script type="text/javascript" src="/e-legislation/js/jquery.treemenu.js"></script>
-<script type="text/javascript" src="/e-legislation/js/scrollbar.js"></script>
-<script type="text/javascript" src="/e-legislation/js/main.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/jquery.treemenu.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/scrollbar.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/main.js"></script>
 </body>
 </html>

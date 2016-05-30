@@ -28,9 +28,9 @@ jQuery(document).ready(function($){
 
   //Timeline hover
   $("li:not(.currentVersion) .pointer").hover(function(){
-      $(this).css("background", "url(/e-legislation/images/pointInTimeMarkerActive.png) 0 0 no-repeat");
+      $(this).css("background", "url(/legislation-pilot/images/pointInTimeMarkerActive.png) 0 0 no-repeat");
       }, function(){
-      $(this).css("background", "url(/e-legislation/images/pointInTimeTimelineMarker.png) 0 0 no-repeat");
+      $(this).css("background", "url(/legislation-pilot/images/pointInTimeTimelineMarker.png) 0 0 no-repeat");
   });
 
   /*Timeline implementation*/

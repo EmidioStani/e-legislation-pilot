@@ -146,6 +146,7 @@ input.forEach(function (fileName) {
 	paragraph_attributes += '<span property="eli:id_local" content="' + identifier + '"></span>';
 	paragraph_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
 	paragraph_attributes += '<span property="eli:language" content="http://publications.europa.eu/resource/authority/language/ELL"></span>';
+	paragraph_attributes += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
     wrap_base.append(paragraph_attributes);
 
 	/*===============*/
