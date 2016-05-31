@@ -16,10 +16,11 @@
 	  <a href="/legislation-pilot/">
 	    <img src="images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
 	  </a>
+	  <p><span id="lang"></span>: <a id="lang_en" class="lng">EN</a> | <a id="lang_gr" class="lng">GR</a> | <a id="lang_it" class="lng">IT</a></p>
 	</header>
 
 	<article>
-		<h1>List of acts per theme</h1>
+		<h1><span id="index-acts"></span></h1>
 
 	<ul id="accordion">
 		<li>Administrative law, civil servants
@@ -152,8 +153,8 @@
 		<li>Worker association, chambers, cooperatives</li>
 	</ul>	
 
-	<h1>Other links</h1>
-	<ul>
+	<h1><span id="index-links"></span></h1>
+	<ul id="links">
 		<li><a href="doc/index.html">Model documentation</a></li>
 		<li><a href="vocabulary.html">Controlled Vocabulary for Subject Divisions</a></li>
 		<li><a href="http://52.50.205.146:8890/eli-importer/">ELI Importer</a></li>
@@ -191,6 +192,7 @@
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/jquery.treemenu.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/cookie.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/main.js"></script>
 </body>
 

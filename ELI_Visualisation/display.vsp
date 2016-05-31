@@ -53,6 +53,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
   <a href="/legislation-pilot/">
     <img src="/legislation-pilot/images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
   </a>
+	  <p><span id="lang"></span>: <a id="lang_en" class="lng">EN</a> | <a id="lang_gr" class="lng">GR</a> | <a id="lang_it" class="lng">IT</a></p>
 </header>
 
 <article>
@@ -88,7 +89,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	date_current := concat(date_current[2],'/',date_current[1],'/',date_current[0]);
 	?>
 		<div id="changesOverTime">
-		<h1>Changes over time</h1>
+		<h1><span id="display-timeline"></span></h1>
 		<div id="timeline">
 			<div id="timelineData">
 				<ul>
@@ -148,14 +149,14 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 			</div>
 		</div>
 	</div>
-	<h1>Title: <a href="<?vsp http(_uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></h1>
-	<h1>Type of Document: <?= charset_recode(type_document, 'UTF-8', '_WIDE_') ?></h1>
-	<h1>Document Date: <?= date_current ?></h1>
-	<h1>Publisher: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1><span id="display-title"></span>: <a href="<?vsp http(_uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1><span id="display-type"></span>: <?= charset_recode(type_document, 'UTF-8', '_WIDE_') ?></h1>
+	<h1><span id="display-date"></span>: <?= date_current ?></h1>
+	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
 	<?vsp } ?>
 	<br/>
 	<br/>
-	<h2>Document structure:</h2>
+	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion">	
 	<?vsp
 	-- ---------------------------------------------
@@ -290,14 +291,14 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 			</div>
 		</div>
 	</div>
-	<h1>Title: 
+	<h1><span id="display-title"></span>: 
 		<a href="<?vsp http(_uri); ?>">
 			<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
 			<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
 		</a>
 	</h1>
-	<h1>Document Date: <?= date_current ?></h1>
-	<h1>Publisher: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1><span id="display-date"></span>: <?= date_current ?></h1>
+	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
 	<?vsp } ?>
 	<br/>
 	<?vsp 
@@ -308,7 +309,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 						OPTIONAL { ?act <http://data.europa.eu/eli/ontology#title> ?title } .
 						OPTIONAL { ?act <http://purl.org/dc/terms/title> ?dctitle } .
 					  }) do { ?>
-	<p>Is part of: 
+	<p><span id="display-ispartof"></span>:
 		<a href="<?vsp http(act); ?>">
 			<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
 			<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
@@ -317,7 +318,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<?vsp } ?>
 	<br/>
 	<br/>
-	<h2>Document structure:</h2>
+	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
 	-- ---------------------------------------------
@@ -444,8 +445,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</div>
 				
 	</section>
-	<h1>Document Date: <?= date_current ?></h1>
-	<h1>Publisher: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1><span id="display-date"></span>: <?= date_current ?></h1>
+	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
     <?vsp for(sparql  SELECT distinct * 
                       FROM <http://52.50.205.146/legislation-pilot>
                       WHERE { 
@@ -453,7 +454,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	                      OPTIONAL { ?article <http://data.europa.eu/eli/ontology#title> ?title } .
 	                      OPTIONAL { ?article <http://purl.org/dc/terms/title> ?dctitle } .
                       }) do { ?>
-    <p>Is part of: 
+    <p><span id="display-ispartof"></span>:
     	<a href="<?vsp http(article); ?>">
     		<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
     		<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
@@ -461,7 +462,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
     </p>
     <?vsp } ?>
 	
-	<h2>Contents</h2>
+	<h2><span id="display-contents"></span></h2>
 	<p>
 		<?= charset_recode(description, 'UTF-8', '_WIDE_') ?>
 	</p>
@@ -504,6 +505,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 <script type="text/javascript" src="/legislation-pilot/js/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/jquery.treemenu.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/scrollbar.js"></script>
+<script type="text/javascript" src="/legislation-pilot/js/cookie.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/main.js"></script>
 </body>
 </html>

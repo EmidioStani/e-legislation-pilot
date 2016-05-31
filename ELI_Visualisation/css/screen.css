@@ -266,3 +266,10 @@ dl.properties dd:after {
 .toggler {
   margin-right:10px;
 }
+
+.lng {
+  cursor:pointer;
+}
+.lng-active {
+  color: #D50;
+}
