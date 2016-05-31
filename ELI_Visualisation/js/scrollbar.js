@@ -8,7 +8,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 */
 
 $(document).ready(function () {
-	$("#timeline").addSlider({"timerValue": 40,	"sliderStep": 2, "keyNavigation": 1, "viewPos": "right"});
+  //Initialize timeline
+  $("#timeline").addSlider({"timerValue": 40,	"sliderStep": 2, "keyNavigation": 1, "viewPos": "right"});
+  //Timeline hover
+  $("li:not(.currentVersion) .pointer").hover(function(){
+      $(this).css("background", "url(/legislation-pilot/images/pointInTimeMarkerActive.png) 0 0 no-repeat");
+      }, function(){
+      $(this).css("background", "url(/legislation-pilot/images/pointInTimeTimelineMarker.png) 0 0 no-repeat");
+  });
 });
 
 /*

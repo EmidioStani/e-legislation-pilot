@@ -153,9 +153,11 @@
 	</ul>	
 
 	<h1>Other links</h1>
-	<p><a href="doc/index.html">Model documentation</a></p>
-	<p><a href="vocabulary.html">Custom Vocabulary</a></p>
-	<p><a href="http://52.50.205.146:8890/eli-importer/">ELI Importer</a></p>
+	<ul>
+		<li><a href="doc/index.html">Model documentation</a></li>
+		<li><a href="vocabulary.html">Controlled Vocabulary for Subject Divisions</a></li>
+		<li><a href="http://52.50.205.146:8890/eli-importer/">ELI Importer</a></li>
+	</ul>
 	</article>
 
 	<footer>

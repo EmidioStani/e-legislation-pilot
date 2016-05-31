@@ -1,0 +1,8 @@
+<?vsp 
+-- Define variables
+declare query, _uri, _format varchar;
+_uri := get_keyword('uri', params, '');
+
+
+
+?>
