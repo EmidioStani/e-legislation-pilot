@@ -111,7 +111,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 <body>
 <div class="wrapper">
 	<header>
-	  <a href="/legislation-pilot/">
+	  <a href="http://52.50.205.146/legislation-pilot/">
 	    <img src="http://52.50.205.146/legislation-pilot/images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
 	  </a>
 	</header>
