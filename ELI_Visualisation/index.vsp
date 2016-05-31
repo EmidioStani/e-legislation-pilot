@@ -155,9 +155,9 @@
 
 	<h1><span id="index-links"></span></h1>
 	<ul id="links">
-		<li><a href="doc/index.html">Model documentation</a></li>
 		<li><a href="vocabulary.html">Controlled Vocabulary for Subject Divisions</a></li>
 		<li><a href="http://52.50.205.146:8890/eli-importer/">ELI Importer</a></li>
+		<li><a href="doc/index.html">Model documentation</a></li>
 	</ul>
 	</article>
 

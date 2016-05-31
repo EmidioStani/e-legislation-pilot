@@ -1,8 +1,38 @@
 <?vsp 
 -- Define variables
-declare query, _uri, _format varchar;
-_uri := get_keyword('uri', params, '');
+declare query, _uri, _format, _id, _year, _ref, _par varchar;
+_format := get_keyword('format', params, '');
+_id := get_keyword('id', params, '');
+_year := get_keyword('year', params, '');
+_ref := get_keyword('ref', params, '');
+_par := get_keyword('par', params, '');
+if(_par = '') {
+	if(_ref = ''){
+		_uri := concat('http://52.50.205.146/legislation-pilot/','ΝΟΜΟΣ','/',_id,'/',_year);
+	} else {
+		_uri := concat('http://52.50.205.146/legislation-pilot/','ΝΟΜΟΣ','/',_id,'/',_year,'/',_ref);
+	}
+} else {
+	_uri := concat('http://52.50.205.146/legislation-pilot/','ΝΟΜΟΣ','/',_id,'/',_year,'/',_ref,'/',_par);
+}
 
+query := 'CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <http://52.50.205.146/legislation-pilot> { ?s ?p ?o } . }';
+query := replace(query, '<URI>', sprintf('<%s>', _uri));
 
-
+-- Execute query
+declare rset, triples, ses any;
+rset := DB.DBA.SPARQL_EVAL_TO_ARRAY(query, null, 0);
+triples := dict_list_keys (rset[0][0], 1);
+ses := string_output();
+if(_format = 'ttl') {
+  DB.DBA.RDF_TRIPLES_TO_TTL(triples, ses);
+} else {
+  DB.DBA.RDF_TRIPLES_TO_RDF_XML_TEXT(triples, 1, ses);
+}
+if(_format = 'rdf') {
+  http_header('Content-type: application/rdf+xml; charset=UTF-8\r\n');
+} else if(_format = 'ttl') {
+  http_header('Content-type: text/turtle; charset=UTF-8\r\n');
+}
+http(string_output_string(ses));
 ?>

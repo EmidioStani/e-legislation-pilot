@@ -54,6 +54,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
     <img src="/legislation-pilot/images/logo.png" alt="Υπουργείο Διοικητικής Μεταρρύθμισης και Ηλεκτρονικής Διακυβέρνησης" height="70" width="370" />
   </a>
 	  <p><span id="lang"></span>: <a id="lang_en" class="lng">EN</a> | <a id="lang_gr" class="lng">GR</a> | <a id="lang_it" class="lng">IT</a></p>
+	  <p><span id="display_data">Raw data:</span> <a href="/legislation-pilot/sparql.vsp?format=rdf&id=<?vsp http(_id); ?>&year=<?vsp http(_year); ?>&ref=<?vsp http(_ref); ?>&par=<?vsp http(_par); ?>; ?>">RDF/XML</a> | <a href="/legislation-pilot/sparql.vsp?format=ttl&id=<?vsp http(_id); ?>&year=<?vsp http(_year); ?>&ref=<?vsp http(_ref); ?>&par=<?vsp http(_par); ?>">Turtle</a></p>
 </header>
 
 <article>

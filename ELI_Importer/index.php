@@ -118,7 +118,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 
 <article>
 <form name="parser" id="parser" method="post" action="?a=parse">
-	<h1><label for="source">Specifcy your data source</label></h1>
+	<h1><label for="source">Specify your data source</label></h1>
 	<p><input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"></p>
 	<p>If no data source is specified, the script will use the .docx files present in the <em>./doc</em> folder</p>
 	<h1>Parameters</h1>
