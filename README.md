@@ -20,7 +20,9 @@ The objective of this pilot is to develop two proofs of concept, one for Greece 
 * Jenkins v1.651.2
 * jQuery v1.11.0
 * jQuery UI v1.11.4
+* jQuery UI Touch Punch v0.2.3
 * JS-Cookie v2.1.2
+* treeMenu v0.4
 
 ## How to use
 
