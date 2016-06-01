@@ -62,7 +62,7 @@ var labels = [
   ['merchant-shipping', 'Merchant shipping', 'Merchant shipping', 'Εμπορική ναυτηλία'],
   ['municipalities-and-communities-prefecture-self-administration', 'Municipalities and communities, prefecture self administration', 'Municipalities and communities, prefecture self administration', 'Δήμοι και κοινότητες - νομαρχιακή αυτοδιοίκηση'],
   ['national-defence-land-army', 'National defence, land army', 'National defence, land army', 'Εθνική άμυνα - στρατός ξηράς'],
-  ['navy', 'Navy', 'Navy', 'Πολεμικό ναυτικό'],
+  ['na-vy', 'Navy', 'Navy', 'Πολεμικό ναυτικό'],
   ['police-law-fire-department', 'Police law, fire department', 'Police law, fire department', 'Αστυνομική νομοθεσία - πυροσβεστικό σώμα'],
   ['port-law', 'Port law', 'Port law', 'Λιμενική νομοθεσία'],
   ['post-telecommunications', 'Post, telecommunications', 'Post, telecommunications', 'Ταχυδρομεία - τηλεπικοινωνίες'],
@@ -72,7 +72,7 @@ var labels = [
   ['rural-law-forests-animal-farming', 'Rural law, forests, animal farming', 'Rural law, forests, animal farming', 'Αγροτική νομοθεσία-δάση-κτηνοτριφία'],
   ['science-and-arts-universities-antiquities', 'Science and arts, universities, antiquities', 'Science and arts, universities, antiquities', 'Επιστήμες και τέχνες - Α.Ε.Ι. - αρχαιότητες'],
   ['social-welfare', 'Social welfare', 'Social welfare', 'Κοινωνική πρόνοια'],
-  ['transportation', 'Transportation', 'Transportation', 'Συγκοινωνίες'],
+  ['trans-portation', 'Transportation', 'Transportation', 'Συγκοινωνίες'],
   ['worker-association-chambers-cooperatives', 'Worker association, chambers, cooperatives', 'Worker association, chambers, cooperatives', 'Σωματεία/επιμελητήρια/συνεταιρισμοί']
 ]
 
