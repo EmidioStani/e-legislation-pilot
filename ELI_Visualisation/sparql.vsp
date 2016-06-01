@@ -16,7 +16,7 @@ if(_par = '') {
 	_uri := concat('http://52.50.205.146/legislation-pilot/','ΝΟΜΟΣ','/',_id,'/',_year,'/',_ref,'/',_par);
 }
 
-query := 'CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <http://52.50.205.146/legislation-pilot> { ?s ?p ?o } . }';
+query := 'CONSTRUCT { <URI> ?p ?o } WHERE { GRAPH <http://52.50.205.146/legislation-pilot> { <URI> ?p ?o } . }';
 query := replace(query, '<URI>', sprintf('<%s>', _uri));
 
 -- Execute query
