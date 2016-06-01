@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>scrollbar.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>scrollbar.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>This script is used for the creation of a timeline, containing the evolution of legislation over time. It reuses code created for legislation.gov.uk, which can be found on the <a href="https://github.com/legislation/legislation">legislation.gov.uk GitHub page</a>. An example of their original timeline implementation can be found here: <a href="http://www.legislation.gov.uk/ukpga/1998/29/introduction?timeline=true">http://www.legislation.gov.uk/ukpga/1998/29/introduction?timeline=true</a></p>
+			  <p>The code builds upon the jQuery UI scrollbar plugin and therefore requires both the jQuery and jQuery UI libraries.</p>
+			  </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*
+(c)  Crown copyright
+
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/</span>
+
+$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Initialize timeline</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  $(<span class="hljs-string">"#timeline"</span>).addSlider({<span class="hljs-string">"timerValue"</span>: <span class="hljs-number">40</span>,	<span class="hljs-string">"sliderStep"</span>: <span class="hljs-number">2</span>, <span class="hljs-string">"keyNavigation"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"viewPos"</span>: <span class="hljs-string">"right"</span>});
+});
+
+<span class="hljs-comment">/*
+Timeline Slider
+
+One-liner: Adds custom slider and optional fisheye to timeline
+Usage: .addSlider(options);
+timerValue - the speed of the slider (time in milliseconds between each move)
+sliderStep - the amount to move the slider when arrow button clicked
+keyNavigation - enable global arrow key handler
+
+Required structure:
+
+Fisheye enabled if #resultsTimeline has class "fisheye"
+
+#resultsTimeline #timeline #timelineData
+#resultsTimeline #decades
+
+JS Requirements: jQuery 1.4, jQuery UI 1.8, jQuery UI slider plugin
+
+History:
+v0.01   TE 2010-05-21   Created
+v0.02   GE 2010-05-27   Set so that initial view is set to the far right (to the latest section of a
+
+timeline/histogram)
+                        if init option value 'viewPos': 'right'
+v0.03   GE 2010-05-28   Slider positioning logic to place above the 'decades' block if it exists, else just append to the end of #timeline.parent().
+                        Default fisheye position moved to right if viewPos=right
+v0.04   TE 2010-02-06   Fixed for xhtml content type
+v0.05   TE 2010-02-08   Adapted for Point in Time
+v0.06   TE 2010-06-21   Added global persistance for slider position
+v0.07   TE 2010-06-23   Removed cookie, timeline now centres on relevant date, point in time on currentversion
+v.0.8   TE 2010-07-14   Fixed focus for timelines with centuries view
+
+*/</span>
+$.fn.addSlider = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">values</span>) </span>{
+    <span class="hljs-keyword">var</span> timer,
+        down = <span class="hljs-literal">false</span>,
+        timerValue = values.timerValue,
+        sliderStep = values.sliderStep,
+        keyNavigation = values.keyNavigation,
+        timelineViewPos = values.viewPos, <span class="hljs-comment">// default: to the left</span>
+        timeline = $(<span class="hljs-keyword">this</span>),
+        timelineData = $(<span class="hljs-string">"#timeline #timelineData"</span>),</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>include padding in width. timelineDataWidth.outerWidth() won’t be right for padded children</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        timelineDataWidth = <span class="hljs-number">107</span>,	<span class="hljs-comment">//Initial width to account for parent padding</span>
+        decades = $(<span class="hljs-string">".decades"</span>),
+        fisheye = $(<span class="hljs-string">""</span>),
+        decadesMarginLeft,
+        scrollPos,
+        sliderPos,
+        points,
+        pointWidth,
+        scrollbar,
+        scrollbarStructure,
+        slider,
+        arrowLeft,
+        arrowRight,
+        fisheyeOffset,
+        temp,
+        path,
+        regex,
+        year,
+        link,
+        linkPosition,
+        ui,
+        childrenUL,
+        childrenLI,
+        childrenNotInTime,
+        timelineParent;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>disable arrows at limits</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkArrows</span>(<span class="hljs-params">ui</span>) </span>{
+        <span class="hljs-keyword">if</span> (ui.value === <span class="hljs-number">0</span>) {
+            arrowLeft.addClass(<span class="hljs-string">"arrowLeftDisabled"</span>).removeClass(<span class="hljs-string">"arrowLeftEnabled"</span>);
+            arrowRight.addClass(<span class="hljs-string">"arrowLeftEnabled"</span>).removeClass(<span class="hljs-string">"arrowLeftDisabled"</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ui.value === <span class="hljs-number">100</span>) {
+            arrowLeft.addClass(<span class="hljs-string">"arrowLeftEnabled"</span>).removeClass(<span class="hljs-string">"arrowLeftDisabled"</span>);
+            arrowRight.addClass(<span class="hljs-string">"arrowRightDisabled"</span>).removeClass(<span class="hljs-string">"arrowRightEnabled"</span>);
+        } <span class="hljs-keyword">else</span> {
+            arrowLeft.addClass(<span class="hljs-string">"arrowLeftEnabled"</span>).removeClass(<span class="hljs-string">"arrowLeftDisabled"</span>);
+            arrowRight.addClass(<span class="hljs-string">"arrowRightEnabled"</span>).removeClass(<span class="hljs-string">"arrowRightDisabled"</span>);
+        }
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>update timeline and fisheye position</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">e, ui</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>account for part of timeline within view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> maxScroll = timelineDataWidth - timeline.width();
+        timeline.scrollLeft(maxScroll * ui.value / <span class="hljs-number">100</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>console.log(ui.value);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        fisheye.css(<span class="hljs-string">"left"</span>, (timeline.scrollLeft() * decades.width() / timelineDataWidth) + fisheyeOffset);
+        checkArrows(ui);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setSliderValue</span>(<span class="hljs-params">value</span>) </span>{
+        <span class="hljs-keyword">var</span> min = <span class="hljs-number">0</span>,
+            max = <span class="hljs-number">100</span>;
+
+        slider.slider(<span class="hljs-string">"option"</span>, <span class="hljs-string">"value"</span>, value);
+        <span class="hljs-keyword">if</span> (value &lt;= min) {
+            slider.slider(<span class="hljs-string">"option"</span>, <span class="hljs-string">"value"</span>, min);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value &gt;= max) {
+            slider.slider(<span class="hljs-string">"option"</span>, <span class="hljs-string">"value"</span>, max);
+        }
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>move slider one step</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveLeft</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> value = slider.slider(<span class="hljs-string">"option"</span>, <span class="hljs-string">"value"</span>);
+        setSliderValue(value - sliderStep);
+        timer = setTimeout(moveLeft, timerValue);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveRight</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> value = slider.slider(<span class="hljs-string">"option"</span>, <span class="hljs-string">"value"</span>);
+        setSliderValue(value + sliderStep);
+        timer = setTimeout(moveRight, timerValue);
+    }
+
+    childrenUL = timelineData.children(<span class="hljs-string">"ul"</span>);
+    childrenLI = childrenUL.children(<span class="hljs-string">"li"</span>);
+    childrenLI.each(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        timelineDataWidth += $(<span class="hljs-keyword">this</span>).outerWidth();
+    });
+    childrenUL.children(<span class="hljs-string">"li:last-of-type"</span>).append(<span class="hljs-string">'&lt;span class="end"/&gt;'</span>);
+
+    <span class="hljs-keyword">if</span> (decades.length &gt; <span class="hljs-number">0</span>) {
+        decadesMarginLeft = <span class="hljs-built_in">parseInt</span>(decades.css(<span class="hljs-string">"margin-left"</span>).replace(<span class="hljs-string">"px"</span>, <span class="hljs-string">""</span>), <span class="hljs-number">10</span>); <span class="hljs-comment">// forcetype as integer</span>
+    }
+
+    <span class="hljs-keyword">if</span> (timelineDataWidth &lt; timeline.width()) {
+        childrenNotInTime = childrenLI.not(<span class="hljs-string">".pointInTime"</span>);
+        points = childrenNotInTime.length;
+        pointWidth = <span class="hljs-built_in">Math</span>.floor((timeline.width() - <span class="hljs-number">107</span>) / points);
+        childrenNotInTime.css(<span class="hljs-string">"width"</span>, pointWidth + <span class="hljs-string">"px"</span>);
+    }
+
+    <span class="hljs-keyword">if</span> (timelineDataWidth &gt;= timeline.width()) {
+        timelineData.css(<span class="hljs-string">"width"</span>, timelineDataWidth + <span class="hljs-string">"px"</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Set vars for default position of histogram view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (timelineViewPos === <span class="hljs-string">"right"</span>) { <span class="hljs-comment">// view to right</span>
+            sliderPos = <span class="hljs-number">100</span>;
+            scrollPos = timelineDataWidth - timeline.width();
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// view to left</span>
+            sliderPos = <span class="hljs-number">0</span>;
+            scrollPos = <span class="hljs-number">0</span>;
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>hide existing scrollbar</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        timeline.css(<span class="hljs-string">"overflow"</span>, <span class="hljs-string">"hidden"</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Position the scrollbar depending on whether there is a decades list</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        timelineParent = timeline.parent();
+        scrollbar = $(<span class="hljs-string">'&lt;div id="scrollbar"&gt;&lt;/div&gt;'</span>);
+        timelineParent.append(scrollbar); <span class="hljs-comment">// Default at the end of block</span>
+        <span class="hljs-keyword">if</span> (decades.length) {
+            timelineParent.append(decades); <span class="hljs-comment">// Move the decades block after the slider if it exists</span>
+        }
+
+        scrollbarStructure = <span class="hljs-string">'&lt;div id="handle" class="ui-slider-handle"&gt;&lt;/div&gt;'</span>;
+        scrollbarStructure += <span class="hljs-string">'&lt;a id="arrowLeft" class="arrow arrowLeftDisabled" href=""&gt;&lt;/a&gt;&lt;span class="sliderEnd"&gt;&lt;/span&gt;&lt;div id="slider"&gt;&lt;/div&gt;&lt;span class="sliderEnd"&gt;&lt;/span&gt;&lt;a id="arrowRight" class="arrow arrowRightEnabled" href=""&gt;&lt;/a&gt;'</span>;
+        scrollbar.append(scrollbarStructure);
+
+        slider = $(<span class="hljs-string">"#slider"</span>);
+        arrowLeft = $(<span class="hljs-string">"#arrowLeft"</span>);
+        arrowRight = $(<span class="hljs-string">"#arrowRight"</span>);
+        slider.slider({animate: <span class="hljs-literal">false</span>, change: update, slide: update, step: sliderStep, value: sliderPos});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Set initial view of timeline</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        timeline.scrollLeft(scrollPos);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>add fisheye if parent has fisheye class</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (timelineParent.hasClass(<span class="hljs-string">"fisheye"</span>)) {
+            timelineParent.append(<span class="hljs-string">'&lt;div id="fisheye"&gt;&lt;/div&gt;'</span>);
+            fisheye = $(<span class="hljs-string">"#fisheye"</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>account for absolute positioning offset</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            fisheyeOffset = fisheye.position().left + decadesMarginLeft;
+            fisheye.width(timeline.width() / timelineDataWidth * decades.width());</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Set default pos to right if required</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (timelineViewPos === <span class="hljs-string">"right"</span>) {
+                fisheye.css(<span class="hljs-string">"left"</span>, (timeline.scrollLeft() * decades.width() / timelineDataWidth) + fisheyeOffset);
+            }
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>move slider on mousedown or keydown. When held down, mousedown fires only once, keydown repeatedly.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        arrowLeft
+            .mousedown(moveLeft)
+            .keydown(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>ignore all but initial keydown event. ignore all but enter key</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (!down &amp;&amp; e.keyCode === <span class="hljs-number">13</span>) {
+                    down = <span class="hljs-literal">true</span>;
+                    moveLeft();
+                }
+            })
+            .mouseup(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{clearTimeout(timer); })
+            .mouseleave(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{clearTimeout(timer); })
+            .keyup(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{down = <span class="hljs-literal">false</span>; clearTimeout(timer); });
+
+        arrowRight
+            .mousedown(moveRight)
+            .keydown(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+                <span class="hljs-keyword">if</span> (!down &amp;&amp; e.keyCode === <span class="hljs-number">13</span>) {
+                    down = <span class="hljs-literal">true</span>;
+                    moveRight();
+                }
+            })
+            .mouseup(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{clearTimeout(timer); })
+            .mouseleave(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{clearTimeout(timer); })
+            .keyup(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{down = <span class="hljs-literal">false</span>; clearTimeout(timer); });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>hook arrow keys</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (keyNavigation) {
+            $(<span class="hljs-built_in">document</span>)
+                .keydown(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+                    <span class="hljs-keyword">if</span> (!down &amp;&amp; e.keyCode === <span class="hljs-number">37</span>) {
+                        down = <span class="hljs-literal">true</span>;
+                        moveLeft();
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!down &amp;&amp; e.keyCode === <span class="hljs-number">39</span>) {
+                        down = <span class="hljs-literal">true</span>;
+                        moveRight();
+                    }
+                })
+                .keyup(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{down = <span class="hljs-literal">false</span>; clearTimeout(timer); });
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>prevent default link action</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        $(<span class="hljs-string">".arrow"</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>disable arrow if slider right</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (timelineViewPos === <span class="hljs-string">"right"</span>) {
+            temp = {};
+            temp.value = <span class="hljs-number">100</span>;
+            checkArrows(temp);
+        }
+
+        <span class="hljs-comment">/*
+</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>save clicked link to cookie using href, centre in timeline when page next visited</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (values[<span class="hljs-string">"cookie"</span>]) {
+            <span class="hljs-keyword">var</span> cookieArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
+            <span class="hljs-keyword">var</span> key = location.pathname;
+            readCookie(<span class="hljs-string">"sliderPos"</span>, cookieArray);
+
+            <span class="hljs-keyword">if</span> (cookieArray[key]) {
+                <span class="hljs-keyword">var</span> link = $(<span class="hljs-string">"a[href$=\""</span> + cookieArray[key] + <span class="hljs-string">"\"]"</span>, timeline);
+                <span class="hljs-keyword">var</span> linkPosition = link.offset().left - timelineData.offset().left - (timeline.width() / <span class="hljs-number">2</span>);
+                timeline.scrollLeft(linkPosition);
+
+                <span class="hljs-keyword">var</span> ui = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
+                ui[<span class="hljs-string">"value"</span>] = linkPosition * <span class="hljs-number">100</span> / (timelineDataWidth - timeline.width());
+                update(<span class="hljs-literal">null</span>, ui);	
+
+                slider.slider(<span class="hljs-string">"option"</span>, <span class="hljs-string">"value"</span>, ui[<span class="hljs-string">"value"</span>]);
+            }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>save link’s href attribute to cookie</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            $("a", timeline).click(function(event) {
+                updateid("sliderPos", cookieArray, key, $(this).attr("href"), cookieExpire);
+            });
+        }*/</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>timeline
+match /ukpga/1977 etc</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+        link = $(<span class="hljs-string">"#timeline #timelineData .currentVersion"</span>);
+
+        <span class="hljs-keyword">if</span> (link.length === <span class="hljs-number">1</span>) {
+            linkPosition = link.offset().left - timelineData.offset().left - (timeline.width() / <span class="hljs-number">2</span>);
+            timeline.scrollLeft(linkPosition);
+
+            ui = {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>(divided by maxscroll)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            ui.value = linkPosition * <span class="hljs-number">100</span> / (timelineDataWidth - timeline.width());
+            update(<span class="hljs-literal">null</span>, ui);
+
+            setSliderValue(ui.value);
+        }
+    }
+
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

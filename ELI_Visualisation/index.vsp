@@ -44,7 +44,7 @@
 				?uri <http://data.europa.eu/eli/ontology#title> ?title .
 				?uri <http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division> <http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law>
 				}) do { ?>
-				  <li><a class="active" href="<?vsp http(uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></li>
+				  <li><a href="<?vsp http(uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></li>
 				<?vsp } ?>
 			</ul>
 		</li>
@@ -157,7 +157,9 @@
 	<ul id="links">
 		<li><a href="vocabulary.html">Controlled Vocabulary for Subject Divisions</a></li>
 		<li><a href="http://52.50.205.146:8890/eli-importer/">ELI Importer</a></li>
-		<li><a href="doc/index.html">Model documentation</a></li>
+		<li><a href="documentation/index.html">Model documentation</a></li>
+		<li><a href="technical-documentation/scrollbar.html">Timeline documentation</a></li>
+		<li><a href="technical-documentation/main.html">Multilingual UI documentation</a></li>
 	</ul>
 	</article>
 
@@ -192,7 +194,7 @@
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/jquery.treemenu.js"></script>
-<script type="text/javascript" src="/legislation-pilot/js/cookie.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/main.js"></script>
 </body>
 

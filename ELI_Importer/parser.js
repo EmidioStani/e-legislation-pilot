@@ -41,13 +41,13 @@ var elem = [
 	['article', 'h3'],
 	['paragraph', 'p']
 ];
-//var args = process.argv.slice(2);
-//var filePath = args[0];
-//var outputPath = args[1];
-//var host = args[2];
-var filePath = 'html';
-var outputPath = 'rdfa';
-var host = 'http://localhost:8890/e-legislation';
+var args = process.argv.slice(2);
+var filePath = args[0];
+var outputPath = args[1];
+var host = args[2];
+//var filePath = 'html';
+//var outputPath = 'rdfa';
+//var host = 'http://localhost:8890/e-legislation';
 if (host.slice(-1) !== '/') {
 	host = host + '/';
 }
@@ -274,7 +274,7 @@ input.forEach(function (fileName) {
 	});
 
     //Wrap paragraphs in div
-	for (i = 0; i < h3s; i += 1) {
+	/*for (i = 0; i < h3s; i += 1) {
 		count = i + 1;
         eli_count = eli_base + '/article_' + count;
 		paragraphCount = $(article + '[id="' + eli_count + '"]').siblings('span').get().length;
@@ -289,6 +289,19 @@ input.forEach(function (fileName) {
 			paragraph_wrap.append(paragraph_attr);
 		}
 
+	}*/
+	//Wrap paragraphs in div
+	for(i = 0; i < h3s; i++){
+		count = i + 1;
+		paragraphCount = $(article+'[id="'+eli_base+'/article_'+count+'"]').siblings('span').get().length; 		
+		for(j = 0; j < paragraphCount; j++){
+			pcount = j + 1;
+			$(paragraph+'[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'/article_'+count+'/paragraph_'+j+'" typeof="'+host+'vocabulary#paragraph">');
+			$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');					
+			$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
+			$('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:publisher" content="http://www.et.gr/"/>');
+		}
+		
 	}
 
     //Strip all attributes from paragraphs (already declared on divs)

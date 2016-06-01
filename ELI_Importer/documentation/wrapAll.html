@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>wrapAll.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>wrapAll.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>
+			This script is an extension to the Cheerio JS library for Node JS. It adds the functionality to wrap multiple elements, targeted by a Cheerio JS selector, into a single parent element.
+			  </p>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/******************************/</span>
+<span class="hljs-comment">/***CHEERIO wrapAll EXTENSION**/</span>
+<span class="hljs-comment">/******************************/</span>
+
+<span class="hljs-keyword">var</span> cheerio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cheerio'</span>);
+<span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-built_in">module</span>.exports = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> extendCheerio = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extendCheerio</span>(<span class="hljs-params">$</span>) </span>{
+        _.extend($.prototype, {
+            wrapAll: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">wrapper</span>) </span>{
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.length &lt; <span class="hljs-number">1</span>) {
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+                }
+
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.length &lt; <span class="hljs-number">2</span> &amp;&amp; <span class="hljs-keyword">this</span>.wrap) { <span class="hljs-comment">// wrap not defined in npm version,</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.wrap(wrapper);      <span class="hljs-comment">// and git version fails testing.</span>
+                }
+
+                <span class="hljs-keyword">var</span> elems = <span class="hljs-keyword">this</span>;
+                <span class="hljs-keyword">var</span> section = $(wrapper);
+                <span class="hljs-keyword">var</span> marker = $(<span class="hljs-string">'&lt;div&gt;'</span>);
+                marker = marker.insertBefore(elems.first()); <span class="hljs-comment">// in jQuery marker would remain current</span>
+                elems.each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">k, v</span>) </span>{                  <span class="hljs-comment">// in Cheerio, we update with the output.</span>
+                    section.append($(v));
+                });
+                section.insertBefore(marker); 
+                marker.remove();
+                <span class="hljs-keyword">return</span> section;                 <span class="hljs-comment">// This is what jQuery would return, IIRC.</span>
+            },
+        });
+    };
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-string">"test"</span>) {
+        $ = cheerio.load(<span class="hljs-string">"&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;&lt;span&gt;This &lt;em&gt;is &lt;i&gt;test&lt;/p&gt;&lt;span&gt;More &lt;em&gt;test"</span>);
+        extendCheerio($);
+        $(<span class="hljs-string">'span'</span>).wrapAll(<span class="hljs-string">'&lt;section&gt;'</span>);
+        <span class="hljs-keyword">var</span> passed = ($.html() === <span class="hljs-string">'&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;&lt;section&gt;&lt;span&gt;This &lt;em&gt;is &lt;i&gt;test&lt;/i&gt;&lt;/em&gt;'</span>+
+                          <span class="hljs-string">'&lt;/span&gt;&lt;span&gt;More &lt;em&gt;test&lt;/em&gt;&lt;/span&gt;&lt;/section&gt;&lt;/p&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    }
+    <span class="hljs-keyword">return</span> extendCheerio;
+})();</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -32,10 +32,10 @@ var mammoth = require('mammoth');
 /***DEFINE VARIABLES***********/
 /******************************/
 
-//var filePath = process.argv.slice(2);
-//var outputPath = process.argv.slice(3);
-var filePath = 'doc';
-var outputPath = 'html';
+var filePath = process.argv.slice(2);
+var outputPath = process.argv.slice(3);
+//var filePath = 'doc';
+//var outputPath = 'html';
 var input = fs.readdirSync(filePath);
 var output = '';
 

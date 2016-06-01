@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>docxtohtml.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>docxtohtml.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>This script takes as input a Word Document (docx) and transforms it into valid (x)HTML using the Mammoth JS library for Node JS. The Node JS FS library is used to write the output to the filesystem.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-comment">/******************************/</span>
+<span class="hljs-comment">/***LOAD MODULES***************/</span>
+<span class="hljs-comment">/******************************/</span>
+
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">var</span> mammoth = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mammoth'</span>);
+
+<span class="hljs-comment">/******************************/</span>
+<span class="hljs-comment">/***DEFINE VARIABLES***********/</span>
+<span class="hljs-comment">/******************************/</span>
+
+<span class="hljs-keyword">var</span> filePath = process.argv.slice(<span class="hljs-number">2</span>);
+<span class="hljs-keyword">var</span> outputPath = process.argv.slice(<span class="hljs-number">3</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>The script iterates through all files in the specified filePath (the directory containing one or more Word Documents).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> input = fs.readdirSync(filePath);
+<span class="hljs-keyword">var</span> output = <span class="hljs-string">''</span>;
+
+input.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fileName</span>)</span>{
+	mammoth.convertToHtml({path: filePath+<span class="hljs-string">'/'</span>+fileName})
+	    .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">result</span>)</span>{
+	        <span class="hljs-keyword">var</span> html = result.value; <span class="hljs-comment">// The generated HTML</span>
+	        html = <span class="hljs-string">'&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;'</span>+html+<span class="hljs-string">'&lt;/body&gt;&lt;/html&gt;'</span>;
+	        <span class="hljs-keyword">var</span> messages = result.messages; <span class="hljs-comment">// Any messages, such as warnings during conversion</span>
+			output = fileName.split(<span class="hljs-string">'.'</span>);
+			fs.writeFileSync(outputPath+<span class="hljs-string">"/"</span>+output[<span class="hljs-number">0</span>]+<span class="hljs-string">".html"</span>, <span class="hljs-built_in">unescape</span>(html));
+	        fs.writeFileSync(<span class="hljs-string">'log/'</span>+output[<span class="hljs-number">0</span>]+<span class="hljs-string">'.log'</span>, messages);
+	    })
+	    .done();
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

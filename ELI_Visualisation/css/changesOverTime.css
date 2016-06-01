@@ -47,6 +47,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/legislation-pilot/images/pointInTimeBgProspActive.gif) 0 0 repeat-x;}
 #changesOverTime #timeline #timelineData ul li.prospective {background: url(/legislation-pilot/images/pointInTimeBgProspective.gif) 0 0 repeat-x;}
 #changesOverTime #timeline #timelineData ul li.dash {background: url(/legislation-pilot/images/pointInTimeBgProspective.gif) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li:not(.currentVersion) .pointer:hover {background: url(/legislation-pilot/images/pointInTimeMarkerActive.png) 0 0 no-repeat;}
 
 /* Point in time indicator box */
 #changesOverTime #timeline #timelineData ul li.pointInTime {margin-right: -40000px; margin-top: -4.1em; margin-bottom: -3.9em; text-align: center; width: 110px; font-size: 1em; padding-bottom: 9px; background: url(/legislation-pilot/images/pointInTimePointer.gif) no-repeat bottom center; font-size: 1em;}

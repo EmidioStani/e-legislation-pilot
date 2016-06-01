@@ -35,14 +35,16 @@ $HTMLfolder = 'html';
 $RDFafolder = 'rdfa';
 
 if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
-	if(empty($_POST['source'])){ //If no alternative source is provided
+	if(empty($_POST['source'])){ 
+	//If no alternative source is provided
 		/*===================*/
 		/*Convert DOC to HTML*/
 		/*===================*/ 
 		header("Content-Type: text/html");
 		exec("node docxtohtml.js $DOCfolder $HTMLfolder");
 
-	} else { //An alternative data source (url) is provided
+	} else { 
+	//An alternative data source (url) is provided
 		/*==================*/
 		/*Save HTML from URL*/
 		/*==================*/ 	
@@ -67,7 +69,8 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	/*====================*/
 	/*Convert HTML to RDFa*/
 	/*====================*/
-	if($_POST['type'] == 'act'){ //If the type of legislation is an act
+	if($_POST['type'] == 'act'){ 
+	//If the type of legislation is an act
 		header("Content-Type: text/html");
 		exec("node parser.js $HTMLfolder $RDFafolder $host");//
 
@@ -83,7 +86,6 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	foreach(glob($RDFafolder.'/*.*') as $fileName) {
 		$data = file_get_contents($fileName);
 		$subject = 'http://localhost:8890/'.$fileName; //Should be replaced with an ELI identifier
-
 		$graph = '';
 		$graph = new EasyRdf_Graph($iri);
 		$graph->parse($data, $inputFormat, $subject); 
@@ -91,6 +93,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 		$output = $graph->serialise($outputFormat);
 		$gs->insert($graph, $iri, $outputFormat);
 		//print($output);
+		rename(str_replace($RDFafolder, $DOCfolder, $fileName), "archive/".str_replace($RDFafolder, $DOCfolder, $fileName)); //Archive DOC folder
 		rename(str_replace($RDFafolder, $HTMLfolder, $fileName), "archive/".str_replace($RDFafolder, $HTMLfolder, $fileName)); //Archive HTML folder
 		rename($fileName, "archive/".$fileName); //Archive RDFa folder
 	}
@@ -118,16 +121,19 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 
 <article>
 <form name="parser" id="parser" method="post" action="?a=parse">
+	<!--User form for parsing legislativie data -->
 	<h1><label for="source">Specify your data source</label></h1>
 	<p><input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"></p>
 	<p>If no data source is specified, the script will use the .docx files present in the <em>./doc</em> folder</p>
 	<h1>Parameters</h1>
 	<input type="radio" name="type" value="act"> <label for="type">Base Act</label><br>
   	<input type="radio" name="type" value="amendment"> <label for="type">Amendment</label><br>
-	<p>Triple store: <input type="text" id="uriStore" name="uriStore" value="http://localhost:8890/sparql-graph-crud" style="width:400px;"></p>
-	<p>Graph name: <input type="text" id="iri" name="iri" value="http://localhost:8890/legislation" style="width:400px;"></p>
+	<p>Triple store: <input type="text" id="uriStore" name="uriStore" value="http://openlaw.e-themis.gov.gr/sparql-graph-crud" style="width:400px;"></p>
+	<p>Graph name: <input type="text" id="iri" name="iri" value="http://openlaw.e-themis.gov.gr" style="width:400px;"></p>
 	<p>Host name: <input type="text" id="host" name="host" value="http://openlaw.e-themis.gov.gr/eli/" style="width:400px;"></p>
 	<input type="submit" value="Submit">
+	<h1>Documentation</h1>
+	<p>Read the <a href="documentation/index.html">technical documentation</a> regarding this ELI Importer</p>
 	</article>
 
 	<footer>

@@ -506,7 +506,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 <script type="text/javascript" src="/legislation-pilot/js/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/jquery.treemenu.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/scrollbar.js"></script>
-<script type="text/javascript" src="/legislation-pilot/js/cookie.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
 <script type="text/javascript" src="/legislation-pilot/js/main.js"></script>
 </body>
 </html>
