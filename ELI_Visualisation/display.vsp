@@ -81,7 +81,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#title> ?title .
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#type_document> ?type_document .
-                         	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher
+                         	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher .
                          	`iri(?:_uri)` <http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division> ?subject
                       }) do { 
 	?>
