@@ -139,7 +139,7 @@ input.forEach(function (fileName) {
 
 	//Wrap first paragraph and add eli attributes
 	$(paragraph).first().attr('property', 'eli:title');
-    wrap_base = $('<div about="' + eli_base + '" typeof="' + host + 'vocabulary#act"></div>');
+    wrap_base = $('<div about="' + eli_base + '" typeof="' + host + 'vocabulary#amendment"></div>');
 	$(paragraph).first().wrap(wrap_base);
     paragraph_attributes = '<span property="eli:type_document" content="' + type_document[0] + '"></span>';
 	paragraph_attributes += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
@@ -174,6 +174,7 @@ input.forEach(function (fileName) {
 		article_number.next('div').prepend('<span property="eli:is_part_of" resource="' + eli_base + '"></span>');
 		article_number.next('div').prepend('<span property="eli:publisher" content="http://www.et.gr/"></span>');
 		article_number.next('div').prepend('<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>');
+		wrap_base.append('<span property="eli:has_part" resource="' + eli_base + '/article_' + number + '"></span>')
 	}
 
 	/*=================*/
