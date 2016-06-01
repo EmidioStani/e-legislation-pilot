@@ -82,6 +82,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#type_document> ?type_document .
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#publisher> ?publisher
+                         	`iri(?:_uri)` <http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division> ?subject
                       }) do { 
 	?>
 	<?vsp
@@ -153,10 +154,11 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<h1><span id="display-type"></span>: <?= charset_recode(type_document, 'UTF-8', '_WIDE_') ?></h1>
 	<h1><span id="display-date"></span>: <?= date_current ?></h1>
 	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h1><span id="display-category"></span>: <a href="<?vsp http(subject); ?>"><?= charset_recode(subject, 'UTF-8', '_WIDE_') ?></a></h1>
 	<?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
-					  FROM <http://localhost:8890/legislation>
+					  FROM <http://52.50.205.146/legislation-pilot>
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
@@ -327,7 +329,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
-					  FROM <http://localhost:8890/legislation>
+					  FROM <http://52.50.205.146/legislation-pilot>
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
@@ -482,7 +484,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
     <?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
-					  FROM <http://localhost:8890/legislation>
+					  FROM <http://52.50.205.146/legislation-pilot>
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>

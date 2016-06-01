@@ -42,7 +42,6 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 		/*===================*/ 
 		header("Content-Type: text/html");
 		exec("node docxtohtml.js $DOCfolder $HTMLfolder");
-
 	} else { 
 	//An alternative data source (url) is provided
 		/*==================*/
@@ -92,8 +91,6 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 
 		$output = $graph->serialise($outputFormat);
 		$gs->insert($graph, $iri, $outputFormat);
-		//print($output);
-		rename(str_replace($RDFafolder, $DOCfolder, $fileName), "archive/".str_replace($RDFafolder, $DOCfolder, $fileName)); //Archive DOC folder
 		rename(str_replace($RDFafolder, $HTMLfolder, $fileName), "archive/".str_replace($RDFafolder, $HTMLfolder, $fileName)); //Archive HTML folder
 		rename($fileName, "archive/".$fileName); //Archive RDFa folder
 	}
@@ -132,6 +129,13 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	<p>Graph name: <input type="text" id="iri" name="iri" value="http://openlaw.e-themis.gov.gr" style="width:400px;"></p>
 	<p>Host name: <input type="text" id="host" name="host" value="http://openlaw.e-themis.gov.gr/eli/" style="width:400px;"></p>
 	<input type="submit" value="Submit">
+	<?php if(!empty($output)){ ?>
+	<h1>RDF/XML Output</p>
+	<div style="border:1px solid #ededed; padding:20px; color:#444; font-size:12px;">
+	<?php echo nl2br(htmlentities($output, ENT_QUOTES, "UTF-8")); ?>
+	</div>
+	<?php } ?>
+
 	<h1>Documentation</h1>
 	<p>Read the <a href="documentation/index.html">technical documentation</a> regarding this ELI Importer</p>
 	</article>
