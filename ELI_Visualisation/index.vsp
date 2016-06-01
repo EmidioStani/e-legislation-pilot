@@ -63,7 +63,7 @@
 		<li><span id="merchant-shipping"></span></li>
 		<li><span id="municipalities-and-communities-prefecture-self-administration"></span></li>
 		<li><span id="national-defence-land-army"></span></li>
-		<li><span id="navy"></span></li>
+		<li><span id="na-vy"></span></li>
 		<li><span id="police-law-fire-department"></span></li>
 		<li><span id="port-law"></span></li>
 		<li><span id="post-telecommunications"></span></li>
@@ -73,7 +73,7 @@
 		<li><span id="rural-law-forests-animal-farming"></span></li>
 		<li><span id="science-and-arts-universities-antiquities"></span></li>
 		<li><span id="social-welfare"></span></li>
-		<li><span id="transportation"></span></li>
+		<li><span id="trans-portation"></span></li>
 		<li><span id="worker-association-chambers-cooperatives"></span></li>
 	</ul>	
 

@@ -34,6 +34,7 @@ var labels = [
   ['display-structure', 'Document structure', 'Struttura del documento', 'δομή του εγγράφου'],
   ['display-contents', 'Contents', 'Contenuto', 'Περιεχόμενα'],
   ['display-ispartof', 'Is part of', 'È parte di', 'Είναι μέρος του'],
+  ['display-changes', 'Changes', 'I cambiamenti', 'αλλαγές'],
   ['administrative-law-civil-servants', 'Administrative law, civil servants', 'Administrative law, civil servants', 'Διοικητική νομοθεσία - δημόσιοι υπάλληλοι'],
   ['agricultural-law-water-resources', 'Agricultural law, water resources', 'Agricultural law, water resources', 'Γεωργική νομοθεσία-υδάτινοι πόροι'],
   ['airforce-civil-aviation', 'Airforce, civil aviation', 'Airforce, civil aviation', 'Πολεμική αεροπορία - πολιτική αεροπορία'],

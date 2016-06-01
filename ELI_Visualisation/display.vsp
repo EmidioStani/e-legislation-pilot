@@ -154,8 +154,18 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<h1><span id="display-date"></span>: <?= date_current ?></h1>
 	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
 	<?vsp } ?>
-	<br/>
-	<br/>
+	<?vsp 
+	for(sparql  SELECT distinct * 
+					  FROM <http://localhost:8890/legislation>
+					  WHERE { 
+						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
+					  }) do { ?>
+	<p><span id="display-changes"></span>:
+		<a href="<?vsp http(target); ?>">
+			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
+		</a>
+	</p>
+	<?vsp } ?>	
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion">	
 	<?vsp
@@ -300,7 +310,6 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<h1><span id="display-date"></span>: <?= date_current ?></h1>
 	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
 	<?vsp } ?>
-	<br/>
 	<?vsp 
 	for(sparql  SELECT distinct * 
 					  FROM <http://52.50.205.146/legislation-pilot>
@@ -316,8 +325,18 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 		</a>
 	</p>
 	<?vsp } ?>
-	<br/>
-	<br/>
+	<?vsp 
+	for(sparql  SELECT distinct * 
+					  FROM <http://localhost:8890/legislation>
+					  WHERE { 
+						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
+					  }) do { ?>
+	<p><span id="display-changes"></span>:
+		<a href="<?vsp http(target); ?>">
+			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
+		</a>
+	</p>
+	<?vsp } ?>	
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
@@ -461,7 +480,18 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
     	</a>
     </p>
     <?vsp } ?>
-	
+	<?vsp 
+	for(sparql  SELECT distinct * 
+					  FROM <http://localhost:8890/legislation>
+					  WHERE { 
+						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
+					  }) do { ?>
+	<p><span id="display-changes"></span>:
+		<a href="<?vsp http(target); ?>">
+			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
+		</a>
+	</p>
+	<?vsp } ?>	
 	<h2><span id="display-contents"></span></h2>
 	<p>
 		<?= charset_recode(description, 'UTF-8', '_WIDE_') ?>
