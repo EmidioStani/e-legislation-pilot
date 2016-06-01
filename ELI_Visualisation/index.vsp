@@ -23,19 +23,11 @@
 		<h1><span id="index-acts"></span></h1>
 
 	<ul id="accordion">
-		<li>Administrative law, civil servants
-
-		</li>
-		<li>Agricultural law, water resources
-
-		</li>
-		<li>Airforce, civil aviation
-
-		</li>
-		<li>Anonymous companies, limited liability companies, stock markets, banks
-
-		</li>
-		<li>Civil law (2)			
+		<li><span id="administrative-law-civil-servants"></span></li>
+		<li><span id="agricultural-law-water-resources"></span></li>
+		<li><span id="airforce-civil-aviation"></span></li>
+		<li><span id="anonymous-companies-limited-liability-companies-stock-markets-banks"></span></li>
+		<li><span id="civil-law"></span>
 			<ul>
 				<?vsp for(sparql  SELECT distinct * 
 				FROM <http://52.50.205.146/legislation-pilot>
@@ -48,109 +40,41 @@
 				<?vsp } ?>
 			</ul>
 		</li>
-		<li>Civil procedure
-
-		</li>
-		<li>Commercial law
-
-		</li>
-		<li>Constitutional law
-
-		</li>
-		<li>Court of audit, public servants pensions
-
-		</li>
-		<li>Criminal law
-
-		</li>
-		<li>Criminal procedure
-
-		</li>
-		<li>Currency, public property
-
-		</li>
-		<li>Customs law
-
-		</li>
-		<li>Diplomatic law, international organizations
-
-		</li>
-		<li>Direct taxation
-
-		</li>
-		<li>Ecclesiastical law
-
-		</li>
-		<li>Educational law, sport
-
-		</li>
-		<li>Financial management, environment
-
-		</li>
-		<li>Health law, hospitals, doctors
-
-		</li>
-		<li>Indirect taxation
-
-		</li>
-		<li>Industrial law, development law, fishing
-
-		</li>
-		<li>Justice administration
-
-		</li>
-		<li>Labour law
-
-		</li>
-		<li>Legal entities of public law, pension funds
-
-		</li>
-		<li>Marketplace law
-
-		</li>
-		<li>Merchant shipping
-
-		</li>
-		<li>Municipalities and communities, prefecture self administration
-
-		</li>
-		<li>National defence, land army
-
-		</li>
-		<li>Navy
-
-		</li>
-		<li>Police law, fire department
-
-		</li>
-		<li>Port law
-
-		</li>
-		<li>Post, telecommunications
-
-		</li>
-		<li>Press, media, tourism
-
-		</li>
-		<li>Public accounting, K.E.D.E.
-
-		</li>
-		<li>Public works, engineers, urban planning
-
-		</li>
-		<li>Rural law, forests, animal farming
-
-		</li>
-		<li>Science and arts, universities, antiquities
-
-		</li>
-		<li>Social welfare
-
-		</li>
-		<li>Transportation
-
-		</li>
-		<li>Worker association, chambers, cooperatives</li>
+		<li><span id="civil-procedure"></span></li>
+		<li><span id="commercial-law"></span></li>
+		<li><span id="constitutional-law"></span></li>
+		<li><span id="court-of-audit-public-servants-pensions"></span></li>
+		<li><span id="criminal-law"></span></li>
+		<li><span id="criminal-procedure"></span></li>
+		<li><span id="currency-public-property"></span></li>
+		<li><span id="customs-law"></span></li>
+		<li><span id="diplomatic-law-international-organizations"></span></li>
+		<li><span id="direct-taxation"></span></li>
+		<li><span id="ecclesiastical-law"></span></li>
+		<li><span id="educational-law-sport"></span></li>
+		<li><span id="financial-management-environment"></span></li>
+		<li><span id="health-law-hospitals-doctors"></span></li>
+		<li><span id="indirect-taxation"></span></li>
+		<li><span id="industrial-law-development-law-fishing"></span></li>
+		<li><span id="justice-administration"></span></li>
+		<li><span id="labour-law"></span></li>
+		<li><span id="legal-entities-of-public-law-pension-funds"></span></li>
+		<li><span id="marketplace-law"></span></li>
+		<li><span id="merchant-shipping"></span></li>
+		<li><span id="municipalities-and-communities-prefecture-self-administration"></span></li>
+		<li><span id="national-defence-land-army"></span></li>
+		<li><span id="navy"></span></li>
+		<li><span id="police-law-fire-department"></span></li>
+		<li><span id="port-law"></span></li>
+		<li><span id="post-telecommunications"></span></li>
+		<li><span id="press-media-tourism"></span></li>
+		<li><span id="public-accounting-kede"></span></li>
+		<li><span id="public-works-engineers-urban-planning"></span></li>
+		<li><span id="rural-law-forests-animal-farming"></span></li>
+		<li><span id="science-and-arts-universities-antiquities"></span></li>
+		<li><span id="social-welfare"></span></li>
+		<li><span id="transportation"></span></li>
+		<li><span id="worker-association-chambers-cooperatives"></span></li>
 	</ul>	
 
 	<h1><span id="index-links"></span></h1>
