@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:ell="http://openlaw.e-themis.gov.gr/eli/vocabulary#">
+   <skos:ConceptScheme rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table">
+      <rdfs:label xml:lang="en">Subject Division Type List</rdfs:label>
+      <skos:prefLabel xml:lang="en">Subject Division Type List</skos:prefLabel>
+      <rdfs:comment>Set of subject of a country juridiction</rdfs:comment>
+   </skos:ConceptScheme>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Administrative_law_-_public_servants">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Administrative_law_-_civil_servants</dc:identifier>
+      <skos:prefLabel xml:lang="el">Διοικητική νομοθεσία - δημόσιοι υπάλληλοι</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Administrative law, civil servants</skos:prefLabel>
+      <rdfs:label xml:lang="en">Administrative law, civil servants</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Agricultural_law_-_water_resources">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Agricultural_law_-_water_resources</dc:identifier>
+      <skos:prefLabel xml:lang="el">Γεωργική νομοθεσία-υδάτινοι πόροι</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Agricultural law, water resources</skos:prefLabel>
+      <rdfs:label xml:lang="en">Agricultural law, water resources</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Airforce_-_civil_aviation">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Airforce_-_civil_aviation</dc:identifier>
+      <skos:prefLabel xml:lang="el">Πολεμική αεροπορία - πολιτική αεροπορία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Airforce, civil aviation</skos:prefLabel>
+      <rdfs:label xml:lang="en">Airforce, civil aviation</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Anonymous_companies_-_limited_liability_companies_-_stock_markets_-_banks">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Anonymous_companies_-_limited_liability_companies_-_stock_markets_-_banks</dc:identifier>
+      <skos:prefLabel xml:lang="el">Ανώνυμες εταιρείες - επε - χρηματιστήρια - τράπεζες</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Anonymous companies, limited liability companies, stock markets, banks</skos:prefLabel>
+      <rdfs:label xml:lang="en">Anonymous companies, limited liability companies, stock markets, banks</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Civil_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Αστική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Civil law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Civil law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_procedure">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Civil_procedure</dc:identifier>
+      <skos:prefLabel xml:lang="el">Πολιτική δικονομία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Civil procedure</skos:prefLabel>
+      <rdfs:label xml:lang="en">Civil procedure</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Commercial_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Commercial_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Εμπορική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Commercial law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Commercial law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Constitutional_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Constitutional_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Συνταγματική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Constitutional law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Constitutional law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Court_of_audit_-_public_servants_pensions">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Court_of_audit_-_public_servants_pensions</dc:identifier>
+      <skos:prefLabel xml:lang="el">Ελεγκτικό συνέδριο - συντάξεις δημοσίου</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Court of audit, public servants pensions</skos:prefLabel>
+      <rdfs:label xml:lang="en">Court of audit, public servants pensions</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Criminal_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Criminal_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Ποινική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Criminal law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Criminal law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Criminal_procedure">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Criminal_procedure</dc:identifier>
+      <skos:prefLabel xml:lang="el">Ποινική δικονομία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Criminal procedure</skos:prefLabel>
+      <rdfs:label xml:lang="en">Criminal procedure</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Currency_-_public_property">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Currency_-_public_property</dc:identifier>
+      <skos:prefLabel xml:lang="el">Νόμισμα - περιουσία δημοσίου</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Currency, public property</skos:prefLabel>
+      <rdfs:label xml:lang="en">Currency, public property</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Customs_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Customs_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Τελωνιακή νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Customs law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Customs law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Diplomatic_law_-_international_organizations">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Diplomatic_law_-_international_organizations</dc:identifier>
+      <skos:prefLabel xml:lang="el">Διπλωματική νομοθεσία - διεθνείς οργανισμοί</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Diplomatic law, international organizations</skos:prefLabel>
+      <rdfs:label xml:lang="en">Diplomatic law, international organizations</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Direct_taxation">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Direct_taxation</dc:identifier>
+      <skos:prefLabel xml:lang="el">Άμεση φορολογία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Direct taxation</skos:prefLabel>
+      <rdfs:label xml:lang="en">Direct taxation</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Ecclesiastical_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Ecclesiastical_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Εκκλησιαστική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Ecclesiastical law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Ecclesiastical law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Educational_law_-_sport">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Educational_law_-_sport</dc:identifier>
+      <skos:prefLabel xml:lang="el">Εκπαιδευτική νομοθεσία - αθλητισμός</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Educational law, sport</skos:prefLabel>
+      <rdfs:label xml:lang="en">Educational law, sport</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Financial_management_-_environment">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Financial_management_-_environment</dc:identifier>
+      <skos:prefLabel xml:lang="el">Οικονομική διοίκηση - περιβάλλον</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Financial management, environment</skos:prefLabel>
+      <rdfs:label xml:lang="en">Financial management, environment</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Health_law_-_hospitals_-_doctors">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Health_law_-_hospitals_-_doctors</dc:identifier>
+      <skos:prefLabel xml:lang="el">Υγειονομική νομοθεσία - νοσοκομεία - ιατροί</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Health law, hospitals, doctors</skos:prefLabel>
+      <rdfs:label xml:lang="en">Health law, hospitals, doctors</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Indirect_taxation">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Indirect_taxation</dc:identifier>
+      <skos:prefLabel xml:lang="el">Έμμεση φορολογία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Indirect taxation</skos:prefLabel>
+      <rdfs:label xml:lang="en">Indirect taxation</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Industrial_law_-_development_law_-_fishing">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Industrial_law_-_development_law_-_fishing</dc:identifier>
+      <skos:prefLabel xml:lang="el">Βιομηχανική νομοθεσία-αναπτυξιακή νομοθεσία- αλιεία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Industrial law, development law, fishing</skos:prefLabel>
+      <rdfs:label xml:lang="en">Industrial law, development law, fishing</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Justice_administration">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Justice_administration</dc:identifier>
+      <skos:prefLabel xml:lang="el">Διοίκηση δικαιοσύνης</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Justice administration</skos:prefLabel>
+      <rdfs:label xml:lang="en">Justice administration</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Labour_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Labour_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Εργατική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Labour law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Labour law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Legal_entities_of_public_law_-_pension_funds">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Legal_entities_of_public_law_-_pension_funds</dc:identifier>
+      <skos:prefLabel xml:lang="el">Νομικά πρόσωπα δημοσίου δικαίου - ασφαλιστικά ταμεία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Legal entities of public law, pension funds</skos:prefLabel>
+      <rdfs:label xml:lang="en">Legal entities of public law, pension funds</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Marketplace_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Marketplace_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Αγορανομική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Marketplace law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Marketplace law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Merchant_shipping">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Merchant_shipping</dc:identifier>
+      <skos:prefLabel xml:lang="el">Εμπορική ναυτηλία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Merchant shipping</skos:prefLabel>
+      <rdfs:label xml:lang="en">Merchant shipping</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Municipalities_and_communities_-_prefecture_self_administration">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Municipalities_and_communities_-_prefecture_self_administration</dc:identifier>
+      <skos:prefLabel xml:lang="el">Δήμοι και κοινότητες - νομαρχιακή αυτοδιοίκηση</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Municipalities and communities, prefecture self administration</skos:prefLabel>
+      <rdfs:label xml:lang="en">Municipalities and communities, prefecture self administration</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#National_defence_-_land_army">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>National_defence_-_land_army</dc:identifier>
+      <skos:prefLabel xml:lang="el">Εθνική άμυνα - στρατός ξηράς</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">National defence, land army</skos:prefLabel>
+      <rdfs:label xml:lang="en">National defence, land army</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Navy">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Navy</dc:identifier>
+      <skos:prefLabel xml:lang="el">Πολεμικό ναυτικό</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Navy</skos:prefLabel>
+      <rdfs:label xml:lang="en">Navy</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Police_law_-_fire_department">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Police_law_-_fire_department</dc:identifier>
+      <skos:prefLabel xml:lang="el">Αστυνομική νομοθεσία - πυροσβεστικό σώμα</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Police law, fire department</skos:prefLabel>
+      <rdfs:label xml:lang="en">Police law, fire department</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Port_law">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Port_law</dc:identifier>
+      <skos:prefLabel xml:lang="el">Λιμενική νομοθεσία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Port law</skos:prefLabel>
+      <rdfs:label xml:lang="en">Port law</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Post_-_telecommunications">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Post_-_telecommunications</dc:identifier>
+      <skos:prefLabel xml:lang="el">Ταχυδρομεία - τηλεπικοινωνίες</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Post, telecommunications</skos:prefLabel>
+      <rdfs:label xml:lang="en">Post, telecommunications</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Press_-_media_-_tourism">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Press_-_media_-_tourism</dc:identifier>
+      <skos:prefLabel xml:lang="el">Τύπος - ΜΜΕ - τουρισμός</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Press, media, tourism</skos:prefLabel>
+      <rdfs:label xml:lang="en">Press, media, tourism</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Public_accounting_-_K.E.D.E.">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Public_accounting_-_K.E.D.E.</dc:identifier>
+      <skos:prefLabel xml:lang="el">Δημόσιο λογιστικό - Κ.Ε.Δ.Ε.</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Public accounting, K.E.D.E.</skos:prefLabel>
+      <rdfs:label xml:lang="en">Public accounting, K.E.D.E.</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Public_works_-_engineers_-_urban_planning">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Public_works_-_engineers_-_urban_planning</dc:identifier>
+      <skos:prefLabel xml:lang="el">Δημόσια έργα - μηχανικοί - πολεοδομία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Public works, engineers, urban planning</skos:prefLabel>
+      <rdfs:label xml:lang="en">Public works, engineers, urban planning</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Rural_law_-_forests_-_animal_farming">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Rural_law_-_forests_-_animal_farming</dc:identifier>
+      <skos:prefLabel xml:lang="el">Αγροτική νομοθεσία-δάση-κτηνοτριφία</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Rural law, forests, animal farming</skos:prefLabel>
+      <rdfs:label xml:lang="en">Rural law, forests, animal farming</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Science_and_arts_-_universities_-_antiquities">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Science_and_arts_-_universities_-_antiquities</dc:identifier>
+      <skos:prefLabel xml:lang="el">Επιστήμες και τέχνες - Α.Ε.Ι. - αρχαιότητες</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Science and arts, universities, antiquities</skos:prefLabel>
+      <rdfs:label xml:lang="en">Science and arts, universities, antiquities</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Social_welfare">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Social_welfare</dc:identifier>
+      <skos:prefLabel xml:lang="el">Κοινωνική πρόνοια</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Social welfare</skos:prefLabel>
+      <rdfs:label xml:lang="en">Social welfare</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Transportation">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Transportation</dc:identifier>
+      <skos:prefLabel xml:lang="el">Συγκοινωνίες</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Transportation</skos:prefLabel>
+      <rdfs:label xml:lang="en">Transportation</rdfs:label>
+   </ell:SubjectDivision>
+   <ell:SubjectDivision rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Worker_association_-_chambers_-_cooperatives">
+      <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
+      <dc:identifier>Worker_association_-_chambers_-_cooperatives</dc:identifier>
+      <skos:prefLabel xml:lang="el">Σωματεία/επιμελητήρια/συνεταιρισμοί</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Worker association, chambers, cooperatives</skos:prefLabel>
+      <rdfs:label xml:lang="en">Worker association, chambers, cooperatives</rdfs:label>
+   </ell:SubjectDivision>
+</rdf:RDF>

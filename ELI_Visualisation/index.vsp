@@ -27,7 +27,7 @@
 		<li><span id="agricultural-law-water-resources"></span></li>
 		<li><span id="airforce-civil-aviation"></span></li>
 		<li><span id="anonymous-companies-limited-liability-companies-stock-markets-banks"></span></li>
-		<li><span id="civil-law"> (2)</span>
+		<li><span id="civil-law"></span> (2)
 			<ul>
 				<?vsp for(sparql  SELECT distinct * 
 				FROM <http://52.50.205.146/legislation-pilot>

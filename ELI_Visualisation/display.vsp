@@ -41,7 +41,6 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
   <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/screen.css" />
   <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/jquery.treemenu.css" />
   <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/changesOverTime.css" />
-  <link rel="stylesheet" type="text/css" href="/legislation-pilot/css/timeline.css" />
   <script type="text/javascript" src="/legislation-pilot/js/modernizr.js"></script>
 </head>
 
