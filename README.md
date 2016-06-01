@@ -18,6 +18,9 @@ The objective of this pilot is to develop two proofs of concept, one for Greece 
 * Cheerio.js v0.20
 * Mammoth.js v0.3.33
 * Jenkins v1.651.2
+* jQuery v1.11.0
+* jQuery UI v1.11.4
+* JS-Cookie v2.1.2
 
 ## How to use
 
