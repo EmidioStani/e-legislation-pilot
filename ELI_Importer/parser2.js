@@ -1,5 +1,5 @@
 // Convert a set of Word documents containing legislative text and/or
-// its amendments into (1) xHTML and (2) RDF+XML in order to store the 
+// its amendments into (1) xHTML and (2) RDF+XML in order to store the
 // information as linked open data in a Virtuoso Triple Store
 //
 // Copyright 2016 European Union
@@ -102,7 +102,8 @@ input.forEach(function (fileName) {
         wrap_paragraph,
         paragraph_append,
         seen,
-        article_next;
+        article_next,
+        article_prepend;
 
     seen = {};
 	h1s = $(chapter).get().length;
@@ -163,7 +164,10 @@ input.forEach(function (fileName) {
 
 	//Loop through articles
 	h3s = $(article).get().length;
-
+    article_prepend = '<span property="eli:is_part_of" resource="' + eli_base + '"></span>';
+    article_prepend += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+    article_prepend += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
+    
 	for (i = 0; i < h3s; i += 1) {
         article_number = $(article).eq(i);
 		number = article_number.text().match(/[0-9]+/);
@@ -171,9 +175,7 @@ input.forEach(function (fileName) {
 		article_number.next().children().first().attr({
 			property: 'dct:title'
 		});
-		article_number.next('div').prepend('<span property="eli:is_part_of" resource="' + eli_base + '"></span>');
-		article_number.next('div').prepend('<span property="eli:publisher" content="http://www.et.gr/"></span>');
-		article_number.next('div').prepend('<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>');
+		article_number.next('div').prepend(article_prepend);
 		wrap_base.append('<span property="eli:has_part" resource="' + eli_base + '/article_' + number + '"></span>')
 	}
 
