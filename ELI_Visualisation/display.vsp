@@ -168,18 +168,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 		</a>
 	</p>
 	<?vsp } ?>	
-	<!-- REMOVE THIS LINE AFTER UPDATE
-	<?vsp 
-	for(sparql  
-	/********* INSERT SPARQL QUERY TO RETRIEVE THE OBJECT BY WHICH THIS LEGISLATION IS CHANGED ***************/
-					  ) do { ?>
-	<p><span id="display-changedby"></span>:
-		<a href="<?vsp http(target); ?>">
-			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
-		</a>
-	</p>
-	<?vsp } ?>
-	--> REMOVE THIS LINE AFTER UPDATE
+
+	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
+
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion">	
 	<?vsp
@@ -351,18 +342,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 		</a>
 	</p>
 	<?vsp } ?>	
-	<!-- REMOVE THIS LINE AFTER UPDATE
-	<?vsp 
-	for(sparql  
-	/********* INSERT SPARQL QUERY TO RETRIEVE THE OBJECT BY WHICH THIS LEGISLATION IS CHANGED ***************/
-					  ) do { ?>
-	<p><span id="display-changedby"></span>:
-		<a href="<?vsp http(target); ?>">
-			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
-		</a>
-	</p>
-	<?vsp } ?>
-	--> REMOVE THIS LINE AFTER UPDATE
+
+	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
+
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
@@ -518,18 +500,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 		</a>
 	</p>
 	<?vsp } ?>	
-	<!-- REMOVE THIS LINE AFTER UPDATE
-	<?vsp 
-	for(sparql  
-	/********* INSERT SPARQL QUERY TO RETRIEVE THE OBJECT BY WHICH THIS LEGISLATION IS CHANGED ***************/
-					  ) do { ?>
-	<p><span id="display-changedby"></span>:
-		<a href="<?vsp http(target); ?>">
-			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
-		</a>
-	</p>
-	<?vsp } ?>
-	--> REMOVE THIS LINE AFTER UPDATE
+
+	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
+	
 	<h2><span id="display-contents"></span></h2>
 	<p>
 		<?= charset_recode(description, 'UTF-8', '_WIDE_') ?>
