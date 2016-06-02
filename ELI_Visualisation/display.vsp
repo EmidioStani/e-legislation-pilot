@@ -171,7 +171,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<?vsp 
 	for(sparql  
 	-- /********* INSERT SPARQL QUERY TO RETRIEVE THE OBJECT BY WHICH THIS LEGISLATION IS CHANGED ***************/
-					  }) do { ?>
+					  ) do { ?>
 	<p><span id="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
@@ -352,7 +352,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<?vsp 
 	for(sparql  
 	-- /********* INSERT SPARQL QUERY TO RETRIEVE THE OBJECT BY WHICH THIS LEGISLATION IS CHANGED ***************/
-					  }) do { ?>
+					  ) do { ?>
 	<p><span id="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
@@ -517,7 +517,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<?vsp 
 	for(sparql  
 	-- /********* INSERT SPARQL QUERY TO RETRIEVE THE OBJECT BY WHICH THIS LEGISLATION IS CHANGED ***************/
-					  }) do { ?>
+					  ) do { ?>
 	<p><span id="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
