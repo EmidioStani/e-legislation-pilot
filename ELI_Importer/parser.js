@@ -110,7 +110,8 @@ input.forEach(function (fileName) {
         this_parent,
         article_number,
         chapter_number,
-        eli_count;
+        eli_count,
+        paragraph_div;
 
     h1s = $(chapter).get().length;
     h3s = $(article).get().length;
