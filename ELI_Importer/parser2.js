@@ -34,11 +34,11 @@ var extendCheerio = require('./wrapAll.js');
 /******************************/
 //Identify level of granularity: <name of component>, <identifier for component>
 var elem = [
-	['law', 'p:first-of-type'],
-	['part', ''],
-	['chapter', 'h1'],
-	['article', 'h3'],
-	['paragraph', 'p']
+    ['law', 'p:first-of-type'],
+    ['part', ''],
+    ['chapter', 'h1'],
+    ['article', 'h3'],
+    ['paragraph', 'p']
 ];
 
 var args = process.argv.slice(2);
@@ -49,7 +49,7 @@ var host = args[2];
 //var outputPath = 'rdfa';
 //var host = 'http://localhost:8890/e-legislation';
 if (host.slice(-1) !== '/') {
-	host = host + '/';
+    host = host + '/';
 }
 var input = fs.readdirSync(filePath);
 var html;
