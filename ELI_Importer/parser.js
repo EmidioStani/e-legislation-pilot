@@ -293,13 +293,14 @@ input.forEach(function (fileName) {
     //Wrap paragraphs in div
     for(i = 0; i < h3s; i++){
         count = i + 1;
-        paragraphCount = $(article+'[id="'+eli_base+'/article_'+count+'"]').siblings('span').get().length; 		
+        paragraphCount = $(article+'[id="'+eli_base+'/article_'+count+'"]').siblings('span').get().length;
         for(j = 0; j < paragraphCount; j++){
             pcount = j + 1;
             $(paragraph+'[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'/article_'+count+'/paragraph_'+j+'" typeof="'+host+'vocabulary#paragraph">');
-            $('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');					
-            $('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
-            $('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').append('<span property="eli:publisher" content="http://www.et.gr/"/>');
+            paragraph_div = $('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]');
+            paragraph_div.append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');
+            paragraph_div.append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
+            paragraph_div.append('<span property="eli:publisher" content="http://www.et.gr/"/>');
         }
 
     }
