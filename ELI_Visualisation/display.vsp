@@ -162,11 +162,11 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<p><span id="display-changes"></span>:
+	<h1><span id="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h1>
 	<?vsp } ?>	
 
 	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
@@ -336,11 +336,11 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<p><span id="display-changes"></span>:
+	<h1><span id="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h1>
 	<?vsp } ?>	
 
 	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
@@ -494,11 +494,11 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<p><span id="display-changes"></span>:
+	<h1><span id="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h1>
 	<?vsp } ?>	
 
 	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
