@@ -107,7 +107,11 @@ jQuery(document).ready(function($){
 
   //Populate label fields
   $.each(labels, function( index, label ){
+    if(label[0]=="display-changes" OR label[0]=="display-changedby"){
+    $("."+label[0]).text(label[lang]);
+  }else {
     $("#"+label[0]).text(label[lang]);
+  }
   });
   /*Accordion for document structure*/
   $("#accordion").treemenu({delay:500}).openActive();

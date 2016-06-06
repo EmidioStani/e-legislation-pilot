@@ -162,7 +162,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<h2><span id="display-changes"></span>:
+	<h2><span class="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
@@ -176,7 +176,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` 
 					  }) do { ?>
-	<h2><span id="display-changedby"></span>:
+	<h2><span class="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
@@ -349,7 +349,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<h2><span id="display-changes"></span>:
+	<h2><span class="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
@@ -363,7 +363,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` 
 					  }) do { ?>
-	<h2><span id="display-changedby"></span>:
+	<h2><span class="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
@@ -520,7 +520,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<h2><span id="display-changes"></span>:
+	<h2><span class="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
@@ -534,7 +534,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)`
 					  }) do { ?>
-	<h2><span id="display-changedby"></span>:
+	<h2><span class="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
