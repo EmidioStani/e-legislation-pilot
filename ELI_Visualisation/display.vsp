@@ -150,11 +150,11 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 			</div>
 		</div>
 	</div>
-	<h1><span id="display-title"></span>: <a href="<?vsp http(_uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></h1>
-	<h1><span id="display-type"></span>: <?= charset_recode(type_document, 'UTF-8', '_WIDE_') ?></h1>
-	<h1><span id="display-date"></span>: <?= date_current ?></h1>
-	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
-	<h1><span id="display-category"></span>: <a href="<?vsp http(subject); ?>"><?= charset_recode(subject, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h2><span id="display-title"></span>: <a href="<?vsp http(_uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?></a></h2>
+	<h2><span id="display-type"></span>: <?= charset_recode(type_document, 'UTF-8', '_WIDE_') ?></h2>
+	<h2><span id="display-date"></span>: <?= date_current ?></h2>
+	<h2><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h2>
+	<h2><span id="display-category"></span>: <a href="<?vsp http(subject); ?>"><?= charset_recode(subject, 'UTF-8', '_WIDE_') ?></a></h2>
 	<?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
@@ -162,15 +162,28 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<p><span id="display-changes"></span>:
+	<h2><span class="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h2>
 	<?vsp } ?>	
 
 	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
-
+	<?vsp 
+	for(sparql  SELECT distinct * 
+					  FROM <http://52.50.205.146/legislation-pilot>
+					  WHERE { 
+						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` 
+					  }) do { ?>
+	<h2><span class="display-changedby"></span>:
+		<a href="<?vsp http(target); ?>">
+			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
+		</a>
+	</h2>
+	<?vsp } ?>	
+	
+	<!-- DIMITRIS UNTIL HERE -->
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion">	
 	<?vsp
@@ -306,14 +319,14 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 			</div>
 		</div>
 	</div>
-	<h1><span id="display-title"></span>: 
+	<h2><span id="display-title"></span>: 
 		<a href="<?vsp http(_uri); ?>">
 			<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
 			<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</h1>
-	<h1><span id="display-date"></span>: <?= date_current ?></h1>
-	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	</h2>
+	<h2><span id="display-date"></span>: <?= date_current ?></h2>
+	<h2><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h2>
 	<?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
@@ -336,15 +349,28 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<p><span id="display-changes"></span>:
+	<h2><span class="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h2>
 	<?vsp } ?>	
 
 	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
-
+	<?vsp 
+	for(sparql  SELECT distinct * 
+					  FROM <http://52.50.205.146/legislation-pilot>
+					  WHERE { 
+						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` 
+					  }) do { ?>
+	<h2><span class="display-changedby"></span>:
+		<a href="<?vsp http(target); ?>">
+			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
+		</a>
+	</h2>
+	<?vsp } ?>	
+	
+	<!-- DIMITRIS UNTIL HERE-->
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
@@ -472,8 +498,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</div>
 				
 	</section>
-	<h1><span id="display-date"></span>: <?= date_current ?></h1>
-	<h1><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h1>
+	<h2><span id="display-date"></span>: <?= date_current ?></h2>
+	<h2><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h2>
     <?vsp for(sparql  SELECT distinct * 
                       FROM <http://52.50.205.146/legislation-pilot>
                       WHERE { 
@@ -494,15 +520,28 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changes> ?target 
 					  }) do { ?>
-	<p><span id="display-changes"></span>:
+	<h2><span class="display-changes"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h2>
 	<?vsp } ?>	
 
 	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
+	<?vsp 
+	for(sparql  SELECT distinct * 
+					  FROM <http://52.50.205.146/legislation-pilot>
+					  WHERE { 
+						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)`
+					  }) do { ?>
+	<h2><span class="display-changedby"></span>:
+		<a href="<?vsp http(target); ?>">
+			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
+		</a>
+	</h2>
+	<?vsp } ?>
 	
+	<!-- DIMITRIS UNTIL HERE -->
 	<h2><span id="display-contents"></span></h2>
 	<p>
 		<?= charset_recode(description, 'UTF-8', '_WIDE_') ?>
@@ -531,13 +570,13 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
   </p>
   <p>
     <a href="https://joinup.ec.europa.eu/asset/dcat_application_profile/description" target="_blank"><img alt="DCAT application profile for European data portals" src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/DCAT_application_profile_for_European_data_portals_logo_0.png" width="70" height="70" /></a>
-    <a href="https://joinup.ec.europa.eu/asset/adms/description" target="_blank"><img alt="Asset Description Metadata Schema (ADMS)" src="http://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/adms_logo.png" width="70" height="70" /></a>
-    <a href="https://joinup.ec.europa.eu/asset/adms_foss/description" target="_blank"><img alt="Asset Description Metadata Schema for Software (ADMS.SW)" src="http://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/ADMS_SW_Logo.png" width="70" height="70" /></a>
-    <a href="https://joinup.ec.europa.eu/asset/core_business/description" target="_blank"><img alt="Core Business Vocabulary" src="http://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/core_business_logo.png" width="70" height="70" /></a>
-    <a href="https://joinup.ec.europa.eu/asset/core_person/description"><img alt="Core Person Vocabulary" src="http://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/core_person_logo.png" width="70" height="70" /></a>
-    <a href="https://joinup.ec.europa.eu/asset/core_location/description" target="_blank"><img alt="Core Location Vocabulary" src="http://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/core_location_logo.png" width="70" height="70" /></a>
+    <a href="https://joinup.ec.europa.eu/asset/adms/description" target="_blank"><img alt="Asset Description Metadata Schema (ADMS)" src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/adms_logo.png" width="70" height="70" /></a>
+    <a href="https://joinup.ec.europa.eu/asset/adms_foss/description" target="_blank"><img alt="Asset Description Metadata Schema for Software (ADMS.SW)" src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/ADMS_SW_Logo.png" width="70" height="70" /></a>
+    <a href="https://joinup.ec.europa.eu/asset/core_business/description" target="_blank"><img alt="Core Business Vocabulary" src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/core_business_logo.png" width="70" height="70" /></a>
+    <a href="https://joinup.ec.europa.eu/asset/core_person/description"><img alt="Core Person Vocabulary" src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/core_person_logo.png" width="70" height="70" /></a>
+    <a href="https://joinup.ec.europa.eu/asset/core_location/description" target="_blank"><img alt="Core Location Vocabulary" src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/core_location_logo.png" width="70" height="70" /></a>
     <a href="https://joinup.ec.europa.eu/asset/core_public_service/description" target="_blank"><img alt="Core Public Service Vocabulary" src="https://joinup.ec.europa.eu/sites/default/files/imagecache/community_logo/core_public_service_logo.png" width="70" height="70" /></a>
-    <a href="http://ec.europa.eu/isa/" target="_blank"><img alt="isa" src="http://joinup.ec.europa.eu/sites/default/files/ckeditor_files/images/isa_logo.png" width="70" height="70" /></a>
+    <a href="http://ec.europa.eu/isa/" target="_blank"><img alt="isa" src="https://joinup.ec.europa.eu/sites/default/files/ckeditor_files/images/isa_logo.png" width="70" height="70" /></a>
   </p>
 </footer>
 </div>
