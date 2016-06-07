@@ -336,12 +336,12 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 						OPTIONAL { ?act <http://data.europa.eu/eli/ontology#title> ?title } .
 						OPTIONAL { ?act <http://purl.org/dc/terms/title> ?dctitle } .
 					  }) do { ?>
-	<p><span id="display-ispartof"></span>:
+	<h2><span id="display-ispartof"></span>:
 		<a href="<?vsp http(act); ?>">
 			<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
 			<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h2>
 	<?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
@@ -370,7 +370,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>	
 	
-	<!-- DIMITRIS UNTIL HERE-->
+	<!-- DIMITRIS UNTIL HERE -->
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
@@ -507,12 +507,12 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	                      OPTIONAL { ?article <http://data.europa.eu/eli/ontology#title> ?title } .
 	                      OPTIONAL { ?article <http://purl.org/dc/terms/title> ?dctitle } .
                       }) do { ?>
-    <p><span id="display-ispartof"></span>:
+    <h2><span id="display-ispartof"></span>:
     	<a href="<?vsp http(article); ?>">
     		<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
     		<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
     	</a>
-    </p>
+    </h2>
     <?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
