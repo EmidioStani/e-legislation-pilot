@@ -32,7 +32,9 @@
 				<?vsp for(sparql  SELECT distinct *
 				FROM <http://52.50.205.146/legislation-pilot>
 				WHERE {
-				?uri rdf:type <http://52.50.205.146/legislation-pilot/vocabulary#act> .
+				{ ?uri rdf:type <http://52.50.205.146/legislation-pilot/vocabulary#act> }
+				UNION
+				{ ?uri rdf:type <http://52.50.205.146/legislation-pilot/vocabulary#amendment> } .
 				?uri <http://data.europa.eu/eli/ontology#title> ?title .
 				?uri <http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division> <http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law>
 				}) do { ?>

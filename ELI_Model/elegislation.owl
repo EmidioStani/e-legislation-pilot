@@ -18,7 +18,6 @@
      xmlns:dc="http://purl.org/dc/elements/1.1/">
     <owl:Ontology rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary">
         <owl:versionIRI rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary/0.0.1"/>
-        <owl:imports rdf:resource="http://data.europa.eu/eli/ontology#"/>
         <owl:versionInfo rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">First version of the ontology for the eLegislation pilot</owl:versionInfo>
         <dct:title rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">eLegislation pilot</dct:title>
         <dct:license rdf:resource="https://joinup.ec.europa.eu/category/licence/isa-open-metadata-licence-v11"/>

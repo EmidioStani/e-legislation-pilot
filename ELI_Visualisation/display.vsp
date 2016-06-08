@@ -77,7 +77,6 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<?vsp for(sparql  SELECT distinct * 
 					  FROM <http://52.50.205.146/legislation-pilot>
                       WHERE { 
-                         	`iri(?:_uri)` rdf:type <http://52.50.205.146/legislation-pilot/vocabulary#act> .
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#title> ?title .
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#date_document> ?date_document .
                          	`iri(?:_uri)` <http://data.europa.eu/eli/ontology#type_document> ?type_document .
@@ -198,7 +197,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					?uri <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:_uri)`	.
 					OPTIONAL { ?uri <http://purl.org/dc/terms/title> ?dctitle } . 
 					OPTIONAL { ?uri <http://data.europa.eu/eli/ontology#title> ?title } .
-				}) do { ?>
+					?uri <http://data.europa.eu/eli/ontology#id_local> ?id_local 
+				} ORDER BY ?id_local) do { ?>
 	  <li><a href="<?vsp http(uri); ?>"><?= charset_recode(title, 'UTF-8', '_WIDE_') ?><?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?></a>
 	  	<ul style="margin-left:20px;">
 		<?vsp 
@@ -208,8 +208,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 						?uria <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uri)` .
 						OPTIONAL { ?uria <http://purl.org/dc/terms/title> ?dctitle } .
 						OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#title> ?title } .
-						OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description }
-					}) do { ?>
+						OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description } .
+						?uria <http://data.europa.eu/eli/ontology#id_local> ?id_local 
+					} ORDER BY ?id_local) do { ?>
 		  <li>
 		  	<a href="<?vsp http(uria); ?>">
 			  	<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
@@ -222,8 +223,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 						FROM <http://52.50.205.146/legislation-pilot>
 						WHERE { 
 							?urip <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uria)` .
-							?urip <http://data.europa.eu/eli/ontology#description> ?description
-						}) do { ?>
+							?urip <http://data.europa.eu/eli/ontology#description> ?description .
+							?urip <http://data.europa.eu/eli/ontology#id_local> ?id_local 
+						} ORDER BY ?id_local) do { ?>
 				<li><a href="<?vsp http(urip); ?>"><?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?> (...)</a></li>
 			<?vsp } ?>
 			</ul>
@@ -336,12 +338,12 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 						OPTIONAL { ?act <http://data.europa.eu/eli/ontology#title> ?title } .
 						OPTIONAL { ?act <http://purl.org/dc/terms/title> ?dctitle } .
 					  }) do { ?>
-	<p><span id="display-ispartof"></span>:
+	<h2><span id="display-ispartof"></span>:
 		<a href="<?vsp http(act); ?>">
 			<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
 			<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
 		</a>
-	</p>
+	</h2>
 	<?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 
@@ -370,7 +372,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>	
 	
-	<!-- DIMITRIS UNTIL HERE-->
+	<!-- DIMITRIS UNTIL HERE -->
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
@@ -385,8 +387,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 					?uria <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:_uri)` .
 					OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#title> ?title } .
 					OPTIONAL { ?uria <http://purl.org/dc/terms/title> ?dctitle } 
-					OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description }
-				}) do { ?>
+					OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description } .
+					?uria <http://data.europa.eu/eli/ontology#id_local> ?id_local 
+				} ORDER BY ?id_local) do { ?>
 	  <li>
 	  	<a href="<?vsp http(uria); ?>">
 	  		<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
@@ -399,8 +402,9 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 						FROM <http://52.50.205.146/legislation-pilot>
 						WHERE { 
 							?urip <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uria)` .
-							?urip <http://data.europa.eu/eli/ontology#description> ?description
-						}) do { ?>
+							?urip <http://data.europa.eu/eli/ontology#description> ?description .
+							?urip <http://data.europa.eu/eli/ontology#id_local> ?id_local 
+						} ORDER BY ?id_local) do { ?>
 			  <li>
 			  	<a href="<?vsp http(urip); ?>">
 			  		<?= left(charset_recode(description, 'UTF-8', '_WIDE_'), 20) ?> (...)
@@ -507,12 +511,12 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	                      OPTIONAL { ?article <http://data.europa.eu/eli/ontology#title> ?title } .
 	                      OPTIONAL { ?article <http://purl.org/dc/terms/title> ?dctitle } .
                       }) do { ?>
-    <p><span id="display-ispartof"></span>:
+    <h2><span id="display-ispartof"></span>:
     	<a href="<?vsp http(article); ?>">
     		<?= charset_recode(title, 'UTF-8', '_WIDE_') ?>
     		<?= charset_recode(dctitle, 'UTF-8', '_WIDE_') ?>
     	</a>
-    </p>
+    </h2>
     <?vsp } ?>
 	<?vsp 
 	for(sparql  SELECT distinct * 

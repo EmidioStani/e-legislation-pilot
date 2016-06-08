@@ -167,6 +167,7 @@ input.forEach(function (fileName) {
     article_prepend = '<span property="eli:is_part_of" resource="' + eli_base + '"></span>';
     article_prepend += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
     article_prepend += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
+	article_prepend += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
     
 	for (i = 0; i < h3s; i += 1) {
         article_number = $(article).eq(i);
@@ -176,7 +177,8 @@ input.forEach(function (fileName) {
 			property: 'dct:title'
 		});
 		article_number.next('div').prepend(article_prepend);
-		wrap_base.append('<span property="eli:has_part" resource="' + eli_base + '/article_' + number + '"></span>')
+		article_number.next('div').prepend('<span property="eli:id_local" content="' + i + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
+		wrap_base.append('<span property="eli:has_part" resource="' + eli_base + '/article_' + number + '"></span>');
 	}
 
 	/*=================*/
@@ -217,6 +219,7 @@ input.forEach(function (fileName) {
 	//Wrap paragraphs in div
     paragraph_append = '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
     paragraph_append += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+	paragraph_append += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
 	for (i = 0; i < h3s; i += 1) {
         article_next = $(article).eq(i).next('div');
 		number = article_next.attr('about').match(/[0-9]+$/);
@@ -227,6 +230,7 @@ input.forEach(function (fileName) {
             wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">');
 			$(paragraph + '[about="' + eli_base + '/article_' + number + '/paragraph_' + j + '"]').wrapAll(wrap_paragraph);
 			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append(paragraph_append);
+			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append('<span property="eli:id_local" content="' + j + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
 		}
 	}
     //Strip all attributes from paragraphs (already declared on divs)
@@ -255,11 +259,11 @@ input.forEach(function (fileName) {
 					paragraphID = paragraphID[0].match(/[0-9]+$/);
 					//This is the type_doc of the amendment! Type doc in the change is different from the type doc in the consolidated version
 					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '/paragraph_' + paragraphID + '"></span>');
-					$(this).parents('div[typeof="http://localhost:8890/e-legislation/vocabulary#article"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>')
-					$('div[typeof="http://localhost:8890/e-legislation/vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
+					$(this).parents('div[typeof="'+ host +'vocabulary#article"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>')
+					$('div[typeof="'+ host +'vocabulary#amendment"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				} else {
 					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>');
-					$('div[typeof="http://localhost:8890/e-legislation/vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
+					$('div[typeof="'+ host +'vocabulary#amendment"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				}
 			} else {
 				$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>');
