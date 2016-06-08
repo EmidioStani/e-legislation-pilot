@@ -253,11 +253,11 @@ input.forEach(function (fileName) {
 					paragraphID = paragraphID[0].match(/[0-9]+$/);
 					//This is the type_doc of the amendment! Type doc in the change is different from the type doc in the consolidated version
 					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '/paragraph_' + paragraphID + '"></span>');
-					$(this).parents('div[typeof="http://localhost:8890/e-legislation/vocabulary#article"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>')
-					$('div[typeof="http://localhost:8890/e-legislation/vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
+					$(this).parents('div[typeof="'+ host +'vocabulary#article"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>')
+					$('div[typeof="'+ host +'vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				} else {
 					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>');
-					$('div[typeof="http://localhost:8890/e-legislation/vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
+					$('div[typeof="'+ host +'vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				}
 			} else {
 				$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>');
