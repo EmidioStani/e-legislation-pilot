@@ -196,7 +196,7 @@ input.forEach(function (fileName) {
         wrap_chapter = $('<div about="' + eli_base + '/chapter_' + count + '" property="eli:is_part_of" resource="' + eli_base + '" typeof="' + host + 'vocabulary#chapter">');
         chapter_number.wrap(wrap_chapter);
         wrap_chapter.append(chapter_attributes);
-        wrap_chapter.append('<span property="eli:id_local" content="' + count + '"></span>')
+        wrap_chapter.append('<span property="eli:id_local" content="' + count + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>')
     }
 
     //Add eli:has_part attributes to establish the link between act and chapters
@@ -228,7 +228,7 @@ input.forEach(function (fileName) {
         article_wrap = $('<div about="' + eli_base + '/article_' + count + '" property="eli:is_part_of" resource="' + chapter_link + '" typeof="' + host + 'vocabulary#article">');
         article_number.wrap(article_wrap);
         article_wrap.append(article_attributes);
-        article_wrap.append('<span property="eli:id_local" content="' + count + '"></span>');
+        article_wrap.append('<span property="eli:id_local" content="' + count + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
     }
 
     //Add eli:has_part attributes to establish the link between chapters and articles
@@ -282,7 +282,7 @@ input.forEach(function (fileName) {
             paragraph_div.append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');
             paragraph_div.append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
             paragraph_div.append('<span property="eli:publisher" content="http://www.et.gr/"/>');
-            paragraph_div.append('<span property="eli:id_local" content="' + j + '"></span>');
+            paragraph_div.append('<span property="eli:id_local" content="' + j + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
             paragraph_div.append('<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>');
         }
     }

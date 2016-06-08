@@ -177,7 +177,7 @@ input.forEach(function (fileName) {
 			property: 'dct:title'
 		});
 		article_number.next('div').prepend(article_prepend);
-		article_number.next('div').prepend('<span property="eli:id_local" content="' + i + '"></span>');
+		article_number.next('div').prepend('<span property="eli:id_local" content="' + i + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
 		wrap_base.append('<span property="eli:has_part" resource="' + eli_base + '/article_' + number + '"></span>');
 	}
 
@@ -230,7 +230,7 @@ input.forEach(function (fileName) {
             wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">');
 			$(paragraph + '[about="' + eli_base + '/article_' + number + '/paragraph_' + j + '"]').wrapAll(wrap_paragraph);
 			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append(paragraph_append);
-			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append('<span property="eli:id_local" content="' + j + '"></span>');
+			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append('<span property="eli:id_local" content="' + j + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
 		}
 	}
     //Strip all attributes from paragraphs (already declared on divs)
@@ -260,10 +260,10 @@ input.forEach(function (fileName) {
 					//This is the type_doc of the amendment! Type doc in the change is different from the type doc in the consolidated version
 					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '/paragraph_' + paragraphID + '"></span>');
 					$(this).parents('div[typeof="'+ host +'vocabulary#article"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>')
-					$('div[typeof="'+ host +'vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
+					$('div[typeof="'+ host +'vocabulary#amendment"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				} else {
 					$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '/article_' + articleID + '"></span>');
-					$('div[typeof="'+ host +'vocabulary#act"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
+					$('div[typeof="'+ host +'vocabulary#amendment"]').prepend('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>')
 				}
 			} else {
 				$(this).before('<span property="eli:changes" resource="' + host + type_document[0] + '/' + actID + '"></span>');
