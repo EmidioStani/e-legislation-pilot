@@ -24,7 +24,6 @@
 /******************************/
 /***LOAD MODULES***************/
 /******************************/
-
 var fs = require('fs');
 var mammoth = require('mammoth');
 var cheerio = require('cheerio');
@@ -41,6 +40,7 @@ var elem = [
     ['article', 'h3'],
     ['paragraph', 'p']
 ];
+
 var args = process.argv.slice(2);
 var filePath = args[0];
 var outputPath = args[1];
@@ -94,7 +94,6 @@ input.forEach(function (fileName) {
         j,
         k,
         paragraphCount,
-        pcount,
         output,
         wrap_base,
         paragraph_attributes,
@@ -184,6 +183,7 @@ input.forEach(function (fileName) {
     h1s = $(chapter).get().length;
     chapter_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
     chapter_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+    chapter_attributes += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
     for (i = 0; i < h1s; i += 1) {
         count = i + 1;
         chapter_number = $(chapter).eq(i);
@@ -196,6 +196,7 @@ input.forEach(function (fileName) {
         wrap_chapter = $('<div about="' + eli_base + '/chapter_' + count + '" property="eli:is_part_of" resource="' + eli_base + '" typeof="' + host + 'vocabulary#chapter">');
         chapter_number.wrap(wrap_chapter);
         wrap_chapter.append(chapter_attributes);
+        wrap_chapter.append('<span property="eli:id_local" content="' + count + '"></span>')
     }
 
     //Add eli:has_part attributes to establish the link between act and chapters
@@ -213,6 +214,7 @@ input.forEach(function (fileName) {
     //Add eli:is_part_of attributes to link chapters to the act
     article_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
     article_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+    article_attributes += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
     for (i = 0; i < h3s; i += 1) {
         count = i + 1;
         article_number = $(article).eq(i);
@@ -226,6 +228,7 @@ input.forEach(function (fileName) {
         article_wrap = $('<div about="' + eli_base + '/article_' + count + '" property="eli:is_part_of" resource="' + chapter_link + '" typeof="' + host + 'vocabulary#article">');
         article_number.wrap(article_wrap);
         article_wrap.append(article_attributes);
+        article_wrap.append('<span property="eli:id_local" content="' + count + '"></span>');
     }
 
     //Add eli:has_part attributes to establish the link between chapters and articles
@@ -243,7 +246,6 @@ input.forEach(function (fileName) {
         //The following regex matches paragraph that start with either: Άρθρ.X, X. or «X. with X between 0-9
         if (/^[0-9][.].?|^[«][0-9].?|^(Άρθρ)[.][0-9].?|^(΄Αρθρ)[.][0-9].?/.test($(this).text()) === true) {
             j += 1;
-            //console.log('/article_' + count + '/paragraph_' + j);
             $(this).attr({
                 class: 'paragraph',
                 about: eli_base + '/article_' + count + '/paragraph_' + j,
@@ -260,10 +262,6 @@ input.forEach(function (fileName) {
         count = i + 1;
         j = 0;
         $(article).eq(i).parent().nextUntil(article, paragraph).each(setParagraphAttributes);
-
-        //Normalize Word structure (merge paragraphs)
-        //$(article).eq(i).parent().nextUntil(article, paragraph).each(function(index, elem){
-        //$(pagragraph+'[about="PARGRAPH1-1"]').wrapAll('<div about="PARAGRAPH1-1">');
     }
 
     //Add eli:has_part attributes to establish the link between articles and paragraphs
@@ -275,35 +273,18 @@ input.forEach(function (fileName) {
     });
 
     //Wrap paragraphs in div
-    /*for (i = 0; i < h3s; i += 1) {
-        count = i + 1;
-        eli_count = eli_base + '/article_' + count;
-        paragraphCount = $(article + '[id="' + eli_count + '"]').siblings('span').get().length;
-
-        paragraph_attr = '<span class="plink" property="eli:is_part_of" resource="' + eli_count + '"></span>';
-        paragraph_attr += '<span property="eli:date_document" content="' + date_document + '"  datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
-        paragraph_attr += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
-        for (j = 0; j < paragraphCount; j += 1) {
-            pcount = j + 1;
-            paragraph_wrap = $('<div about="' + eli_count + '/paragraph_' + j + '" typeof="' + host + 'vocabulary#paragraph">');
-            $(paragraph + '[about="' + eli_count + '/paragraph_' + j + '"]').wrapAll(paragraph_wrap);
-            paragraph_wrap.append(paragraph_attr);
-        }
-
-    }*/
-    //Wrap paragraphs in div
     for(i = 0; i < h3s; i++){
         count = i + 1;
         paragraphCount = $(article+'[id="'+eli_base+'/article_'+count+'"]').siblings('span').get().length;
         for(j = 0; j < paragraphCount; j++){
-            pcount = j + 1;
             $(paragraph+'[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'/article_'+count+'/paragraph_'+j+'" typeof="'+host+'vocabulary#paragraph">');
             paragraph_div = $('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]');
             paragraph_div.append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');
             paragraph_div.append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
             paragraph_div.append('<span property="eli:publisher" content="http://www.et.gr/"/>');
+            paragraph_div.append('<span property="eli:id_local" content="' + j + '"></span>');
+            paragraph_div.append('<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>');
         }
-
     }
 
     //Strip all attributes from paragraphs (already declared on divs)
