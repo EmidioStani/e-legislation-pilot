@@ -33,7 +33,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData {float: left; margin:0 auto; width:auto; min-width:100%;}
 
 /* Timeline list layout */
-#changesOverTime #timeline #timelineData ul {float: left; min-height: 84px; padding-left: 53px; background: url(/legislation-pilot/images/pointInTimeBg2.gif) 0 2.8em repeat-x; min-width:100%;}
+#changesOverTime #timeline #timelineData ul {float: left; min-height: 84px; padding-left: 53px; min-width:100%;}
 #changesOverTime #timeline #timelineData ul li {background: url(/legislation-pilot/images/pointInTimeTimelineBg.png) 0 0 repeat-x; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em; min-width:146px;}
 #changesOverTime #timeline #timelineData ul li.beginning {}
 #changesOverTime #timeline #timelineData ul li .currentVersion,
