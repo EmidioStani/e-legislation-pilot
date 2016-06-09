@@ -164,8 +164,7 @@ input.forEach(function (fileName) {
 
 	//Loop through articles
 	h3s = $(article).get().length;
-    article_prepend = '<span property="eli:is_part_of" resource="' + eli_base + '"></span>';
-    article_prepend += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
+    article_prepend = '<span property="eli:publisher" content="http://www.et.gr/"></span>';
     article_prepend += '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
 	article_prepend += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
     
@@ -184,7 +183,7 @@ input.forEach(function (fileName) {
 	/*=================*/
 	/* Paragraph level */
 	/*=================*/
-	//Identify individual paragraphs and add eli:is_part_of attributes
+	//Identify individual paragraphs and add eli attributes
     function setParagraphAttributes(index, element) {
         //Determine article number
         number = $(this).parent().attr('about').match(/[0-9]+$/);
@@ -194,9 +193,7 @@ input.forEach(function (fileName) {
             j += 1;
             $(this).attr({
                 class: 'paragraph',
-                about: eli_base + '/article_' + number + '/paragraph_' + j,
-                property: 'eli:is_part_of',
-                resource: eli_base + '/article_' + number
+                about: eli_base + '/article_' + number + '/paragraph_' + j
             });
         } else {
             paragraphID = $(this).prev().attr('about');
@@ -211,7 +208,7 @@ input.forEach(function (fileName) {
 	}
 	//Add eli:has_part attributes to establish the link between articles and paragraphs
 	$(paragraph + '[class="paragraph"]').each(function (index, elem) {
-		articleID = $(this).attr('resource');
+		articleID = $(this).parent().attr('about');
 		paragraphID = $(this).attr('about');
 		$('div[about="' + articleID + '"]').prepend('<span about="' + articleID + '" property="eli:has_part" resource="' + paragraphID + '"/>');
 	});
@@ -227,7 +224,7 @@ input.forEach(function (fileName) {
 		paragraphCount = article_next.children('span[property="eli:has_part"]').get().length + 1;
 		for (j = 0; j < paragraphCount; j += 1) {
 			pcount = j + 1;
-            wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" property="eli:is_part_of" resource="' + eli_base + '/article_' + number + '" typeof="' + host + 'vocabulary#paragraph">');
+            wrap_paragraph = $('<div about="' + eli_base + '/article_' + number + '/paragraph_' + j + '" typeof="' + host + 'vocabulary#paragraph">');
 			$(paragraph + '[about="' + eli_base + '/article_' + number + '/paragraph_' + j + '"]').wrapAll(wrap_paragraph);
 			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append(paragraph_append);
 			$('div[about="'+ eli_base + '/article_' + number + '/paragraph_' + j +'"]').append('<span property="eli:id_local" content="' + j + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
@@ -236,9 +233,9 @@ input.forEach(function (fileName) {
     //Strip all attributes from paragraphs (already declared on divs)
 	$(paragraph).removeAttr('class');
 	$(paragraph).removeAttr('about');
-	$('div[property="eli:is_part_of"]').children(paragraph).removeAttr('property');
+	$('div[typeof="' + host + 'vocabulary#paragraph"]').children(paragraph).removeAttr('property');
 	$(paragraph).removeAttr('resource');
-	$('div[property="eli:is_part_of"]').each(function (index, eleml) {
+	$('div[typeof="' + host + 'vocabulary#paragraph"]').each(function (index, eleml) {
 		$(this).children(paragraph).wrapAll('<div property="eli:description"></div>');
 	});
 

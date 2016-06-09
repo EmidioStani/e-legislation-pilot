@@ -41,13 +41,13 @@ var elem = [
     ['paragraph', 'p']
 ];
 
-var args = process.argv.slice(2);
-var filePath = args[0];
-var outputPath = args[1];
-var host = args[2];
-//var filePath = 'html';
-//var outputPath = 'rdfa';
-//var host = 'http://localhost:8890/e-legislation';
+//var args = process.argv.slice(2);
+//var filePath = args[0];
+//var outputPath = args[1];
+//var host = args[2];
+var filePath = 'html';
+var outputPath = 'rdfa';
+var host = 'http://localhost:8890/e-legislation';
 if (host.slice(-1) !== '/') {
     host = host + '/';
 }
@@ -90,7 +90,6 @@ input.forEach(function (fileName) {
         chapter_text,
         i,
         text,
-        actID,
         j,
         k,
         paragraphCount,
@@ -179,7 +178,7 @@ input.forEach(function (fileName) {
     text = $(chapter).first().text();
     $(chapter).first().wrap('<h2></h2>');
     $('h2').first().html(text);
-    //Add eli:is_part_of attributes to link chapters to the act
+    //Add eli attributes to chapters
     h1s = $(chapter).get().length;
     chapter_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
     chapter_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
@@ -193,7 +192,7 @@ input.forEach(function (fileName) {
             property: 'dct:title'
         });
 
-        wrap_chapter = $('<div about="' + eli_base + '/chapter_' + count + '" property="eli:is_part_of" resource="' + eli_base + '" typeof="' + host + 'vocabulary#chapter">');
+        wrap_chapter = $('<div about="' + eli_base + '/chapter_' + count + '" typeof="' + host + 'vocabulary#chapter">');
         chapter_number.wrap(wrap_chapter);
         wrap_chapter.append(chapter_attributes);
         wrap_chapter.append('<span property="eli:id_local" content="' + count + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>')
@@ -202,16 +201,14 @@ input.forEach(function (fileName) {
     //Add eli:has_part attributes to establish the link between act and chapters
     $(chapter).each(function (index, elem) {
         this_parent = $(this).parent();
-        actID = this_parent.attr('resource');
         chapterID = this_parent.attr('about');
-        $('div[about="' + actID + '"]').first().append('<span about="' + actID + '" property="eli:has_part" resource="' + chapterID + '"></span>');
+        $('div[about="' + eli_base + '"]').first().append('<span about="' + eli_base + '" property="eli:has_part" resource="' + chapterID + '"></span>');
     });
 
     /*===============*/
     /* Article level */
     /*===============*/
-    //Add eli:title attributes to the articles
-    //Add eli:is_part_of attributes to link chapters to the act
+    //Add eli attributes to the articles
     article_attributes = '<span property="eli:date_document" content="' + date_document + '" datatype="http://www.w3.org/2001/XMLSchema#date"></span>';
     article_attributes += '<span property="eli:publisher" content="http://www.et.gr/"></span>';
     article_attributes += '<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>';
@@ -224,20 +221,14 @@ input.forEach(function (fileName) {
             property: 'dct:title'
         });
 
-        chapter_link = article_number.prevAll('div[resource="' + eli_base + '"]').first().attr('about');
-        article_wrap = $('<div about="' + eli_base + '/article_' + count + '" property="eli:is_part_of" resource="' + chapter_link + '" typeof="' + host + 'vocabulary#article">');
+        chapter_link = article_number.prevAll('div[typeof="' + host + 'vocabulary#chapter"]').first().attr('about');
+        article_wrap = $('<div about="' + eli_base + '/article_' + count + '" typeof="' + host + 'vocabulary#article">');
         article_number.wrap(article_wrap);
         article_wrap.append(article_attributes);
         article_wrap.append('<span property="eli:id_local" content="' + count + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
+        //Add eli:has_part attributes to establish the link between chapters and articles
+        $('div[about="' + chapter_link + '"]').append('<span property="eli:has_part" resource="' + eli_base + '/article_' + count + '"></span>');
     }
-
-    //Add eli:has_part attributes to establish the link between chapters and articles
-    $(article).each(function (index, elem) {
-        article_parent = $(this).parent();
-        chapterID = article_parent.attr('resource');
-        articleID = article_parent.attr('about');
-        $('div[about="' + chapterID + '"]').append('<span property="eli:has_part" resource="' + articleID + '"></span>');
-    });
 
     /*=================*/
     /* Paragraph level */
@@ -257,7 +248,7 @@ input.forEach(function (fileName) {
             $(this).attr('about', paragraphID);
         }
     }
-    //Identify individual paragraphs and add eli:is_part_of attributes
+    //Identify individual paragraphs and add eli identifier
     for (i = 0; i < h3s; i += 1) {
         count = i + 1;
         j = 0;
@@ -279,10 +270,9 @@ input.forEach(function (fileName) {
         for(j = 0; j < paragraphCount; j++){
             $(paragraph+'[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]').wrapAll('<div about="'+eli_base+'/article_'+count+'/paragraph_'+j+'" typeof="'+host+'vocabulary#paragraph">');
             paragraph_div = $('div[about="'+eli_base+'/article_'+count+'/paragraph_'+j+'"]');
-            paragraph_div.append('<span class="plink" property="eli:is_part_of" resource="'+eli_base+'/article_'+count+'" />');
-            paragraph_div.append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"/>');
-            paragraph_div.append('<span property="eli:publisher" content="http://www.et.gr/"/>');
-            paragraph_div.append('<span property="eli:id_local" content="' + j + '" datatype="http://www.w3.org/2001/XMLSchema#integer"></span>');
+            paragraph_div.append('<span property="eli:date_document" content="'+date_document+'"  datatype="http://www.w3.org/2001/XMLSchema#date"></span>');
+            paragraph_div.append('<span property="eli:publisher" content="http://www.et.gr/"></span>');
+            paragraph_div.append('<span property="eli:id_local" content="' + j + '" datatype="http://www.w3.org/2001/XMLSchema#integer" class="plink"></span>');
             paragraph_div.append('<span property="law:has_subject_division" resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law"></span>');
         }
     }

@@ -37,6 +37,7 @@ var labels = [
   ['display-changes', 'Changes', 'I cambiamenti', 'αλλαγές'],
   ['display-changedby', 'Changed by', 'Modificato da', 'άλλαξε από'],
   ['display-category', 'Category', 'Categoria', 'κατηγορία'],
+  ['display-404', 'The document you are requesting does not exist.', 'Il documento si richiede non esiste.', 'Το έγγραφο που ζητάτε δεν υπάρχει.'],
   ['administrative-law-civil-servants', 'Administrative law, civil servants', 'Administrative law, civil servants', 'Διοικητική νομοθεσία - δημόσιοι υπάλληλοι'],
   ['agricultural-law-water-resources', 'Agricultural law, water resources', 'Agricultural law, water resources', 'Γεωργική νομοθεσία-υδάτινοι πόροι'],
   ['airforce-civil-aviation', 'Airforce, civil aviation', 'Airforce, civil aviation', 'Πολεμική αεροπορία - πολιτική αεροπορία'],

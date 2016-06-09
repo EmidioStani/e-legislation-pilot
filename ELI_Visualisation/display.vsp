@@ -64,6 +64,15 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 *********************************
 -->
 <!--
+**********************************
+**Check if requested URI exists**
+**********************************
+-->
+<?vsp 
+for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://localhost:8890/legislation> WHERE { `iri(?:_uri)` ?p ?o }) do { 
+	if(pcount > 0){
+?>
+<!--
 ********************************
 **Display content on act level**
 ********************************
@@ -168,13 +177,13 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>	
 
-	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
 	<?vsp 
-	for(sparql  SELECT distinct * 
-					  FROM <http://52.50.205.146/legislation-pilot>
-					  WHERE { 
-						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` 
-					  }) do { ?>
+	for(sparql  DEFINE input:inference 'legislation-pilot'
+				SELECT distinct * 
+				FROM <http://52.50.205.146/legislation-pilot>
+				WHERE { 
+					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changed_by> ?target
+				}) do { ?>
 	<h2><span class="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
@@ -182,7 +191,6 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>	
 	
-	<!-- DIMITRIS UNTIL HERE -->
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion">	
 	<?vsp
@@ -194,7 +202,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	for(sparql  SELECT distinct * 
 				FROM <http://52.50.205.146/legislation-pilot>
 				WHERE { 
-					?uri <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:_uri)`	.
+					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#has_part> ?uri	.
 					OPTIONAL { ?uri <http://purl.org/dc/terms/title> ?dctitle } . 
 					OPTIONAL { ?uri <http://data.europa.eu/eli/ontology#title> ?title } .
 					?uri <http://data.europa.eu/eli/ontology#id_local> ?id_local 
@@ -205,7 +213,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 		for(sparql  SELECT distinct * 
 					FROM <http://52.50.205.146/legislation-pilot>
 					WHERE { 
-						?uria <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uri)` .
+						`iri(?:uri)` <http://data.europa.eu/eli/ontology#has_part> ?uria .
 						OPTIONAL { ?uria <http://purl.org/dc/terms/title> ?dctitle } .
 						OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#title> ?title } .
 						OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description } .
@@ -222,7 +230,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 			for(sparql  SELECT distinct * 
 						FROM <http://52.50.205.146/legislation-pilot>
 						WHERE { 
-							?urip <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uria)` .
+							`iri(?:uria)` <http://data.europa.eu/eli/ontology#has_part> ?urip .
 							?urip <http://data.europa.eu/eli/ontology#description> ?description .
 							?urip <http://data.europa.eu/eli/ontology#id_local> ?id_local 
 						} ORDER BY ?id_local) do { ?>
@@ -331,7 +339,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	<h2><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h2>
 	<?vsp } ?>
 	<?vsp 
-	for(sparql  SELECT distinct * 
+	for(sparql  DEFINE input:inference 'legislation-pilot'
+				SELECT distinct * 
 					  FROM <http://52.50.205.146/legislation-pilot>
 					  WHERE { 
 						`iri(?:_uri)` <http://data.europa.eu/eli/ontology#is_part_of> ?act .
@@ -358,13 +367,13 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>	
 
-	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
 	<?vsp 
-	for(sparql  SELECT distinct * 
-					  FROM <http://52.50.205.146/legislation-pilot>
-					  WHERE { 
-						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)` 
-					  }) do { ?>
+	for(sparql  DEFINE input:inference 'legislation-pilot'
+				SELECT distinct * 
+				FROM <http://52.50.205.146/legislation-pilot>
+				WHERE { 
+					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changed_by> ?target
+				}) do { ?>
 	<h2><span class="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
@@ -372,7 +381,6 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>	
 	
-	<!-- DIMITRIS UNTIL HERE -->
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
@@ -384,7 +392,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	for(sparql  SELECT distinct * 
 				FROM <http://52.50.205.146/legislation-pilot>
 				WHERE { 
-					?uria <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:_uri)` .
+					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#has_part> ?uria .
 					OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#title> ?title } .
 					OPTIONAL { ?uria <http://purl.org/dc/terms/title> ?dctitle } 
 					OPTIONAL { ?uria <http://data.europa.eu/eli/ontology#description> ?description } .
@@ -401,7 +409,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 			for(sparql  SELECT distinct * 
 						FROM <http://52.50.205.146/legislation-pilot>
 						WHERE { 
-							?urip <http://data.europa.eu/eli/ontology#is_part_of> `iri(?:uria)` .
+							?urip <http://data.europa.eu/eli/ontology#has_part>  `iri(?:uria)`.
 							?urip <http://data.europa.eu/eli/ontology#description> ?description .
 							?urip <http://data.europa.eu/eli/ontology#id_local> ?id_local 
 						} ORDER BY ?id_local) do { ?>
@@ -504,7 +512,8 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</section>
 	<h2><span id="display-date"></span>: <?= date_current ?></h2>
 	<h2><span id="display-publisher"></span>: <a href="<?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?>" target="_blank"><?= charset_recode(publisher, 'UTF-8', '_WIDE_') ?></a></h2>
-    <?vsp for(sparql  SELECT distinct * 
+    <?vsp for(sparql  DEFINE input:inference 'legislation-pilot'
+    				  SELECT distinct * 
                       FROM <http://52.50.205.146/legislation-pilot>
                       WHERE { 
 	                      `iri(?:_uri)` <http://data.europa.eu/eli/ontology#is_part_of> ?article .
@@ -531,13 +540,13 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>	
 
-	<!-- INSERT CHANGED BY CODE HERE, USE LAYOUT OF PREVIOUS LINES WITH DIFFERENT QUERY AND USE "display-changedby" AS SPAN ID -->
 	<?vsp 
-	for(sparql  SELECT distinct * 
-					  FROM <http://52.50.205.146/legislation-pilot>
-					  WHERE { 
-						?target <http://data.europa.eu/eli/ontology#changes> `iri(?:_uri)`
-					  }) do { ?>
+	for(sparql  DEFINE input:inference 'legislation-pilot'
+				SELECT distinct * 
+				FROM <http://52.50.205.146/legislation-pilot>
+				WHERE { 
+					`iri(?:_uri)` <http://data.europa.eu/eli/ontology#changed_by> ?target
+				}) do { ?>
 	<h2><span class="display-changedby"></span>:
 		<a href="<?vsp http(target); ?>">
 			<?= charset_recode(target, 'UTF-8', '_WIDE_') ?>
@@ -545,13 +554,19 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 	</h2>
 	<?vsp } ?>
 	
-	<!-- DIMITRIS UNTIL HERE -->
 	<h2><span id="display-contents"></span></h2>
 	<p>
 		<?= charset_recode(description, 'UTF-8', '_WIDE_') ?>
 	</p>
 	<?vsp } ?>
 <?vsp } ?>
+<?vsp
+	} else {
+?>
+<h2><span id="display-404"></span></h2>
+<?vsp
+	}	
+} ?>
 </article>
 <!--
 *******************************
