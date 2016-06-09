@@ -2,7 +2,7 @@
 
 ## Project description
 
-The objective of this pilot is to develop two proofs of concept, one for Greece and one for Italy, to demonstrate the following:
+The objective of this pilot is to develop a reusable proof of concept, to demonstrate the following benefits:
 * Legal information can be accessed and displayed to end users;
 * Legal information can be accessed in machine readable format;
 * The evolution of legal information can be displayed in a timeline, to enable users to consult the text in force at any point in time (i.e. at the time of consultation or in the past).
@@ -27,7 +27,9 @@ The objective of this pilot is to develop two proofs of concept, one for Greece 
 ## How to use
 
 To get started, clone this repository or download the repository as a .zip file.
-We used Jenkins to deploy the code to our PoC server, using the following shell execution script:
+In the target environment, make sure that Openlink Virtuoso is installed and configured and that you have access to the Virtuoso Conductor at `http://hostname:port/conductor`. Additionally, if you wish to also install the ELI Parser to transform Word Documents to RDF data, [install PHP 5.6 or above](http://php.net/manual/en/install.php) and [NodeJS v4.4.3 or above](https://nodejs.org/en/download/package-manager/) on your destination server.
+
+To deploy this GitHub repository, adapt the following shell execution script to your target environment:
 ```
 rm -rf /var/lib/virtuoso/vsp/legislation-pilot/*
 rm -rf /var/www/eli-importer/*
@@ -42,16 +44,24 @@ Subsequently, create the following URL Rewriting Rules for your Virtual Domain, 
 Source pattern | Destination | Rule matching 
 --- | --- | ---
 /legislation-pilot/(.*)\/(.*)\/(.*)\/?$ | /legislation-pilot/display.vsp?type=$U1&level=act&id=$U2&year=$U3 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/html\/?$ | /legislation-pilot/display.vsp?type=$U1&level=act&id=$U2&year=$U3 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/(rdf&#124;ttl)\/?$ | /legislation-pilot/sparql.vsp?format=$U4&id=$U2&year=$U3 | Last matching
 /legislation-pilot/(.*)\/(.*)\/(.*)\/(chapter_[0-9]*)\/?$ | /legislation-pilot/display.vsp?type=$U1&level=chapter&id=$U2&year=$U3&ref=$U4 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/(chapter_[0-9]*)\/html\/?$ | /legislation-pilot/display.vsp?type=$U1&level=chapter&id=$U2&year=$U3&ref=$U4 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/(chapter_[0-9]*)\/(rdf&#124;ttl)\/?$ | /legislation-pilot/sparql.vsp?format=$U5&id=$U2&year=$U3&ref=$U4 | Last matching
 /legislation-pilot/(.*)\/(.*)\/(.*)\/(article_[0-9]*)\/?$ | /legislation-pilot/display.vsp?type=$U1&level=article&id=$U2&year=$U3&ref=$U4 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/(article_[0-9]*)\/html\/?$ | /legislation-pilot/display.vsp?type=$U1&level=article&id=$U2&year=$U3&ref=$U4 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/(article_[0-9]*)\/(rdf&#124;ttl)\/?$ | /legislation-pilot/sparql.vsp?format=$U5&id=$U2&year=$U3&ref=$U4 | Last matching
 /legislation-pilot/(.*)\/(.*)\/(.*)\/(article_[0-9]*)\/(paragraph_[0-9]*)\/?$ | /legislation-pilot/display.vsp?type=$U1&level=article&id=$U2&year=$U3&ref=$U4&par=$U5 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/(article_[0-9]*)\/(paragraph_[0-9]*)\/html\/?$ | /legislation-pilot/display.vsp?type=$U1&level=paragraph&id=$U2&year=$U3&ref=$U4&par=$U5 | Last matching
+/legislation-pilot/(.*)\/(.*)\/(.*)\/(article_[0-9]*)\/(paragraph_[0-9]*)\/(rdf&#124;ttl)\/?$ | /legislation-pilot/sparql.vsp?format=$U6&id=$U2&year=$U3&ref=$U4&par=$U5 | Last matching
 /legislation-pilot/documentation/(.*)$ | /legislation-pilot/documentation/$U1 | Last matching
 /legislation-pilot/vocabulary\/?$ | /legislation-pilot/vocabulary.html | Last matching
 
 ###ELI_Import
 The ELI Importer reads all **.docx** files present in `ELI_Importer/doc`, transforms the files into (x)HTML and annotates these with RDFa.  
 The HTML+RDFA is then automatically converted into RDF+XML and stored in the Virtuoso triplestore.
-All parameters are to be set in ELI_Importer/index.php
+All parameters are to be set via the User Interface in `ELI_Importer/index.php` which.
 
 Detailed documentation on the ELI importer can be found here: [http://52.50.205.146:8890/eli-importer/documentation/](http://52.50.205.146:8890/eli-importer/documentation/)
 
@@ -63,10 +73,12 @@ Detailed documentation on the model is hosted here: [http://52.50.205.146/legisl
 ###ELI_Visualisation
 Folder containing all the files (Virtuoso Server Pages, CSS and JavaScript) to generate the visualisation of the content of the graph containing legislation as linked open data.
 
+Inferencing is enabled in the visualisation of the data. For this to function properly, the model's .owl files (`ELI_Model/eli.owl` and `ELI_Model/elegislation.owl`) need to be uploaded into a seperate graph. Once uploaded, inferencing needs to be set up for this graph by excuting the following command in Virtuoso's Interactive SQL interface: `rdfs_rule_set('legislation-pilot', 'name_of_model_graph');`
+
 ## License
 
 Copyright 2016 European Union  
-Author: Jens Scheerlinck (PwC EU Services)  
+Authors: Jens Scheerlinck (PwC EU Services), Emidio Stani (PwC EU Services), Dimitrios Hytiroglou (PwC EU Services)
 
 Licensed under the EUPL, Version 1.1 or - as soon they
 will be approved by the European Commission - subsequent
