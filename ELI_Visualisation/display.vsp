@@ -69,7 +69,7 @@ query := replace(query, '<URI>', sprintf('<%s>', _uri));
 **********************************
 -->
 <?vsp 
-for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://localhost:8890/legislation> WHERE { `iri(?:_uri)` ?p ?o }) do { 
+for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://52.50.205.146/legislation-pilot> WHERE { `iri(?:_uri)` ?p ?o }) do { 
 	if(pcount > 0){
 ?>
 <!--
@@ -192,6 +192,7 @@ for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://localhost:8890/leg
 	<?vsp } ?>	
 	
 	<h2><span id="display-structure"></span></h2>
+	<span id="expand">Expand</span>
 	<ul id="accordion">	
 	<?vsp
 	-- ---------------------------------------------
@@ -383,6 +384,7 @@ for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://localhost:8890/leg
 	
 	<h2><span id="display-structure"></span></h2>
 	<ul id="accordion" style="margin-left:20px;">
+	<span id="expand">Expand</span>
 	<?vsp
 	-- ---------------------------------------------
 	-- SPARQL Queries to retrieve document structure

@@ -117,4 +117,21 @@ jQuery(document).ready(function($){
   /*Accordion for document structure*/
   $("#accordion").treemenu({delay:500}).openActive();
   $("#links").treemenu({delay:500}).openActive();
+
+  //Expand tree structure
+  $(document).on( "click", "#expand", function(){
+    $(".tree-closed .toggler").each(function(index, element){
+      $(this).click();
+    });
+    $(this).attr("id", "collapse");
+    $(this).text("Collapse");
+  });
+  //Collapse tree structure
+  $(document).on( "click", "#collapse", function(){
+    $(".tree-opened .toggler").each(function(index, element){
+      $(this).click();
+    });
+    $(this).attr("id", "expand");
+    $(this).text("Expand");
+  });
 });

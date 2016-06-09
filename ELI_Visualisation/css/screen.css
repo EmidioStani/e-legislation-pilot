@@ -273,3 +273,9 @@ dl.properties dd:after {
 .lng-active {
   color: #D50;
 }
+#expand, #collapse {
+  cursor:pointer;
+  color: #D50;
+  font-weight:bold;
+  padding-left:20px;
+}
