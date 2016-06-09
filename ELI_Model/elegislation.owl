@@ -435,6 +435,13 @@ date in which is in effect</rdfs:comment>
     <owl:Class rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#amendmentBody">
         <rdfs:subClassOf rdf:resource="http://data.europa.eu/eli/ontology#LegalResource"/>
         <rdfs:subClassOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Book"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -444,6 +451,13 @@ date in which is in effect</rdfs:comment>
     <owl:Class rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#body">
         <rdfs:subClassOf rdf:resource="http://data.europa.eu/eli/ontology#LegalResource"/>
         <rdfs:subClassOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Book"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:comment>The term body is taken by AkomaNtoso to express the content of an Act:
 
 The body is used for bills and acts and presents an explicit hierarchy of parts each part of which can be identified with a meaningful name (such as section, tome, etc.) and possibly provided with numbers and various types of headings.</rdfs:comment>
@@ -649,6 +663,13 @@ The body is used for bills and acts and presents an explicit hierarchy of parts 
                 <owl:onProperty rdf:resource="http://data.europa.eu/eli/ontology#has_part"/>
                 <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
                 <owl:onClass rdf:resource="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#amendmentBody"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#has_subject_division"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>An effect that changes the text of legislation</rdfs:comment>
