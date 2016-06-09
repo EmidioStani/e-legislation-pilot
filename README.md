@@ -75,6 +75,8 @@ Folder containing all the files (Virtuoso Server Pages, CSS and JavaScript) to g
 
 Inferencing is enabled in the visualisation of the data. For this to function properly, the model's .owl files (`ELI_Model/eli.owl` and `ELI_Model/elegislation.owl`) need to be uploaded into a seperate graph. Once uploaded, inferencing needs to be set up for this graph by excuting the following command in Virtuoso's Interactive SQL interface: `rdfs_rule_set('legislation-pilot', 'name_of_model_graph');`
 
+Demo: [http://52.50.205.146/legislation-pilot/](http://52.50.205.146/legislation-pilot/)
+
 ## License
 
 Copyright 2016 European Union  
