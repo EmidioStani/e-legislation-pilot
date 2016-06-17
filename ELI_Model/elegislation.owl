@@ -209,6 +209,7 @@
 
     <owl:ObjectProperty rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#insertion">
         <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+        <owl:inverseOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#inserted_by"/>
     </owl:ObjectProperty>
     
 
@@ -217,6 +218,7 @@
 
     <owl:ObjectProperty rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#join">
         <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+        <owl:inverseOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#joined_by"/>
     </owl:ObjectProperty>
     
 
@@ -225,6 +227,7 @@
 
     <owl:ObjectProperty rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#renumbering">
         <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+        <owl:inverseOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#renumbered_by"/>
     </owl:ObjectProperty>
     
 
@@ -233,6 +236,7 @@
 
     <owl:ObjectProperty rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#repeal">
         <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+        <owl:inverseOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#repealed_by"/>
     </owl:ObjectProperty>
     
 
@@ -241,6 +245,7 @@
 
     <owl:ObjectProperty rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#split">
         <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+        <owl:inverseOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#split_by"/>
     </owl:ObjectProperty>
     
 
@@ -249,6 +254,7 @@
 
     <owl:ObjectProperty rdf:about="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13#substitution">
         <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+        <owl:inverseOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#substituted_by"/>
     </owl:ObjectProperty>
     
 
@@ -310,9 +316,57 @@ date in which is in effect</rdfs:comment>
     
 
 
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#inserted_by -->
+
+    <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#inserted_by">
+        <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#isPublishedBy -->
 
     <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#isPublishedBy"/>
+    
+
+
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#joined_by -->
+
+    <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#joined_by">
+        <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#renumbered_by -->
+
+    <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#renumbered_by">
+        <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#repealed_by -->
+
+    <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#repealed_by">
+        <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#split_by -->
+
+    <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#split_by">
+        <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#substituted_by -->
+
+    <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#substituted_by">
+        <rdfs:subPropertyOf rdf:resource="http://data.europa.eu/eli/ontology#changes"/>
+    </owl:ObjectProperty>
     
 
 
@@ -763,6 +817,15 @@ Is an article changing only an article or another part of the document ?</rdfs:c
     
 
 
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#baseAct -->
+
+    <owl:Class rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#baseAct">
+        <rdfs:subClassOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#act"/>
+        <rdfs:comment>A base act is a subclass of act</rdfs:comment>
+    </owl:Class>
+    
+
+
     <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#chapter -->
 
     <owl:Class rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#chapter">
@@ -834,6 +897,15 @@ Is an article changing only an article or another part of the document ?</rdfs:c
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>A chapter is a subclass of Legal Resource which may contain articles and it is part of a part</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#consolidatedAct -->
+
+    <owl:Class rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#consolidatedAct">
+        <rdfs:subClassOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#act"/>
+        <rdfs:comment>A consolidated act is a subclass of act</rdfs:comment>
     </owl:Class>
     
 
@@ -1304,7 +1376,7 @@ ASK definition of verses/section</rdfs:comment>
 
     <!-- http://rdaregistry.info/Elements/c/C10001 -->
 
-    <rdf:Description rdf:about="http://rdaregistry.info/Elements/c/C10001"/>
+    <owl:Class rdf:about="http://rdaregistry.info/Elements/c/C10001"/>
     
 
 
@@ -1386,9 +1458,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Administrative_law_-_public_servants">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Administrative_law_-_civil_servants</dc:identifier>
         <rdfs:label xml:lang="en">Administrative law, civil servants</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Administrative law, civil servants</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Διοικητική νομοθεσία - δημόσιοι υπάλληλοι</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1399,9 +1471,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Agricultural_law_-_water_resources">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Agricultural_law_-_water_resources</dc:identifier>
         <rdfs:label xml:lang="en">Agricultural law, water resources</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Agricultural law, water resources</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Γεωργική νομοθεσία-υδάτινοι πόροι</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1412,9 +1484,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Airforce_-_civil_aviation">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Airforce_-_civil_aviation</dc:identifier>
         <rdfs:label xml:lang="en">Airforce, civil aviation</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Airforce, civil aviation</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Πολεμική αεροπορία - πολιτική αεροπορία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1425,9 +1497,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Anonymous_companies_-_limited_liability_companies_-_stock_markets_-_banks">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Anonymous_companies_-_limited_liability_companies_-_stock_markets_-_banks</dc:identifier>
         <rdfs:label xml:lang="en">Anonymous companies, limited liability companies, stock markets, banks</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Anonymous companies, limited liability companies, stock markets, banks</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Ανώνυμες εταιρείες - επε - χρηματιστήρια - τράπεζες</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1438,9 +1510,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Civil_law</dc:identifier>
         <rdfs:label xml:lang="en">Civil law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Civil law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Αστική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1451,9 +1523,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_procedure">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Civil_procedure</dc:identifier>
         <rdfs:label xml:lang="en">Civil procedure</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Civil procedure</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Πολιτική δικονομία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1464,9 +1536,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Commercial_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Commercial_law</dc:identifier>
         <rdfs:label xml:lang="en">Commercial law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Commercial law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Εμπορική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1477,9 +1549,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Constitutional_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Constitutional_law</dc:identifier>
         <rdfs:label xml:lang="en">Constitutional law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Constitutional law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Συνταγματική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1490,9 +1562,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Court_of_audit_-_public_servants_pensions">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Court_of_audit_-_public_servants_pensions</dc:identifier>
         <rdfs:label xml:lang="en">Court of audit, public servants pensions</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Court of audit, public servants pensions</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Ελεγκτικό συνέδριο - συντάξεις δημοσίου</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1503,9 +1575,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Criminal_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Criminal_law</dc:identifier>
         <rdfs:label xml:lang="en">Criminal law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Criminal law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Ποινική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1516,9 +1588,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Criminal_procedure">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Criminal_procedure</dc:identifier>
         <rdfs:label xml:lang="en">Criminal procedure</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Criminal procedure</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Ποινική δικονομία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1529,9 +1601,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Currency_-_public_property">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Currency_-_public_property</dc:identifier>
         <rdfs:label xml:lang="en">Currency, public property</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Currency, public property</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Νόμισμα - περιουσία δημοσίου</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1542,9 +1614,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Customs_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Customs_law</dc:identifier>
         <rdfs:label xml:lang="en">Customs law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Customs law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Τελωνιακή νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1555,9 +1627,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Diplomatic_law_-_international_organizations">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Diplomatic_law_-_international_organizations</dc:identifier>
         <rdfs:label xml:lang="en">Diplomatic law, international organizations</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Diplomatic law, international organizations</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Διπλωματική νομοθεσία - διεθνείς οργανισμοί</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1568,9 +1640,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Direct_taxation">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Direct_taxation</dc:identifier>
         <rdfs:label xml:lang="en">Direct taxation</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Direct taxation</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Άμεση φορολογία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1581,9 +1653,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Ecclesiastical_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Ecclesiastical_law</dc:identifier>
         <rdfs:label xml:lang="en">Ecclesiastical law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Ecclesiastical law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Εκκλησιαστική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1594,9 +1666,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Educational_law_-_sport">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Educational_law_-_sport</dc:identifier>
         <rdfs:label xml:lang="en">Educational law, sport</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Educational law, sport</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Εκπαιδευτική νομοθεσία - αθλητισμός</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1607,9 +1679,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Financial_management_-_environment">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Financial_management_-_environment</dc:identifier>
         <rdfs:label xml:lang="en">Financial management, environment</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Financial management, environment</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Οικονομική διοίκηση - περιβάλλον</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1620,9 +1692,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Health_law_-_hospitals_-_doctors">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Health_law_-_hospitals_-_doctors</dc:identifier>
         <rdfs:label xml:lang="en">Health law, hospitals, doctors</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Health law, hospitals, doctors</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Υγειονομική νομοθεσία - νοσοκομεία - ιατροί</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1633,9 +1705,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Indirect_taxation">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Indirect_taxation</dc:identifier>
         <rdfs:label xml:lang="en">Indirect taxation</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Indirect taxation</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Έμμεση φορολογία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1646,9 +1718,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Industrial_law_-_development_law_-_fishing">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Industrial_law_-_development_law_-_fishing</dc:identifier>
         <rdfs:label xml:lang="en">Industrial law, development law, fishing</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Industrial law, development law, fishing</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Βιομηχανική νομοθεσία-αναπτυξιακή νομοθεσία- αλιεία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1659,9 +1731,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Justice_administration">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Justice_administration</dc:identifier>
         <rdfs:label xml:lang="en">Justice administration</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Justice administration</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Διοίκηση δικαιοσύνης</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1672,9 +1744,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Labour_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Labour_law</dc:identifier>
         <rdfs:label xml:lang="en">Labour law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Labour law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Εργατική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1685,9 +1757,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Legal_entities_of_public_law_-_pension_funds">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Legal_entities_of_public_law_-_pension_funds</dc:identifier>
         <rdfs:label xml:lang="en">Legal entities of public law, pension funds</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Legal entities of public law, pension funds</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Νομικά πρόσωπα δημοσίου δικαίου - ασφαλιστικά ταμεία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1698,9 +1770,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Marketplace_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Marketplace_law</dc:identifier>
         <rdfs:label xml:lang="en">Marketplace law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Marketplace law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Αγορανομική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1711,9 +1783,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Merchant_shipping">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Merchant_shipping</dc:identifier>
         <rdfs:label xml:lang="en">Merchant shipping</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Merchant shipping</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Εμπορική ναυτηλία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1724,9 +1796,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Municipalities_and_communities_-_prefecture_self_administration">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Municipalities_and_communities_-_prefecture_self_administration</dc:identifier>
         <rdfs:label xml:lang="en">Municipalities and communities, prefecture self administration</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Municipalities and communities, prefecture self administration</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Δήμοι και κοινότητες - νομαρχιακή αυτοδιοίκηση</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1747,9 +1819,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#National_defence_-_land_army">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>National_defence_-_land_army</dc:identifier>
         <rdfs:label xml:lang="en">National defence, land army</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">National defence, land army</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Εθνική άμυνα - στρατός ξηράς</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1760,9 +1832,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Navy">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Navy</dc:identifier>
         <rdfs:label xml:lang="en">Navy</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Navy</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Πολεμικό ναυτικό</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1773,9 +1845,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Police_law_-_fire_department">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Police_law_-_fire_department</dc:identifier>
         <rdfs:label xml:lang="en">Police law, fire department</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Police law, fire department</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Αστυνομική νομοθεσία - πυροσβεστικό σώμα</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1786,9 +1858,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Port_law">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Port_law</dc:identifier>
         <rdfs:label xml:lang="en">Port law</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Port law</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Λιμενική νομοθεσία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1799,9 +1871,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Post_-_telecommunications">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Post_-_telecommunications</dc:identifier>
         <rdfs:label xml:lang="en">Post, telecommunications</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Post, telecommunications</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Ταχυδρομεία - τηλεπικοινωνίες</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1812,9 +1884,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Press_-_media_-_tourism">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Press_-_media_-_tourism</dc:identifier>
         <rdfs:label xml:lang="en">Press, media, tourism</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Press, media, tourism</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Τύπος - ΜΜΕ - τουρισμός</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1825,9 +1897,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Public_accounting_-_K.E.D.E.">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Public_accounting_-_K.E.D.E.</dc:identifier>
         <rdfs:label xml:lang="en">Public accounting, K.E.D.E.</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Public accounting, K.E.D.E.</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Δημόσιο λογιστικό - Κ.Ε.Δ.Ε.</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1838,9 +1910,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Public_works_-_engineers_-_urban_planning">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Public_works_-_engineers_-_urban_planning</dc:identifier>
         <rdfs:label xml:lang="en">Public works, engineers, urban planning</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Public works, engineers, urban planning</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Δημόσια έργα - μηχανικοί - πολεοδομία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1851,9 +1923,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Rural_law_-_forests_-_animal_farming">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Rural_law_-_forests_-_animal_farming</dc:identifier>
         <rdfs:label xml:lang="en">Rural law, forests, animal farming</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Rural law, forests, animal farming</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Αγροτική νομοθεσία-δάση-κτηνοτριφία</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1864,9 +1936,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Science_and_arts_-_universities_-_antiquities">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Science_and_arts_-_universities_-_antiquities</dc:identifier>
         <rdfs:label xml:lang="en">Science and arts, universities, antiquities</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Science and arts, universities, antiquities</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Επιστήμες και τέχνες - Α.Ε.Ι. - αρχαιότητες</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1877,9 +1949,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Social_welfare">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Social_welfare</dc:identifier>
         <rdfs:label xml:lang="en">Social welfare</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Social welfare</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Κοινωνική πρόνοια</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1901,9 +1973,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Transportation">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Transportation</dc:identifier>
         <rdfs:label xml:lang="en">Transportation</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Transportation</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Συγκοινωνίες</skos:prefLabel>
     </owl:NamedIndividual>
@@ -1914,9 +1986,9 @@ ASK definition of verses/section</rdfs:comment>
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#Worker_association_-_chambers_-_cooperatives">
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#SubjectDivision"/>
-        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <dc:identifier>Worker_association_-_chambers_-_cooperatives</dc:identifier>
         <rdfs:label xml:lang="en">Worker association, chambers, cooperatives</rdfs:label>
+        <skos:inScheme rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#Subject_division_table"/>
         <skos:prefLabel xml:lang="en">Worker association, chambers, cooperatives</skos:prefLabel>
         <skos:prefLabel xml:lang="el">Σωματεία/επιμελητήρια/συνεταιρισμοί</skos:prefLabel>
     </owl:NamedIndividual>
@@ -2064,5 +2136,5 @@ ASK definition of verses/section</rdfs:comment>
 
 
 
-<!-- Generated by the OWL API (version 4.2.1.20160306-0033) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
 
