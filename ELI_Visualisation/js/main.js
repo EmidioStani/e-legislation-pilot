@@ -134,4 +134,19 @@ jQuery(document).ready(function($){
     $(this).attr("id", "expand");
     $(this).text("Expand");
   });
+  //Compare button
+  var change = $(".display-changedby").next("a").attr("href");
+  if(change != null){
+      $('#compare').show();
+  };
+  $(document).on( "click", "#compare", function(){ 
+    $( ".compare-description" ).load( change+ ' .contents', function() {
+        $( ".compare-description" ).show();
+        $( ".original-description" ).css({
+            "width": "47%",
+            "border": "1px solid #0F0"
+        });
+        $( ".compare-description" ).css("", "1px solid #0F0");
+    });
+  });
 });

@@ -84,7 +84,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	$gs = new EasyRdf_GraphStore($uriStore);
 	foreach(glob($RDFafolder.'/*.*') as $fileName) {
 		$data = file_get_contents($fileName);
-		$subject = 'http://localhost:8890/'.$fileName; //Should be replaced with an ELI identifier
+		$subject = $host.$fileName; //Should be replaced with an ELI identifier
 		$graph = '';
 		$graph = new EasyRdf_Graph($iri);
 		$graph->parse($data, $inputFormat, $subject); 

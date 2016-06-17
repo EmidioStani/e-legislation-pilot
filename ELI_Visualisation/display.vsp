@@ -383,8 +383,8 @@ for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://52.50.205.146/legi
 	<?vsp } ?>	
 	
 	<h2><span id="display-structure"></span></h2>
-	<ul id="accordion" style="margin-left:20px;">
 	<span id="expand">Expand</span>
+	<ul id="accordion" style="margin-left:20px;">
 	<?vsp
 	-- ---------------------------------------------
 	-- SPARQL Queries to retrieve document structure
@@ -411,7 +411,7 @@ for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://52.50.205.146/legi
 			for(sparql  SELECT distinct * 
 						FROM <http://52.50.205.146/legislation-pilot>
 						WHERE { 
-							?urip <http://data.europa.eu/eli/ontology#has_part>  `iri(?:uria)`.
+							`iri(?:uria)` <http://data.europa.eu/eli/ontology#has_part> ?urip .
 							?urip <http://data.europa.eu/eli/ontology#description> ?description .
 							?urip <http://data.europa.eu/eli/ontology#id_local> ?id_local 
 						} ORDER BY ?id_local) do { ?>
@@ -557,9 +557,15 @@ for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://52.50.205.146/legi
 	<?vsp } ?>
 	
 	<h2><span id="display-contents"></span></h2>
-	<p>
-		<?= charset_recode(description, 'UTF-8', '_WIDE_') ?>
-	</p>
+	<button id="compare">Show changes</button>
+	<div class="container">
+	  <div class="compare-description"></div>
+	  <div class="original-description">
+	    <p class="contents">
+			<?= charset_recode(description, 'UTF-8', '_WIDE_') ?>
+		</p>
+	  </div>
+	</div>
 	<?vsp } ?>
 <?vsp } ?>
 <?vsp
