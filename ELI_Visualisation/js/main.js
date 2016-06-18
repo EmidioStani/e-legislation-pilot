@@ -37,6 +37,8 @@ var labels = [
   ['display-changes', 'Changes', 'I cambiamenti', 'αλλαγές'],
   ['display-changedby', 'Changed by', 'Modificato da', 'άλλαξε από'],
   ['display-category', 'Category', 'Categoria', 'κατηγορία'],
+  ['compare', 'Show Changes', 'Mostra Modifiche', 'Εμφάνιση αλλαγών'],
+  ['compare-end', 'Hide Changes', 'Nascondi Modifiche', 'Απόκρυψη αλλαγών'],
   ['display-404', 'The document you are requesting does not exist.', 'Il documento si richiede non esiste.', 'Το έγγραφο που ζητάτε δεν υπάρχει.'],
   ['administrative-law-civil-servants', 'Administrative law, civil servants', 'Administrative law, civil servants', 'Διοικητική νομοθεσία - δημόσιοι υπάλληλοι'],
   ['agricultural-law-water-resources', 'Agricultural law, water resources', 'Agricultural law, water resources', 'Γεωργική νομοθεσία-υδάτινοι πόροι'],
@@ -145,8 +147,18 @@ jQuery(document).ready(function($){
         $( ".original-description" ).css({
             "width": "47%",
             "border": "1px solid #0F0"
-        });
-        $( ".compare-description" ).css("", "1px solid #0F0");
+        });        
     });
+    $(this).hide();
+    $("#compare-end").show();
+  });
+  $(document).on( "click", "#compare-end", function(){ 
+    $( ".compare-description" ).hide();
+    $( ".original-description" ).css({
+        "width": "98%",
+        "border": "0"
+    }); 
+    $(this).hide();
+    $("#compare").show(); 
   });
 });

@@ -555,9 +555,12 @@ for(sparql  SELECT count(distinct ?o) as ?pcount FROM <http://52.50.205.146/legi
 		</a>
 	</h2>
 	<?vsp } ?>
-	
-	<h2><span id="display-contents"></span></h2>
-	<button id="compare">Show changes</button>
+	<hr>
+	<center>
+		<h2><span id="display-contents"></span></h2>
+		<button id="compare">Show changes</button>
+		<button id="compare-end">Hide changes</button>
+	</center>
 	<div class="container">
 	  <div class="compare-description"></div>
 	  <div class="original-description">
