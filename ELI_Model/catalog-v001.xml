@@ -5,7 +5,7 @@
     <uri id="User Entered Import Resolution" name="file:/C:/Users/stanie/Desktop/legislation-server.rdf" uri="legislation-server.rdf"/>
     <uri id="Imports Wizard Entry" name="http://data.europa.eu/eli/ontology#" uri="eli.owl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1466157913371" name="http://eurlex.europa.eu/eli" uri="eli.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1466157913371" name="http://openlaw.e-themis.gov.gr/eli/vocabulary" uri="elegislation.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1466416204386" name="http://eurlex.europa.eu/eli" uri="eli.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1466416204386" name="http://openlaw.e-themis.gov.gr/eli/vocabulary" uri="elegislation.owl"/>
     </group>
 </catalog>
