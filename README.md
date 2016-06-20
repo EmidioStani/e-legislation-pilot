@@ -74,6 +74,26 @@ Detailed documentation on the ELI importer can be found here: [http://52.50.205.
 
 To set up the ELI Importer on your server, copy the content of the directory ``ELI_Importer`` to your Apache web folder. Please note that the importer runs on Apache (and not the Virtuoso server). Additionally, it is required to [install PHP 5.6 or above](http://php.net/manual/en/install.php) and [NodeJS v4.4.3 or above](https://nodejs.org/en/download/package-manager/) on your destination server.
 
+Additionally, the permissions of the sparql user of Virtuoso have to be adapted to allow the posting of RDF data to a graph. Via the Conductor, under ``Database > Interactive SQL``, the following commands have to be executed:
+```
+GRANT EXECUTE ON DB.DBA.RL_I2ID TO "SPARQL";
+GRANT EXECUTE ON DB.DBA.SPARUL_LOAD_SERVICE_DATA TO "SPARQL";
+GRANT EXECUTE ON DB.DBA.SPARQL_SD_PROBE TO "SPARQL";
+GRANT EXECUTE ON DB.DBA.L_O_LOOK TO "SPARQL";
+GRANT EXECUTE on DB.DBA.RDF_QUAD to SPARQL_UPDATE;
+GRANT EXECUTE ON DB.DBA.TTLP_RL_NEW_GRAPH TO "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_EV_NEW_BLANK to "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_EV_GET_IID to "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_RL_TRIPLE  to "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_RL_TRIPLE_L   to "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_RL_COMMIT    to "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_EV_REPORT_DEFAULT     to "SPARQL";
+GRANT EXECUTE on DB.DBA.RL_FLUSH     to "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_RL_COMMIT    to "SPARQL";
+GRANT EXECUTE on DB.DBA.TTLP_RL_COMMIT    to "SPARQL";
+GRANT EXECUTE on DB.DBA.RL_I2ID_NP to "SPARQL";
+```   
+
 ###ELI_Model
 This folder contains all relevant information concerning the data model that was created for the purpose of this e-legislation pilot.
 
