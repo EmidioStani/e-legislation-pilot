@@ -993,7 +993,6 @@ In this way, it is possible to represent a document composed of different autono
     <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#officialGazette -->
 
     <owl:Class rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#officialGazette">
-        <rdfs:subClassOf rdf:resource="http://data.europa.eu/eli/ontology#LegalExpression"/>
         <rdfs:subClassOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#CollectionStructure"/>
         <rdfs:comment>Used to represent an issue of an official publication body such as Official Gazette, Journal, Bulletin or Federal Register [AkomaNtoso http://docs.oasis-open.org/legaldocml/akn-core/v1.0/akn-core-v1.0-part1-vocabulary.html#_Toc348113723]</rdfs:comment>
     </owl:Class>
