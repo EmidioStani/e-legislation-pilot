@@ -35,8 +35,8 @@ var mammoth = require('mammoth');
 var args = process.argv.slice(2);
 var filePath = args[0];
 var outputPath = args[1];
-//var filePath = 'doc';
-//var outputPath = 'html';
+var filePath = 'doc';
+var outputPath = 'html';
 var input = fs.readdirSync(filePath);
 var output = '';
 
