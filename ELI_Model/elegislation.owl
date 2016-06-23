@@ -303,7 +303,7 @@ date in which is in effect</rdfs:comment>
 
     <owl:ObjectProperty rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#hasPublished">
         <owl:inverseOf rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#isPublishedBy"/>
-        <rdfs:range rdf:resource="http://data.europa.eu/eli/ontology#LegalExpression"/>
+        <rdfs:range rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#officialGazette"/>
     </owl:ObjectProperty>
     
 
@@ -1453,8 +1453,8 @@ ASK definition of verses/section</rdfs:comment>
     <!-- http://openlaw.e-themis.gov.gr/eli/vocabulary#A_45 -->
 
     <owl:NamedIndividual rdf:about="http://openlaw.e-themis.gov.gr/eli/vocabulary#A_45">
+        <rdf:type rdf:resource="http://data.europa.eu/eli/ontology#Format"/>
         <rdf:type rdf:resource="http://openlaw.e-themis.gov.gr/eli/vocabulary#officialGazette"/>
-        <ns0:realizes rdf:resource="http://openlaw.e-themis.gov.gr/eli/ΝΟΜΟΣ/2690/1999"/>
     </owl:NamedIndividual>
     
 
