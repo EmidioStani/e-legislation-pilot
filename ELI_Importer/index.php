@@ -39,7 +39,11 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	//If no alternative source is provided
 		/*===================*/
 		/*Convert DOC to HTML*/
-		/*===================*/ 
+		/*===================*/
+		$DOCname = basename($_FILES["fileToUpload"]["name"]);
+		$target_file = $DOCfolder . "/" . $DOCname; 
+		move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+
 		header("Content-Type: text/html");
 		exec("node docxtohtml.js $DOCfolder $HTMLfolder");
 	} else { 
@@ -57,6 +61,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	/*=============*/
 	$inputFormat = 'rdfa';
 	$outputFormat = 'rdfxml';
+	$dateLastChecked = $_POST['dateLastChecked'];
 
 	/*============*/
 	/*URI settings*/
@@ -65,23 +70,30 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	$iri = $_POST['iri'];
 	$host = $_POST['host'];
 
+	/*==========================================*/
+	/*Convert subject division array into string*/
+	/*==========================================*/
+	foreach($_POST['subjectDivision'] as $subjectdiv){
+		$subjectparam .= $subjectdiv . " ";
+	}
+
 	/*====================*/
 	/*Convert HTML to RDFa*/
 	/*====================*/
 	if($_POST['type'] == 'act'){ 
 	//If the type of legislation is an act
 		header("Content-Type: text/html");
-		exec("node parser.js $HTMLfolder $RDFafolder $host");//
+		exec("node parser.js $HTMLfolder $RDFafolder $host $dateLastChecked $subjectparam");
 
 	} else { //If the type of legislation is an amendment
 		header("Content-Type: text/html");
-		exec("node parser2.js $HTMLfolder $RDFafolder $host");//	
+		exec("node parser2.js $HTMLfolder $RDFafolder $host $dateLastChecked $subjectparam");	
 	}
 
 	/*===================*/
 	/*Store data in graph*/
 	/*===================*/
-	$gs = new EasyRdf_GraphStore($uriStore);
+	//$gs = new EasyRdf_GraphStore($uriStore);
 	foreach(glob($RDFafolder.'/*.*') as $fileName) {
 		$data = file_get_contents($fileName);
 		$subject = $host.$fileName; //Should be replaced with an ELI identifier
@@ -90,10 +102,16 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 		$graph->parse($data, $inputFormat, $subject); 
 
 		$output = $graph->serialise($outputFormat);
-		$gs->insert($graph, $iri, $outputFormat);
+		//$gs->insert($graph, $iri, $outputFormat);
+		rename($target_file, "archive/".$target_file); //Archive DOC folder
 		rename(str_replace($RDFafolder, $HTMLfolder, $fileName), "archive/".str_replace($RDFafolder, $HTMLfolder, $fileName)); //Archive HTML folder
 		rename($fileName, "archive/".$fileName); //Archive RDFa folder
 	}
+	header("Content-Disposition: attachment; filename=\"" . str_replace("docx", "rdf", "$DOCname") . "\"");
+	header("Content-Type: text/plain");
+	header("Content-Length: " . strlen($output));
+	echo $output;
+	exit;
 }
 ?>
 <!DOCTYPE html>
@@ -106,6 +124,7 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=latin,greek" />
   <link rel="stylesheet" type="text/css" href="http://52.50.205.146/legislation-pilot/css/screen.css" />
   <link rel="stylesheet" type="text/css" href="http://52.50.205.146/legislation-pilot/css/jquery.treemenu.css" />
+  <link rel="stylesheet" type="text/css" href="vendor/select2.min.css" />
 </head>
 
 <body>
@@ -117,14 +136,59 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	</header>
 
 <article>
-<form name="parser" id="parser" method="post" action="?a=parse">
+<form name="parser" id="parser" method="post" action="?a=parse" enctype="multipart/form-data">
 	<!--User form for parsing legislativie data -->
 	<h1><label for="source">Specify your data source</label></h1>
-	<p><input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"></p>
-	<p>If no data source is specified, the script will use the .docx files present in the <em>./doc</em> folder</p>
+	<p>URL: <input type="text" id="source" name="source" placeholder="http://www.example.com/index.html" style="width:400px;"> OR</p>
+	<p>File upload (.docx) <input type="file" name="fileToUpload" id="fileToUpload"></p>
 	<h1>Parameters</h1>
-	<input type="radio" name="type" value="act"> <label for="type">Base Act</label><br>
+	<input type="radio" name="type" value="act" checked> <label for="type">Base Act</label><br>
   	<input type="radio" name="type" value="amendment"> <label for="type">Amendment</label><br>
+	<p>Date last checked: <input type="date" id="dateLastChecked" name="dateLastChecked" value="<?php print date('Y-m-d'); ?>"></p>
+	<p>Subject divisions: 
+		<select name="subjectDivision[]" class="js-example-basic-multiple" multiple="multiple">
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Administrative_law_-_civil_servants">Administrative law - civil servants</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Agricultural_law_-_water_resources">Agricultural law - water resources</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Airforce_-_civil_aviation">Airforce - civil aviation</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Anonymous_companies_-_limited_liability_companies_-_stock_markets_-_banks">Anonymous companies - limited liability companies - stock markets - banks</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_law">Civil law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Civil_procedure">Civil procedure</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Commercial_law">Commercial law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Constitutional_law">Constitutional law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Court_of_audit_-_public_servants_pensions">Court of audit - public servants pensions</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Criminal_law">Criminal law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Criminal_procedure">Criminal procedure</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Currency_-_public_property">Currency - public property</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Customs_law">Customs law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Diplomatic_law_-_international_organizations">Diplomatic law - international organizations</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Direct_taxation">Direct taxation</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Ecclesiastical_law">Ecclesiastical law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Educational_law_-_sport">Educational law - sport</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Financial_management_-_environment">Financial management - environment</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Health_law_-_hospitals_-_doctors">Health law - hospitals - doctors</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Indirect_taxation">Indirect taxation</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Industrial_law_-_development_law_-_fishing">Industrial law - development law - fishing</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Justice_administration">Justice administration</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Labour_law">Labour law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Legal_entities_of_public_law_-_pension_funds">Legal entities of public law - pension funds</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Marketplace_law">Marketplace law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Merchant_shipping">Merchant shipping</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Municipalities_and_communities_-_prefecture_self_administration">Municipalities and communities - prefecture self administration</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#National_defence_-_land_army">National defence - land army</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Navy">Navy</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Police_law_-_fire_department">Police law - fire department</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Port_law">Port law</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Post_-_telecommunications">Post - telecommunications</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Press_-_media_-_tourism">Press - media - tourism</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Public_accounting_-_K.E.D.E.">Public accounting - K.E.D.E.</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Public_works_-_engineers_-_urban_planning">Public works - engineers - urban planning</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Rural_law_-_forests_-_animal_farming">Rural law - forests - animal farming</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Science_and_arts_-_universities_-_antiquities">Science and arts - universities - antiquities</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Social_welfare">Social welfare</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Transportation">Transportation</option>
+			<option value="http://openlaw.e-themis.gov.gr/eli/vocabulary#Worker_association_-_chambers_-_cooperatives">Worker association - chambers - cooperatives</option>
+		</select>
+	</p>
 	<p>Triple store: <input type="text" id="uriStore" name="uriStore" value="http://openlaw.e-themis.gov.gr/sparql-graph-crud" style="width:400px;"></p>
 	<p>Graph name: <input type="text" id="iri" name="iri" value="http://openlaw.e-themis.gov.gr" style="width:400px;"></p>
 	<p>Host name: <input type="text" id="host" name="host" value="http://openlaw.e-themis.gov.gr/eli/" style="width:400px;"></p>
@@ -170,6 +234,8 @@ if(isset($_GET['a']) && $_GET['a'] == 'parse'){ //If the form is submitted
 	</footer>
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">$(".js-example-basic-multiple").select2();</script>
 </body>
 
 </html>
